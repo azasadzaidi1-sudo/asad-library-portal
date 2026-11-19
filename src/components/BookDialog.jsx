@@ -67,6 +67,8 @@ export default function BookDialog({ book, library, member, onClose }) {
           </div>
         </div>
 
+        {book.description && <p className="dialog-description">{book.description}</p>}
+
         <MemberActions book={book} library={library} member={member} onChanged={changed} />
 
         {library.isLibrarian && <LibrarianPanel bookId={book.id} version={version} onChanged={changed} />}

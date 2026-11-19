@@ -4,7 +4,7 @@ import { supabase } from '../supabaseClient'
 import { localDate } from './desk'
 
 const BOOK_COLUMNS =
-  'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, restricted, restricted_reason, cover_id'
+  'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, restricted, restricted_reason, cover_id, description'
 
 // Supabase answers { data, error }; turn an error into a thrown Error.
 function unwrap({ data, error }, friendly) {
