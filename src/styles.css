@@ -38,6 +38,8 @@ body {
 
 h1,
 h2,
+h3,
+h4,
 p {
   margin: 0;
 }
@@ -419,5 +421,424 @@ input[type='search']::-webkit-search-cancel-button {
 
   .catalogue {
     padding-inline: 1rem;
+  }
+}
+
+/* ---------- Reservations round: navigation, covers, pop-up, My books ---------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.masthead-title {
+  margin-right: auto;
+}
+
+.masthead-nav {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.0625rem;
+}
+
+.nav-link {
+  color: var(--card);
+  text-decoration: none;
+  padding-bottom: 0.15rem;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+  border-bottom-color: var(--rule-strong);
+}
+
+.nav-link[aria-current='page'] {
+  border-bottom-color: var(--brass);
+  font-weight: 700;
+}
+
+.button-quiet {
+  background: transparent;
+  color: var(--green);
+  box-shadow: inset 0 0 0 1.5px var(--green);
+}
+
+.button-quiet:hover {
+  background: var(--paper);
+}
+
+/* Covers: a real cover, or a cloth-bound placeholder with the first letter */
+.cover {
+  display: block;
+  flex: none;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 var(--rule-strong), 2px 3px 0 -1px var(--rule);
+  background: var(--paper);
+}
+
+.cover-blank {
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  box-shadow: inset 0 0 0 3px var(--green), inset 0 0 0 4px var(--brass);
+  color: var(--card);
+  font-family: var(--display);
+}
+
+.card-cover {
+  width: 3.5rem;
+}
+
+.card-cover.cover-blank {
+  font-size: 1.5rem;
+}
+
+/* Card: the title button stretches over the whole card so any click opens it */
+.card {
+  position: relative;
+}
+
+.card:hover {
+  border-color: var(--rule-strong);
+}
+
+.card:has(.card-open:focus-visible) {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.card-heading {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-open {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.card-open:focus-visible {
+  outline: none;
+}
+
+.card-open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* A bookmark ribbon on books the member is interested in */
+.ribbon {
+  position: absolute;
+  top: -1px;
+  right: 0.35rem;
+  width: 0.6rem;
+  height: 2.1rem;
+  background: var(--brass);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+}
+
+/* ---------- The book pop-up ---------- */
+
+body:has(.book-dialog[open]) {
+  overflow: hidden;
+}
+
+.book-dialog {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  border: 0;
+  border-top: 6px solid var(--green);
+  border-radius: 3px;
+  background: var(--card);
+  color: var(--ink);
+}
+
+.book-dialog::backdrop {
+  background: rgb(28 38 33 / 0.55);
+}
+
+.dialog-inner {
+  position: relative;
+  padding: 1.75rem 1.75rem 1.5rem;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.dialog-head {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding-right: 3rem;
+}
+
+.dialog-cover {
+  width: 100%;
+}
+
+.dialog-cover.cover-blank {
+  font-size: 3rem;
+}
+
+.dialog-title {
+  font: 1.75rem/1.15 var(--display);
+}
+
+.dialog-head .card-details {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0.6rem;
+}
+
+.dialog-section {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.dialog-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dialog-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-top: 0.9rem;
+}
+
+.dialog-note {
+  margin-top: 0.75rem;
+}
+
+.dialog-row .dialog-note {
+  margin-top: 0;
+  flex: 1 1 15rem;
+}
+
+.dialog-interest {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.dialog-loading {
+  margin-top: 1.25rem;
+  font: italic 1.0625rem var(--display);
+  color: var(--ink-soft);
+}
+
+.librarian-panel {
+  padding: 1rem 1.1rem 1.1rem;
+  border-top: 0;
+  border-radius: 3px;
+  background: #f3ead6;
+}
+
+.panel-title {
+  font: italic 1.25rem/1.2 var(--display);
+  color: var(--green);
+}
+
+.panel-reading {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.panel-reading label {
+  width: 12rem;
+}
+
+.panel-saved {
+  font-size: 0.9375rem;
+  color: var(--green-lit);
+  padding-bottom: 0.7rem;
+}
+
+.panel-heading {
+  margin: 1rem 0 0.25rem;
+  font-size: 1rem;
+}
+
+.panel-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.panel-empty {
+  color: var(--ink-soft);
+}
+
+.overdue {
+  color: var(--oxblood);
+}
+
+/* ---------- Librarian approvals ---------- */
+
+.approvals {
+  margin-bottom: 1.75rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--oxblood);
+  border-radius: 3px;
+}
+
+.approvals ul {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.approvals-title {
+  font: 1.3125rem/1.2 var(--display);
+}
+
+.approval {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.approval:first-child {
+  border-top: 0;
+}
+
+.approval-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ---------- My books ---------- */
+
+.page-title {
+  font: 2.25rem/1.1 var(--display);
+  color: var(--green);
+}
+
+.shelf {
+  margin-top: 2rem;
+}
+
+.shelf-title {
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule-strong);
+  font: italic 1.5rem/1.2 var(--display);
+}
+
+.shelf-empty,
+.shelf-note {
+  color: var(--ink-soft);
+}
+
+.shelf-note {
+  margin-bottom: 0.9rem;
+  font-size: 0.9375rem;
+}
+
+.book-row {
+  display: flex;
+  gap: 1.1rem;
+  max-width: 40rem;
+  padding: 1rem 1.2rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+
+.row-cover {
+  width: 4.5rem;
+}
+
+.row-cover.cover-blank {
+  font-size: 2rem;
+}
+
+.book-row-text {
+  flex: 1;
+}
+
+.row-title {
+  font: 1.3125rem/1.2 var(--display);
+}
+
+.row-title .link-button {
+  text-decoration: none;
+  text-align: left;
+}
+
+.row-title .link-button:hover {
+  text-decoration: underline;
+}
+
+.row-detail {
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.declined-note {
+  margin-top: 0.9rem;
+  color: var(--oxblood);
+}
+
+@media (max-width: 34rem) {
+  .masthead-title {
+    width: 100%;
+  }
+
+  .dialog-inner {
+    padding: 1.25rem 1.1rem 1.1rem;
+  }
+
+  .dialog-head {
+    grid-template-columns: 5rem 1fr;
+    gap: 0.9rem;
+    padding-right: 0;
+    margin-top: 1.5rem;
+  }
+
+  .dialog-title {
+    font-size: 1.4rem;
   }
 }
