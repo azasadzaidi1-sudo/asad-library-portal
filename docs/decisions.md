@@ -95,3 +95,33 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Why per title, not per copy.** Harry Potter 1 and 7 each have one worn copy and one in better shape. Marking individual copies would keep the better copy auto-confirmed, but it needs a per-copy flag and makes availability harder to work out. Restricting the whole title reuses the existing approval rule with no new logic. Since the librarian picks the copy at hand-over anyway, nothing is lost. This can move to per-copy later if it becomes a nuisance.
 
 **Why show a reason.** One "Restricted" label for both Mein Kampf and Harry Potter would confuse members; a short reason explains the wait.
+
+## 10. React + Vite for the website
+
+**Decision.** The site is built with React (JavaScript) and Vite, and published to GitHub Pages by a GitHub Actions workflow.
+
+**Why.** React is the most widely used way to build web interfaces, so it's the most transferable skill, and AI coding tools know it well. Vite gives a fast local preview and turns the code into a small static site that GitHub Pages can serve. *Considered:* plain HTML and JavaScript (no build step, but gets messy as screens and state grow, and is weaker on a CV); React with TypeScript (stronger still, but more to learn at once, so it can come later); Next.js (needs a server for its main features, which GitHub Pages doesn't offer).
+
+## 11. Email and password sign-in, invite-only
+
+**Decision.** Members sign in with email and password. Public sign-ups are switched off in Supabase, so the only way in is an invitation from the librarian.
+
+**Why.** Passwords are familiar, and each sign-in works without waiting for an email. *Considered:* magic links (no passwords, but every sign-in would depend on the librarian's Gmail sending a message, and Gmail limits how many it sends).
+
+## 12. Members see counts, never borrowers
+
+**Decision.** `supabase/03_book_availability.sql` adds `book_availability()`, which returns for every book the number of copies, how many are lent out and how many people are waiting. The app turns that into "1 of 2 on the shelf", "Reserved, 1 in the queue" or "All copies out, 2 in the queue".
+
+**Why.** Row-level security keeps each member's loans and reservations private, so a member's own query can't count other people's. The function runs with the owner's rights but returns only totals, so members can decide whether to join a queue without learning who has a book or since when. Only signed-in members can call it.
+
+## 13. A cosy old library, with fonts served from this site
+
+**Decision.** Cream card stock, deep green cloth and brass, with each book shown as a card from a library card catalogue. The one loud element is an oxblood rubber stamp on Restricted Section books. Titles are set in IM Fell English, a revival of 17th-century Oxford types; everything else is in Alegreya Sans. Books are filed the way libraries shelve them, ignoring a leading "The", "A" or German "Die".
+
+**Why the fonts are bundled.** Loading fonts from Google's servers sends every visitor's IP address to Google; a German court (LG München I, January 2022) ruled that a GDPR breach. Bundling the font files with the site avoids that.
+
+## 14. Tests and automatic checks
+
+**Decision.** The catalogue logic (filters, availability wording, filing order) lives in plain functions in `src/lib/catalogue.js` with unit tests (Vitest). A GitHub Actions check runs the tests and a build on every pull request, and the deploy workflow runs them again before publishing.
+
+**Why.** Keeping logic out of the screens makes it easy to test, and the automatic check means a mistake shows up as a red cross on the pull request rather than on the live site.
