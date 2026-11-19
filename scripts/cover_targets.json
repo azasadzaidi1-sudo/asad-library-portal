@@ -1,0 +1,226 @@
+[
+{
+"id": 4,
+"title": "A Brief History of Japan",
+"q": "brief history of japan clements",
+"author": "clements",
+"lang": "eng"
+},
+{
+"id": 5,
+"title": "A Century of Science Fiction",
+"q": "century of science fiction damon knight",
+"author": "knight",
+"lang": "eng"
+},
+{
+"id": 18,
+"title": "Aspekte Mittelstufe Deutsch 1",
+"q": "aspekte mittelstufe deutsch",
+"author": "",
+"lang": "ger"
+},
+{
+"id": 23,
+"title": "Blood of Elves",
+"q": "blood of elves sapkowski",
+"author": "sapkowski",
+"lang": "eng"
+},
+{
+"id": 28,
+"title": "Color and Light",
+"q": "color and light gurney",
+"author": "gurney",
+"lang": "eng"
+},
+{
+"id": 35,
+"title": "Deadhouse Gates",
+"q": "deadhouse gates erikson",
+"author": "erikson",
+"lang": "eng"
+},
+{
+"id": 37,
+"title": "Death's End",
+"q": "death's end liu",
+"author": "liu",
+"lang": "eng"
+},
+{
+"id": 41,
+"title": "Do the Work",
+"q": "do the work pressfield",
+"author": "pressfield",
+"lang": "eng"
+},
+{
+"id": 69,
+"title": "In Search of the Miraculous",
+"q": "in search of the miraculous ouspensky",
+"author": "",
+"lang": "eng"
+},
+{
+"id": 71,
+"title": "Jane Eyre",
+"q": "jane eyre charlotte bronte",
+"author": "bront",
+"lang": "eng"
+},
+{
+"id": 85,
+"title": "Nachts im Kanzleramt",
+"q": "nachts im kanzleramt slomka",
+"author": "slomka",
+"lang": "ger"
+},
+{
+"id": 99,
+"title": "SPQR",
+"q": "spqr mary beard",
+"author": "beard",
+"lang": "eng"
+},
+{
+"id": 102,
+"title": "Schritte plus Neu 6",
+"q": "schritte plus neu 6",
+"author": "",
+"lang": "ger"
+},
+{
+"id": 104,
+"title": "Season of Storms",
+"q": "season of storms sapkowski",
+"author": "sapkowski",
+"lang": "eng"
+},
+{
+"id": 114,
+"title": "Sword of Destiny",
+"q": "sword of destiny sapkowski",
+"author": "sapkowski",
+"lang": "eng"
+},
+{
+"id": 116,
+"title": "The Alchemist",
+"q": "the alchemist coelho",
+"author": "coelho",
+"lang": "eng"
+},
+{
+"id": 119,
+"title": "The Call of Cthulhu and Other",
+"q": "call of cthulhu lovecraft",
+"author": "lovecraft",
+"lang": "eng"
+},
+{
+"id": 122,
+"title": "The Communist Manifesto",
+"q": "communist manifesto marx",
+"author": "marx",
+"lang": "eng"
+},
+{
+"id": 124,
+"title": "The Cuckoo's Calling",
+"q": "cuckoo's calling galbraith",
+"author": "galbraith",
+"lang": "eng"
+},
+{
+"id": 126,
+"title": "The Dark Forest",
+"q": "the dark forest cixin liu",
+"author": "liu",
+"lang": "eng"
+},
+{
+"id": 129,
+"title": "The Eighth Life",
+"q": "the eighth life haratischwili",
+"author": "haratisch",
+"lang": "eng"
+},
+{
+"id": 132,
+"title": "The Gene Keys",
+"q": "gene keys richard rudd",
+"author": "rudd",
+"lang": "eng"
+},
+{
+"id": 134,
+"title": "The Great Dune Trilogy",
+"q": "great dune trilogy herbert",
+"author": "herbert",
+"lang": "eng"
+},
+{
+"id": 137,
+"title": "The History of the World",
+"q": "history of the world somerset fry",
+"author": "fry",
+"lang": "eng"
+},
+{
+"id": 154,
+"title": "The Psychology of Stupidity",
+"q": "psychology of stupidity marmion",
+"author": "",
+"lang": "eng"
+},
+{
+"id": 156,
+"title": "The Republic",
+"q": "the republic plato penguin",
+"author": "plato",
+"lang": "eng"
+},
+{
+"id": 160,
+"title": "The Shock Doctrine",
+"q": "shock doctrine naomi klein",
+"author": "klein",
+"lang": "eng"
+},
+{
+"id": 168,
+"title": "The Test",
+"q": "the test nathan leamon",
+"author": "leamon",
+"lang": "eng"
+},
+{
+"id": 169,
+"title": "The Three-Body Problem",
+"q": "three-body problem cixin liu",
+"author": "liu",
+"lang": "eng"
+},
+{
+"id": 172,
+"title": "The Tower of the Swallow",
+"q": "tower of the swallow sapkowski",
+"author": "sapkowski",
+"lang": "eng"
+},
+{
+"id": 174,
+"title": "The Unbearable Lightness of Being",
+"q": "unbearable lightness of being kundera",
+"author": "kundera",
+"lang": "eng"
+},
+{
+"id": 77,
+"title": "Life and Character of Dickens",
+"q": "dickens h c dent",
+"author": "dent",
+"lang": "eng"
+}
+]

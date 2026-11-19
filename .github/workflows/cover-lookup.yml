@@ -5,7 +5,7 @@ name: Cover lookup
 on:
   push:
     branches: [cover-lookup]
-    paths: [scripts/cover_lookup.py, scripts/books_for_covers.json]
+    paths: [scripts/cover_candidates.py, scripts/cover_targets.json]
 
 permissions:
   contents: write
@@ -19,10 +19,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests pillow
-      - run: python scripts/cover_lookup.py
+      - run: python scripts/cover_candidates.py
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add scripts/out
+          git add scripts/out2
           git commit -m "Cover lookup results"
           git push
