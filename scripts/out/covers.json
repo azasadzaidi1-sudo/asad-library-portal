@@ -1,0 +1,2329 @@
+[
+ {
+  "id": 1,
+  "title": "'Salem's Lot",
+  "author": "Stephen King",
+  "cover_id": 14654118,
+  "ol_key": "/works/OL81632W",
+  "ol_title": "'Salem’s Lot",
+  "ol_author": "Stephen King, Stephen King",
+  "how": {
+   "title": "Salem's Lot",
+   "author": "Stephen King"
+  }
+ },
+ {
+  "id": 2,
+  "title": "13 Things Mentally Strong People Don't Do",
+  "author": "Amy Morin",
+  "cover_id": 8844867,
+  "ol_key": "/works/OL20195114W",
+  "ol_title": "13 Things Mentally Strong People Don't Do",
+  "ol_author": "Amy Morin",
+  "how": {
+   "title": "13 Things Mentally Strong People Don't Do",
+   "author": "Amy Morin"
+  }
+ },
+ {
+  "id": 3,
+  "title": "50 Great Short Stories",
+  "author": "Milton Crane (editor)",
+  "cover_id": 6380662,
+  "ol_key": "/works/OL172923W",
+  "ol_title": "50 great short stories",
+  "ol_author": "Milton Crane",
+  "how": {
+   "title": "50 Great Short Stories",
+   "author": "Milton Crane"
+  }
+ },
+ {
+  "id": 4,
+  "title": "A Brief History of Japan",
+  "author": "Jonathan Clements",
+  "cover_id": 9263114,
+  "ol_key": "/works/OL15412855W",
+  "ol_title": "A brief history of the Samurai",
+  "ol_author": "Jonathan Clements",
+  "how": {
+   "q": "A Brief History of Japan Jonathan Clements"
+  }
+ },
+ {
+  "id": 5,
+  "title": "A Century of Science Fiction",
+  "author": "Damon Knight (editor)",
+  "cover_id": 6822482,
+  "ol_key": "/works/OL15641561W",
+  "ol_title": "A century of great short science fiction novels",
+  "ol_author": "Damon Knight",
+  "how": {
+   "title": "A Century of Science Fiction",
+   "author": "Damon Knight"
+  }
+ },
+ {
+  "id": 6,
+  "title": "A Clash of Kings",
+  "author": "George R.R. Martin",
+  "cover_id": 8231751,
+  "ol_key": "/works/OL257939W",
+  "ol_title": "A Clash of Kings",
+  "ol_author": "George R. R. Martin",
+  "how": {
+   "title": "A Clash of Kings",
+   "author": "George R.R. Martin"
+  }
+ },
+ {
+  "id": 7,
+  "title": "A Dance with Dragons",
+  "author": "George R.R. Martin",
+  "cover_id": 11298743,
+  "ol_key": "/works/OL1955906W",
+  "ol_title": "A Dance With Dragons",
+  "ol_author": "George R. R. Martin",
+  "how": {
+   "title": "A Dance with Dragons",
+   "author": "George R.R. Martin"
+  }
+ },
+ {
+  "id": 8,
+  "title": "A Feast for Crows",
+  "author": "George R.R. Martin",
+  "cover_id": 6501256,
+  "ol_key": "/works/OL257948W",
+  "ol_title": "A Feast for Crows",
+  "ol_author": "George R. R. Martin",
+  "how": {
+   "title": "A Feast for Crows",
+   "author": "George R.R. Martin"
+  }
+ },
+ {
+  "id": 9,
+  "title": "A Game of Thrones",
+  "author": "George R.R. Martin",
+  "cover_id": 9269962,
+  "ol_key": "/works/OL257943W",
+  "ol_title": "A Game of Thrones",
+  "ol_author": "George R. R. Martin",
+  "how": {
+   "title": "A Game of Thrones",
+   "author": "George R.R. Martin"
+  }
+ },
+ {
+  "id": 10,
+  "title": "A History of Japan",
+  "author": "R.H.P. Mason & J.G. Caiger",
+  "cover_id": 14918086,
+  "ol_key": "/works/OL37801359W",
+  "ol_title": "A History of Japan",
+  "ol_author": "R.H.P. Mason - J.G. Caiger",
+  "how": {
+   "title": "A History of Japan",
+   "author": "R.H.P. Mason"
+  }
+ },
+ {
+  "id": 11,
+  "title": "A Short History of Europe",
+  "author": "Simon Jenkins",
+  "cover_id": 9167516,
+  "ol_key": "/works/OL20516673W",
+  "ol_title": "A Short History of Europe",
+  "ol_author": "Simon Jenkins",
+  "how": {
+   "title": "A Short History of Europe",
+   "author": "Simon Jenkins"
+  }
+ },
+ {
+  "id": 12,
+  "title": "A Storm of Swords",
+  "author": "George R.R. Martin",
+  "cover_id": 15124196,
+  "ol_key": "/works/OL257914W",
+  "ol_title": "A Storm of Swords",
+  "ol_author": "George R. R. Martin",
+  "how": {
+   "title": "A Storm of Swords",
+   "author": "George R.R. Martin"
+  }
+ },
+ {
+  "id": 13,
+  "title": "A Tale of Two Cities",
+  "author": "Charles Dickens",
+  "cover_id": 13301713,
+  "ol_key": "/works/OL8193465W",
+  "ol_title": "A Tale of Two Cities",
+  "ol_author": "Charles Dickens",
+  "how": {
+   "title": "A Tale of Two Cities",
+   "author": "Charles Dickens"
+  }
+ },
+ {
+  "id": 14,
+  "title": "A Year of Positive Thinking",
+  "author": "Cyndie Spiegel",
+  "cover_id": 10844230,
+  "ol_key": "/works/OL24324567W",
+  "ol_title": "A Year of Positive Thinking",
+  "ol_author": "Cyndie Spiegel",
+  "how": {
+   "title": "A Year of Positive Thinking",
+   "author": "Cyndie Spiegel"
+  }
+ },
+ {
+  "id": 15,
+  "title": "About a Boy",
+  "author": "Nick Hornby",
+  "cover_id": 824427,
+  "ol_key": "/works/OL1916893W",
+  "ol_title": "About a Boy",
+  "ol_author": "Nick Hornby",
+  "how": {
+   "title": "About a Boy",
+   "author": "Nick Hornby"
+  }
+ },
+ {
+  "id": 16,
+  "title": "American Gods",
+  "author": "Neil Gaiman",
+  "cover_id": 8494659,
+  "ol_key": "/works/OL679360W",
+  "ol_title": "American Gods",
+  "ol_author": "Neil Gaiman",
+  "how": {
+   "title": "American Gods",
+   "author": "Neil Gaiman"
+  }
+ },
+ {
+  "id": 17,
+  "title": "Anna Karenina",
+  "author": "Leo Tolstoy",
+  "cover_id": 2560652,
+  "ol_key": "/works/OL267096W",
+  "ol_title": "Анна Каренина",
+  "ol_author": "Leo Tolstoy",
+  "how": {
+   "q": "Anna Karenina Leo Tolstoy"
+  }
+ },
+ {
+  "id": 18,
+  "title": "Aspekte: Mittelstufe Deutsch 1, Teil 1",
+  "author": "Langenscheidt",
+  "cover_id": 2216480,
+  "ol_key": "/works/OL6373606W",
+  "ol_title": "Aspekte der Lyrik",
+  "ol_author": "Bernhard Asmuth",
+  "how": {
+   "title": "Aspekte"
+  }
+ },
+ {
+  "id": 19,
+  "title": "Ausweg",
+  "author": "Edward St Aubyn",
+  "cover_id": 447454,
+  "ol_key": "/works/OL3085275W",
+  "ol_title": "A Clue to the Exit",
+  "ol_author": "Edward St Aubyn",
+  "how": {
+   "q": "Ausweg Edward St Aubyn"
+  }
+ },
+ {
+  "id": 20,
+  "title": "Autobiography of a Yogi",
+  "author": "Paramahansa Yogananda",
+  "cover_id": 805448,
+  "ol_key": "/works/OL528094W",
+  "ol_title": "Autobiography of a Yogi",
+  "ol_author": "Yogananda Paramahansa",
+  "how": {
+   "title": "Autobiography of a Yogi",
+   "author": "Paramahansa Yogananda"
+  }
+ },
+ {
+  "id": 21,
+  "title": "Baptism of Fire",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 9322901,
+  "ol_key": "/works/OL2577480W",
+  "ol_title": "Chrzest ognia",
+  "ol_author": "Andrzej Sapkowski",
+  "how": {
+   "q": "Baptism of Fire Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 22,
+  "title": "Bird by Bird",
+  "author": "Anne Lamott",
+  "cover_id": 240973,
+  "ol_key": "/works/OL489421W",
+  "ol_title": "Bird by Bird",
+  "ol_author": "Anne Lamott, Susan Bennett",
+  "how": {
+   "title": "Bird by Bird",
+   "author": "Anne Lamott"
+  }
+ },
+ {
+  "id": 23,
+  "title": "Blood of Elves",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 8457619,
+  "ol_key": "/works/OL2577486W",
+  "ol_title": "Krew elfów",
+  "ol_author": "Andrzej Sapkowski",
+  "how": {
+   "q": "Blood of Elves Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 24,
+  "title": "Brave New World",
+  "author": "Aldous Huxley",
+  "cover_id": 8231823,
+  "ol_key": "/works/OL64365W",
+  "ol_title": "Brave New World",
+  "ol_author": "Aldous Huxley",
+  "how": {
+   "title": "Brave New World",
+   "author": "Aldous Huxley"
+  }
+ },
+ {
+  "id": 25,
+  "title": "Buckskin Brigades",
+  "author": "L. Ron Hubbard",
+  "cover_id": 4789041,
+  "ol_key": "/works/OL580881W",
+  "ol_title": "Buckskin brigades",
+  "ol_author": "L. Ron Hubbard",
+  "how": {
+   "title": "Buckskin Brigades",
+   "author": "L. Ron Hubbard"
+  }
+ },
+ {
+  "id": 26,
+  "title": "Business the Richard Branson Way",
+  "author": "Des Dearlove",
+  "cover_id": 610757,
+  "ol_key": "/works/OL8508996W",
+  "ol_title": "Business the Richard Branson Way",
+  "ol_author": "Des Dearlove",
+  "how": {
+   "title": "Business the Richard Branson Way",
+   "author": "Des Dearlove"
+  }
+ },
+ {
+  "id": 27,
+  "title": "Capital",
+  "author": "Karl Marx",
+  "cover_id": 104119,
+  "ol_key": "/works/OL15663481W",
+  "ol_title": "Capital",
+  "ol_author": "Karl Marx",
+  "how": {
+   "title": "Capital",
+   "author": "Karl Marx"
+  }
+ },
+ {
+  "id": 28,
+  "title": "Color and Light",
+  "author": "James Gurney",
+  "cover_id": 11204675,
+  "ol_key": "/works/OL19944096W",
+  "ol_title": "Color and light",
+  "ol_author": "James Gurney",
+  "how": {
+   "title": "Color and Light",
+   "author": "James Gurney"
+  }
+ },
+ {
+  "id": 29,
+  "title": "Creating Character Arcs",
+  "author": "K.M. Weiland",
+  "cover_id": 10254876,
+  "ol_key": "/works/OL20910410W",
+  "ol_title": "Creating Character Arcs",
+  "ol_author": "K.M. Weiland",
+  "how": {
+   "title": "Creating Character Arcs",
+   "author": "K.M. Weiland"
+  }
+ },
+ {
+  "id": 30,
+  "title": "Crossroads of Ravens",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 15201230,
+  "ol_key": "/works/OL44550081W",
+  "ol_title": "Crossroads of Ravens",
+  "ol_author": "Andrzej Sapkowski, David French",
+  "how": {
+   "title": "Crossroads of Ravens",
+   "author": "Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 31,
+  "title": "Dark Places",
+  "author": "Gillian Flynn",
+  "cover_id": 5728115,
+  "ol_key": "/works/OL5842017W",
+  "ol_title": "Dark Places",
+  "ol_author": "Gillian Flynn",
+  "how": {
+   "title": "Dark Places",
+   "author": "Gillian Flynn"
+  }
+ },
+ {
+  "id": 32,
+  "title": "Dastak Na Do (دستک نہ دو)",
+  "author": "Altaf Fatima"
+ },
+ {
+  "id": 33,
+  "title": "Daughters",
+  "author": "Paule Marshall",
+  "cover_id": 6805644,
+  "ol_key": "/works/OL15842325W",
+  "ol_title": "Daughters",
+  "ol_author": "Paule Marshall",
+  "how": {
+   "title": "Daughters",
+   "author": "Paule Marshall"
+  }
+ },
+ {
+  "id": 34,
+  "title": "David Copperfield",
+  "author": "Charles Dickens",
+  "cover_id": 1048892,
+  "ol_key": "/works/OL8662242W",
+  "ol_title": "David Copperfield",
+  "ol_author": "Charles Dickens",
+  "how": {
+   "title": "David Copperfield",
+   "author": "Charles Dickens"
+  }
+ },
+ {
+  "id": 35,
+  "title": "Deadhouse Gates",
+  "author": "Steven Erikson",
+  "cover_id": 525197,
+  "ol_key": "/works/OL5734770W",
+  "ol_title": "Deadhouse Gates (The Malazan Book of the Fallen, Book 2)",
+  "ol_author": "Steven Erikson",
+  "how": {
+   "title": "Deadhouse Gates",
+   "author": "Steven Erikson"
+  }
+ },
+ {
+  "id": 36,
+  "title": "Death by Shakespeare",
+  "author": "Kathryn Harkup",
+  "cover_id": 9423947,
+  "ol_key": "/works/OL20732622W",
+  "ol_title": "Death By Shakespeare",
+  "ol_author": "Kathryn Harkup",
+  "how": {
+   "title": "Death by Shakespeare",
+   "author": "Kathryn Harkup"
+  }
+ },
+ {
+  "id": 37,
+  "title": "Death's End",
+  "author": "Cixin Liu",
+  "cover_id": 14632491,
+  "ol_key": "/works/OL26796577W",
+  "ol_title": "Three-Body Problem Series",
+  "ol_author": "刘慈欣, Ken Liu",
+  "how": {
+   "q": "Death's End Cixin Liu"
+  }
+ },
+ {
+  "id": 38,
+  "title": "Die Winterrose",
+  "author": "Jennifer Donnelly",
+  "cover_id": 6576095,
+  "ol_key": "/works/OL5952813W",
+  "ol_title": "The winter rose",
+  "ol_author": "Jennifer Donnelly",
+  "how": {
+   "q": "Die Winterrose Jennifer Donnelly"
+  }
+ },
+ {
+  "id": 39,
+  "title": "Different Seasons",
+  "author": "Stephen King",
+  "cover_id": 14655761,
+  "ol_key": "/works/OL81621W",
+  "ol_title": "Different Seasons",
+  "ol_author": "Stephen King",
+  "how": {
+   "title": "Different Seasons",
+   "author": "Stephen King"
+  }
+ },
+ {
+  "id": 40,
+  "title": "Digital Fortress",
+  "author": "Dan Brown",
+  "cover_id": 8396115,
+  "ol_key": "/works/OL76836W",
+  "ol_title": "Digital Fortress",
+  "ol_author": "Dan Brown",
+  "how": {
+   "title": "Digital Fortress",
+   "author": "Dan Brown"
+  }
+ },
+ {
+  "id": 41,
+  "title": "Do the Work",
+  "author": "Steven Pressfield",
+  "cover_id": 10441643,
+  "ol_key": "/works/OL22106238W",
+  "ol_title": "Do the Work",
+  "ol_author": "Steven Pressfield",
+  "how": {
+   "title": "Do the Work",
+   "author": "Steven Pressfield"
+  }
+ },
+ {
+  "id": 42,
+  "title": "Dolores Claiborne",
+  "author": "Stephen King",
+  "cover_id": 9255997,
+  "ol_key": "/works/OL81622W",
+  "ol_title": "Dolores Claiborne",
+  "ol_author": "Stephen King",
+  "how": {
+   "title": "Dolores Claiborne",
+   "author": "Stephen King"
+  }
+ },
+ {
+  "id": 43,
+  "title": "Dr Jekyll and Mr Hyde",
+  "author": "Robert Louis Stevenson",
+  "cover_id": 295773,
+  "ol_key": "/works/OL24156W",
+  "ol_title": "The Strange Case of Dr. Jekyll and Mr. Hyde",
+  "ol_author": "Robert Louis Stevenson",
+  "how": {
+   "title": "Dr Jekyll and Mr Hyde",
+   "author": "Robert Louis Stevenson"
+  }
+ },
+ {
+  "id": 44,
+  "title": "Dracula",
+  "author": "Bram Stoker",
+  "cover_id": 12216503,
+  "ol_key": "/works/OL85892W",
+  "ol_title": "Dracula",
+  "ol_author": "Bram Stoker",
+  "how": {
+   "title": "Dracula",
+   "author": "Bram Stoker"
+  }
+ },
+ {
+  "id": 45,
+  "title": "Drawing on the Right Side of the Brain",
+  "author": "Betty Edwards",
+  "cover_id": 6463772,
+  "ol_key": "/works/OL15359704W",
+  "ol_title": "The New Drawing on the Right Side of the Brain",
+  "ol_author": "Betty Edwards",
+  "how": {
+   "title": "Drawing on the Right Side of the Brain",
+   "author": "Betty Edwards"
+  }
+ },
+ {
+  "id": 46,
+  "title": "Dune",
+  "author": "Frank Herbert",
+  "cover_id": 11481354,
+  "ol_key": "/works/OL893414W",
+  "ol_title": "Dune",
+  "ol_author": "Frank Herbert",
+  "how": {
+   "title": "Dune",
+   "author": "Frank Herbert"
+  }
+ },
+ {
+  "id": 47,
+  "title": "Everything Is F*cked: A Book About Hope",
+  "author": "Mark Manson",
+  "cover_id": 9351865,
+  "ol_key": "/works/OL20657486W",
+  "ol_title": "Everything is F*cked",
+  "ol_author": "Mark Manson, Carlos Ramos Malavé",
+  "how": {
+   "title": "Everything Is F*cked",
+   "author": "Mark Manson"
+  }
+ },
+ {
+  "id": 48,
+  "title": "Fall of Civilizations: Stories of Greatness and Decline",
+  "author": "Paul M.M. Cooper",
+  "cover_id": 14653531,
+  "ol_key": "/works/OL38938585W",
+  "ol_title": "Fall of Civilizations",
+  "ol_author": "Paul M.M. Cooper",
+  "how": {
+   "title": "Fall of Civilizations",
+   "author": "Paul M.M. Cooper"
+  }
+ },
+ {
+  "id": 49,
+  "title": "Finders Keepers",
+  "author": "Stephen King",
+  "cover_id": 8339525,
+  "ol_key": "/works/OL17333186W",
+  "ol_title": "Finders Keepers",
+  "ol_author": "Stephen King",
+  "how": {
+   "title": "Finders Keepers",
+   "author": "Stephen King"
+  }
+ },
+ {
+  "id": 50,
+  "title": "Fool's Errand",
+  "author": "Robin Hobb",
+  "cover_id": 373090,
+  "ol_key": "/works/OL2707194W",
+  "ol_title": "Fool's Errand (Tawny Man, Book 1)",
+  "ol_author": "Robin Hobb",
+  "how": {
+   "title": "Fool's Errand",
+   "author": "Robin Hobb"
+  }
+ },
+ {
+  "id": 51,
+  "title": "Framed Perspective Vol. 1",
+  "author": "Marcos Mateu-Mestre",
+  "cover_id": 8892430,
+  "ol_key": "/works/OL20237991W",
+  "ol_title": "Framed Perspective Vol. 1",
+  "ol_author": "Marcos Mateu-Mestre",
+  "how": {
+   "title": "Framed Perspective Vol. 1",
+   "author": "Marcos Mateu-Mestre"
+  }
+ },
+ {
+  "id": 52,
+  "title": "Franklin Flyer",
+  "author": "Nicholas Christopher",
+  "cover_id": 239944,
+  "ol_key": "/works/OL487011W",
+  "ol_title": "Franklin flyer",
+  "ol_author": "Nicholas Christopher",
+  "how": {
+   "title": "Franklin Flyer",
+   "author": "Nicholas Christopher"
+  }
+ },
+ {
+  "id": 53,
+  "title": "Freeman's: Change",
+  "author": "John Freeman (editor)",
+  "cover_id": 14234400,
+  "ol_key": "/works/OL26339734W",
+  "ol_title": "Freeman's Change",
+  "ol_author": "John Freeman",
+  "how": {
+   "title": "Freeman's: Change",
+   "author": "John Freeman"
+  }
+ },
+ {
+  "id": 54,
+  "title": "Future Shock",
+  "author": "Alvin Toffler",
+  "cover_id": 368968,
+  "ol_key": "/works/OL2869043W",
+  "ol_title": "Future shock",
+  "ol_author": "Alvin Toffler",
+  "how": {
+   "title": "Future Shock",
+   "author": "Alvin Toffler"
+  }
+ },
+ {
+  "id": 55,
+  "title": "Gardens of the Moon",
+  "author": "Steven Erikson",
+  "cover_id": 374277,
+  "ol_key": "/works/OL5734756W",
+  "ol_title": "Gardens of the Moon",
+  "ol_author": "Steven Erikson",
+  "how": {
+   "title": "Gardens of the Moon",
+   "author": "Steven Erikson"
+  }
+ },
+ {
+  "id": 56,
+  "title": "Globalization and Its Discontents",
+  "author": "Joseph E. Stiglitz",
+  "cover_id": 247709,
+  "ol_key": "/works/OL624826W",
+  "ol_title": "Globalization and its discontents",
+  "ol_author": "Joseph E. Stiglitz",
+  "how": {
+   "title": "Globalization and Its Discontents",
+   "author": "Joseph E. Stiglitz"
+  }
+ },
+ {
+  "id": 57,
+  "title": "Great Expectations",
+  "author": "Charles Dickens",
+  "cover_id": 13322313,
+  "ol_key": "/works/OL8721462W",
+  "ol_title": "Great Expectations",
+  "ol_author": "Charles Dickens",
+  "how": {
+   "title": "Great Expectations",
+   "author": "Charles Dickens"
+  }
+ },
+ {
+  "id": 58,
+  "title": "Harry Potter and the Chamber of Secrets",
+  "author": "J.K. Rowling",
+  "cover_id": 15158664,
+  "ol_key": "/works/OL82537W",
+  "ol_title": "Harry Potter and the Chamber of Secrets",
+  "ol_author": "J. K. Rowling",
+  "how": {
+   "title": "Harry Potter and the Chamber of Secrets",
+   "author": "J.K. Rowling"
+  }
+ },
+ {
+  "id": 59,
+  "title": "Harry Potter and the Deathly Hallows",
+  "author": "J.K. Rowling",
+  "cover_id": 15158660,
+  "ol_key": "/works/OL82586W",
+  "ol_title": "Harry Potter and the Deathly Hallows",
+  "ol_author": "J. K. Rowling",
+  "how": {
+   "title": "Harry Potter and the Deathly Hallows",
+   "author": "J.K. Rowling"
+  }
+ },
+ {
+  "id": 60,
+  "title": "Harry Potter and the Goblet of Fire",
+  "author": "J.K. Rowling",
+  "cover_id": 12059372,
+  "ol_key": "/works/OL82560W",
+  "ol_title": "Harry Potter and the Goblet of Fire",
+  "ol_author": "J. K. Rowling",
+  "how": {
+   "title": "Harry Potter and the Goblet of Fire",
+   "author": "J.K. Rowling"
+  }
+ },
+ {
+  "id": 61,
+  "title": "Harry Potter and the Half-Blood Prince",
+  "author": "J.K. Rowling",
+  "cover_id": 10716273,
+  "ol_key": "/works/OL82565W",
+  "ol_title": "Harry Potter and the Half-Blood Prince",
+  "ol_author": "J. K. Rowling",
+  "how": {
+   "title": "Harry Potter and the Half-Blood Prince",
+   "author": "J.K. Rowling"
+  }
+ },
+ {
+  "id": 62,
+  "title": "Harry Potter and the Order of the Phoenix",
+  "author": "J.K. Rowling",
+  "cover_id": 15158666,
+  "ol_key": "/works/OL82548W",
+  "ol_title": "Harry Potter and the Order of the Phoenix",
+  "ol_author": "J. K. Rowling",
+  "how": {
+   "title": "Harry Potter and the Order of the Phoenix",
+   "author": "J.K. Rowling"
+  }
+ },
+ {
+  "id": 63,
+  "title": "Harry Potter and the Philosopher's Stone",
+  "author": "J.K. Rowling",
+  "cover_id": 15155833,
+  "ol_key": "/works/OL82563W",
+  "ol_title": "Harry Potter and the Philosopher's Stone",
+  "ol_author": "J. K. Rowling",
+  "how": {
+   "title": "Harry Potter and the Philosopher's Stone",
+   "author": "J.K. Rowling"
+  }
+ },
+ {
+  "id": 64,
+  "title": "Harry Potter and the Prisoner of Azkaban",
+  "author": "J.K. Rowling",
+  "cover_id": 10580435,
+  "ol_key": "/works/OL82536W",
+  "ol_title": "Harry Potter and the Prisoner of Azkaban",
+  "ol_author": "J. K. Rowling",
+  "how": {
+   "title": "Harry Potter and the Prisoner of Azkaban",
+   "author": "J.K. Rowling"
+  }
+ },
+ {
+  "id": 65,
+  "title": "Harry Potter und das verwunschene Kind",
+  "author": "J.K. Rowling, John Tiffany & Jack Thorne",
+  "cover_id": 8763851,
+  "ol_key": "/works/OL17360811W",
+  "ol_title": "Harry Potter and the Cursed Child",
+  "ol_author": "Jack Thorne, John Tiffany",
+  "how": {
+   "q": "Harry Potter und das verwunschene Kind J.K. Rowling"
+  }
+ },
+ {
+  "id": 66,
+  "title": "Hearts in Atlantis",
+  "author": "Stephen King",
+  "cover_id": 8536326,
+  "ol_key": "/works/OL81624W",
+  "ol_title": "Hearts in Atlantis",
+  "ol_author": "Stephen King",
+  "how": {
+   "title": "Hearts in Atlantis",
+   "author": "Stephen King"
+  }
+ },
+ {
+  "id": 67,
+  "title": "Hüttenkochbuch",
+  "author": "Melanie Zanin"
+ },
+ {
+  "id": 68,
+  "title": "I, Claudius",
+  "author": "Robert Graves",
+  "cover_id": 14656260,
+  "ol_key": "/works/OL5036952W",
+  "ol_title": "I, Claudius",
+  "ol_author": "Robert Graves",
+  "how": {
+   "title": "I, Claudius",
+   "author": "Robert Graves"
+  }
+ },
+ {
+  "id": 69,
+  "title": "In Search of the Miraculous",
+  "author": "P.D. Ouspensky"
+ },
+ {
+  "id": 70,
+  "title": "Inferno",
+  "author": "Dan Brown",
+  "cover_id": 9322673,
+  "ol_key": "/works/OL16804289W",
+  "ol_title": "Inferno",
+  "ol_author": "Dan Brown",
+  "how": {
+   "title": "Inferno",
+   "author": "Dan Brown"
+  }
+ },
+ {
+  "id": 71,
+  "title": "Jane Eyre",
+  "author": "Charlotte Brontë",
+  "cover_id": 14421819,
+  "ol_key": "/works/OL1095411W",
+  "ol_title": "Novels (Agnes Grey / Jane Eyre / Wuthering Heights)",
+  "ol_author": "Anne Brontë, Charlotte Brontë",
+  "how": {
+   "title": "Jane Eyre",
+   "author": "Charlotte Brontë"
+  }
+ },
+ {
+  "id": 72,
+  "title": "Jenseits von Mitternacht",
+  "author": "Sidney Sheldon",
+  "cover_id": 11658359,
+  "ol_key": "/works/OL24835541W",
+  "ol_title": "Jenseits von Mitternacht",
+  "ol_author": "Sidney Sheldon",
+  "how": {
+   "title": "Jenseits von Mitternacht",
+   "author": "Sidney Sheldon"
+  }
+ },
+ {
+  "id": 73,
+  "title": "Jurassic Park",
+  "author": "Michael Crichton",
+  "cover_id": 12882940,
+  "ol_key": "/works/OL46881W",
+  "ol_title": "Jurassic Park",
+  "ol_author": "Michael Crichton",
+  "how": {
+   "title": "Jurassic Park",
+   "author": "Michael Crichton"
+  }
+ },
+ {
+  "id": 74,
+  "title": "Keys to Drawing",
+  "author": "Bert Dodson",
+  "cover_id": 688817,
+  "ol_key": "/works/OL4443970W",
+  "ol_title": "Keys to drawing",
+  "ol_author": "Bert Dodson",
+  "how": {
+   "title": "Keys to Drawing",
+   "author": "Bert Dodson"
+  }
+ },
+ {
+  "id": 75,
+  "title": "Kochen für junge Leute",
+  "author": "Brigitte",
+  "cover_id": 3241487,
+  "ol_key": "/works/OL10084845W",
+  "ol_title": "Brigitte Kochen für junge Leute. Rezepte aus aller Welt",
+  "ol_author": "Anna Ort-Gottwald",
+  "how": {
+   "title": "Kochen für junge Leute"
+  }
+ },
+ {
+  "id": 76,
+  "title": "Let the Great World Spin",
+  "author": "Colum McCann",
+  "cover_id": 6305612,
+  "ol_key": "/works/OL14873320W",
+  "ol_title": "Let the great world spin",
+  "ol_author": "Colum McCann",
+  "how": {
+   "title": "Let the Great World Spin",
+   "author": "Colum McCann"
+  }
+ },
+ {
+  "id": 77,
+  "title": "Life and Character of Dickens",
+  "author": "H.C. Dent"
+ },
+ {
+  "id": 78,
+  "title": "Live by Night",
+  "author": "Dennis Lehane",
+  "cover_id": 10202651,
+  "ol_key": "/works/OL20879149W",
+  "ol_title": "Live by Night",
+  "ol_author": "Dennis Lehane",
+  "how": {
+   "title": "Live by Night",
+   "author": "Dennis Lehane"
+  }
+ },
+ {
+  "id": 79,
+  "title": "Long Walk to Freedom",
+  "author": "Nelson Mandela",
+  "cover_id": 12702407,
+  "ol_key": "/works/OL1783377W",
+  "ol_title": "Long Walk to Freedom",
+  "ol_author": "Nelson Mandela",
+  "how": {
+   "title": "Long Walk to Freedom",
+   "author": "Nelson Mandela"
+  }
+ },
+ {
+  "id": 80,
+  "title": "Mansfield Park",
+  "author": "Jane Austen",
+  "cover_id": 14618737,
+  "ol_key": "/works/OL66530W",
+  "ol_title": "Mansfield Park",
+  "ol_author": "Jane Austen",
+  "how": {
+   "title": "Mansfield Park",
+   "author": "Jane Austen"
+  }
+ },
+ {
+  "id": 81,
+  "title": "Meditations",
+  "author": "Marcus Aurelius",
+  "cover_id": 211529,
+  "ol_key": "/works/OL1317211W",
+  "ol_title": "Meditations",
+  "ol_author": "Marcus Aurelius",
+  "how": {
+   "title": "Meditations",
+   "author": "Marcus Aurelius"
+  }
+ },
+ {
+  "id": 82,
+  "title": "Mein Kampf",
+  "author": "Adolf Hitler",
+  "cover_id": 12724015,
+  "ol_key": "/works/OL1067314W",
+  "ol_title": "Mein Kampf",
+  "ol_author": "Adolf Hitler",
+  "how": {
+   "title": "Mein Kampf",
+   "author": "Adolf Hitler"
+  }
+ },
+ {
+  "id": 83,
+  "title": "Moby-Dick",
+  "author": "Herman Melville",
+  "cover_id": 10544254,
+  "ol_key": "/works/OL102749W",
+  "ol_title": "Moby Dick",
+  "ol_author": "Herman Melville",
+  "how": {
+   "title": "Moby-Dick",
+   "author": "Herman Melville"
+  }
+ },
+ {
+  "id": 84,
+  "title": "Mortal Engines",
+  "author": "Philip Reeve",
+  "cover_id": 279981,
+  "ol_key": "/works/OL5826881W",
+  "ol_title": "Mortal Engines",
+  "ol_author": "Philip Reeve",
+  "how": {
+   "title": "Mortal Engines",
+   "author": "Philip Reeve"
+  }
+ },
+ {
+  "id": 85,
+  "title": "Nachts im Kanzleramt",
+  "author": "Marietta Slomka"
+ },
+ {
+  "id": 86,
+  "title": "Negotiate to Close",
+  "author": "Gary Karrass",
+  "cover_id": 4213835,
+  "ol_key": "/works/OL5479864W",
+  "ol_title": "Negotiate to close",
+  "ol_author": "Gary Karrass",
+  "how": {
+   "title": "Negotiate to Close",
+   "author": "Gary Karrass"
+  }
+ },
+ {
+  "id": 87,
+  "title": "Neuromancer",
+  "author": "William Gibson",
+  "cover_id": 283860,
+  "ol_key": "/works/OL27258W",
+  "ol_title": "Neuromancer",
+  "ol_author": "William Gibson",
+  "how": {
+   "title": "Neuromancer",
+   "author": "William Gibson"
+  }
+ },
+ {
+  "id": 88,
+  "title": "Next",
+  "author": "Michael Crichton",
+  "cover_id": 10657368,
+  "ol_key": "/works/OL46904W",
+  "ol_title": "Next",
+  "ol_author": "Michael Crichton",
+  "how": {
+   "title": "Next",
+   "author": "Michael Crichton"
+  }
+ },
+ {
+  "id": 89,
+  "title": "Nineteen Eighty-Four",
+  "author": "George Orwell",
+  "cover_id": 9267242,
+  "ol_key": "/works/OL1168083W",
+  "ol_title": "Nineteen Eighty-Four",
+  "ol_author": "George Orwell",
+  "how": {
+   "title": "Nineteen Eighty-Four",
+   "author": "George Orwell"
+  }
+ },
+ {
+  "id": 90,
+  "title": "Omertà",
+  "author": "Mario Puzo",
+  "cover_id": 3233429,
+  "ol_key": "/works/OL1673230W",
+  "ol_title": "Omerta",
+  "ol_author": "Mario Puzo",
+  "how": {
+   "title": "Omertà",
+   "author": "Mario Puzo"
+  }
+ },
+ {
+  "id": 91,
+  "title": "On Writing: A Memoir of the Craft",
+  "author": "Stephen King",
+  "cover_id": 9255939,
+  "ol_key": "/works/OL81601W",
+  "ol_title": "On Writing",
+  "ol_author": "Stephen King",
+  "how": {
+   "title": "On Writing",
+   "author": "Stephen King"
+  }
+ },
+ {
+  "id": 92,
+  "title": "One Day",
+  "author": "David Nicholls",
+  "cover_id": 8580421,
+  "ol_key": "/works/OL15424701W",
+  "ol_title": "One Day",
+  "ol_author": "David Nicholls",
+  "how": {
+   "title": "One Day",
+   "author": "David Nicholls"
+  }
+ },
+ {
+  "id": 93,
+  "title": "Other People's Children",
+  "author": "Joanna Trollope",
+  "cover_id": 402350,
+  "ol_key": "/works/OL29589W",
+  "ol_title": "Other People's Children",
+  "ol_author": "Joanna Trollope",
+  "how": {
+   "title": "Other People's Children",
+   "author": "Joanna Trollope"
+  }
+ },
+ {
+  "id": 94,
+  "title": "Outlining Your Novel",
+  "author": "K.M. Weiland",
+  "cover_id": 10390065,
+  "ol_key": "/works/OL21651487W",
+  "ol_title": "Outlining Your Novel Workbook",
+  "ol_author": "K.M. Weiland",
+  "how": {
+   "title": "Outlining Your Novel",
+   "author": "K.M. Weiland"
+  }
+ },
+ {
+  "id": 95,
+  "title": "Perdido Street Station",
+  "author": "China Miéville",
+  "cover_id": 6375226,
+  "ol_key": "/works/OL8718786W",
+  "ol_title": "Perdido Street Station",
+  "ol_author": "China Miéville",
+  "how": {
+   "title": "Perdido Street Station",
+   "author": "China Miéville"
+  }
+ },
+ {
+  "id": 96,
+  "title": "Perspective Made Easy",
+  "author": "Ernest R. Norling",
+  "cover_id": 9237058,
+  "ol_key": "/works/OL13754137W",
+  "ol_title": "Perspective Made Easy",
+  "ol_author": "Ernest R. Norling",
+  "how": {
+   "title": "Perspective Made Easy",
+   "author": "Ernest R. Norling"
+  }
+ },
+ {
+  "id": 97,
+  "title": "Ready Player One",
+  "author": "Ernest Cline",
+  "cover_id": 8737626,
+  "ol_key": "/works/OL15936512W",
+  "ol_title": "Ready Player One",
+  "ol_author": "Ernest Cline",
+  "how": {
+   "title": "Ready Player One",
+   "author": "Ernest Cline"
+  }
+ },
+ {
+  "id": 98,
+  "title": "Rosen für Afrika",
+  "author": "Ludwig Fels",
+  "cover_id": 4136740,
+  "ol_key": "/works/OL11478543W",
+  "ol_title": "Rosen für Afrika",
+  "ol_author": "Ludwig Fels",
+  "how": {
+   "title": "Rosen für Afrika",
+   "author": "Ludwig Fels"
+  }
+ },
+ {
+  "id": 99,
+  "title": "SPQR: A History of Ancient Rome",
+  "author": "Mary Beard",
+  "cover_id": 7418788,
+  "ol_key": "/works/OL17340134W",
+  "ol_title": "SPQR",
+  "ol_author": "Mary Beard, Silvia Furió",
+  "how": {
+   "title": "SPQR",
+   "author": "Mary Beard"
+  }
+ },
+ {
+  "id": 100,
+  "title": "Save the Cat! Writes a Novel",
+  "author": "Jessica Brody",
+  "cover_id": 10148215,
+  "ol_key": "/works/OL20840056W",
+  "ol_title": "Save the Cat! Writes a Novel",
+  "ol_author": "Jessica Brody",
+  "how": {
+   "title": "Save the Cat! Writes a Novel",
+   "author": "Jessica Brody"
+  }
+ },
+ {
+  "id": 101,
+  "title": "Schritte plus Neu 5",
+  "author": "Hueber",
+  "cover_id": 13140258,
+  "ol_key": "/works/OL31228722W",
+  "ol_title": "Schritte plus neu 5 Niveau B 1/1. Deutsch als Zweitsprache für Alltag und Beruf. Kursbuch und Arbeitsbuch",
+  "ol_author": "Silke Hilpert",
+  "how": {
+   "title": "Schritte plus Neu 5"
+  }
+ },
+ {
+  "id": 102,
+  "title": "Schritte plus Neu 6",
+  "author": "Hueber"
+ },
+ {
+  "id": 103,
+  "title": "Sea of Silver Light",
+  "author": "Tad Williams",
+  "cover_id": 683521,
+  "ol_key": "/works/OL2250822W",
+  "ol_title": "Sea of Silver Light",
+  "ol_author": "Tad Williams",
+  "how": {
+   "title": "Sea of Silver Light",
+   "author": "Tad Williams"
+  }
+ },
+ {
+  "id": 104,
+  "title": "Season of Storms",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 8457629,
+  "ol_key": "/works/OL18132591W",
+  "ol_title": "Season of Storms",
+  "ol_author": "Andrzej Sapkowski",
+  "how": {
+   "title": "Season of Storms",
+   "author": "Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 105,
+  "title": "Sense and Sensibility",
+  "author": "Jane Austen",
+  "cover_id": 9278292,
+  "ol_key": "/works/OL66562W",
+  "ol_title": "Sense and Sensibility",
+  "ol_author": "Jane Austen",
+  "how": {
+   "title": "Sense and Sensibility",
+   "author": "Jane Austen"
+  }
+ },
+ {
+  "id": 106,
+  "title": "Shakespeare: The World as Stage",
+  "author": "Bill Bryson",
+  "cover_id": 12722662,
+  "ol_key": "/works/OL74119W",
+  "ol_title": "Shakespeare",
+  "ol_author": "Bill Bryson",
+  "how": {
+   "title": "Shakespeare",
+   "author": "Bill Bryson"
+  }
+ },
+ {
+  "id": 107,
+  "title": "Shuggie Bain",
+  "author": "Douglas Stuart",
+  "cover_id": 9271540,
+  "ol_key": "/works/OL20645179W",
+  "ol_title": "Shuggie Bain",
+  "ol_author": "Douglas Stuart",
+  "how": {
+   "title": "Shuggie Bain",
+   "author": "Douglas Stuart"
+  }
+ },
+ {
+  "id": 108,
+  "title": "Shōgun",
+  "author": "James Clavell",
+  "cover_id": 2394441,
+  "ol_key": "/works/OL2918756W",
+  "ol_title": "Shōgun",
+  "ol_author": "James Clavell",
+  "how": {
+   "title": "Shōgun",
+   "author": "James Clavell"
+  }
+ },
+ {
+  "id": 109,
+  "title": "Sick Puppy",
+  "author": "Carl Hiaasen",
+  "cover_id": 419004,
+  "ol_key": "/works/OL463543W",
+  "ol_title": "Sick Puppy",
+  "ol_author": "Carl Hiaasen",
+  "how": {
+   "title": "Sick Puppy",
+   "author": "Carl Hiaasen"
+  }
+ },
+ {
+  "id": 110,
+  "title": "Speaker for the Dead",
+  "author": "Orson Scott Card",
+  "cover_id": 9315123,
+  "ol_key": "/works/OL49580W",
+  "ol_title": "Speaker for the Dead",
+  "ol_author": "Orson Scott Card",
+  "how": {
+   "title": "Speaker for the Dead",
+   "author": "Orson Scott Card"
+  }
+ },
+ {
+  "id": 111,
+  "title": "Sprint",
+  "author": "Jake Knapp, John Zeratsky & Braden Kowitz",
+  "cover_id": 7431269,
+  "ol_key": "/works/OL17353358W",
+  "ol_title": "Sprint",
+  "ol_author": "Jake Knapp, John Zeratsky",
+  "how": {
+   "title": "Sprint",
+   "author": "Jake Knapp"
+  }
+ },
+ {
+  "id": 112,
+  "title": "Start Your Own Import/Export Business",
+  "author": "Entrepreneur Press",
+  "cover_id": 12488337,
+  "ol_key": "/works/OL19992769W",
+  "ol_title": "Start your own import/export business",
+  "ol_author": "Krista Turner",
+  "how": {
+   "title": "Start Your Own Import/Export Business"
+  }
+ },
+ {
+  "id": 113,
+  "title": "Structuring Your Novel",
+  "author": "K.M. Weiland",
+  "cover_id": 12539163,
+  "ol_key": "/works/OL27032262W",
+  "ol_title": "Structuring Your Novel Workbook",
+  "ol_author": "K.M. Weiland",
+  "how": {
+   "title": "Structuring Your Novel",
+   "author": "K.M. Weiland"
+  }
+ },
+ {
+  "id": 114,
+  "title": "Sword of Destiny",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 11102583,
+  "ol_key": "/works/OL24487194W",
+  "ol_title": "Witcher Series Andrzej Sapkowski 7 Books Collection Set Inc Sword Of Destiny",
+  "ol_author": "Andrzej Sapkowski",
+  "how": {
+   "title": "Sword of Destiny",
+   "author": "Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 115,
+  "title": "The Adventures of Tom Sawyer",
+  "author": "Mark Twain",
+  "cover_id": 12043351,
+  "ol_key": "/works/OL53919W",
+  "ol_title": "The Adventures of Tom Sawyer",
+  "ol_author": "Mark Twain",
+  "how": {
+   "title": "The Adventures of Tom Sawyer",
+   "author": "Mark Twain"
+  }
+ },
+ {
+  "id": 116,
+  "title": "The Alchemist",
+  "author": "Paulo Coelho",
+  "cover_id": 11556106,
+  "ol_key": "/works/OL24793569W",
+  "ol_title": "The Alchemist Graphic Novel",
+  "ol_author": "Paulo Coelho",
+  "how": {
+   "title": "The Alchemist",
+   "author": "Paulo Coelho"
+  }
+ },
+ {
+  "id": 117,
+  "title": "The Ballad of Songbirds & Snakes",
+  "author": "Suzanne Collins",
+  "cover_id": 14421833,
+  "ol_key": "/works/OL20716197W",
+  "ol_title": "The Ballad of Songbirds and Snakes",
+  "ol_author": "Suzanne Collins",
+  "how": {
+   "title": "The Ballad of Songbirds & Snakes",
+   "author": "Suzanne Collins"
+  }
+ },
+ {
+  "id": 118,
+  "title": "The Be (Happy) Attitudes",
+  "author": "Robert H. Schuller",
+  "cover_id": 646345,
+  "ol_key": "/works/OL2082737W",
+  "ol_title": "The Be Happy Attitudes",
+  "ol_author": "Robert Harold Schuller",
+  "how": {
+   "title": "The Be Attitudes",
+   "author": "Robert H. Schuller"
+  }
+ },
+ {
+  "id": 119,
+  "title": "The Call of Cthulhu and Other Frightening Tales",
+  "author": "H.P. Lovecraft"
+ },
+ {
+  "id": 120,
+  "title": "The Circle",
+  "author": "Dave Eggers",
+  "cover_id": 8334682,
+  "ol_key": "/works/OL16808654W",
+  "ol_title": "The Circle",
+  "ol_author": "Dave Eggers",
+  "how": {
+   "title": "The Circle",
+   "author": "Dave Eggers"
+  }
+ },
+ {
+  "id": 121,
+  "title": "The Colour of Law",
+  "author": "Mark Gimenez",
+  "cover_id": 2379867,
+  "ol_key": "/works/OL8052985W",
+  "ol_title": "The Colour of Law",
+  "ol_author": "Mark Gimenez",
+  "how": {
+   "title": "The Colour of Law",
+   "author": "Mark Gimenez"
+  }
+ },
+ {
+  "id": 122,
+  "title": "The Communist Manifesto",
+  "author": "Karl Marx & Friedrich Engels",
+  "cover_id": 11600600,
+  "ol_key": "/works/OL628866W",
+  "ol_title": "Capital, the Communist manifesto and other writings",
+  "ol_author": "Karl Marx",
+  "how": {
+   "title": "The Communist Manifesto",
+   "author": "Karl Marx"
+  }
+ },
+ {
+  "id": 123,
+  "title": "The Count of Monte Cristo",
+  "author": "Alexandre Dumas",
+  "cover_id": 15267475,
+  "ol_key": "/works/OL36277W",
+  "ol_title": "The Count of Monte-Cristo [3/5]",
+  "ol_author": "Alexandre Dumas",
+  "how": {
+   "title": "The Count of Monte Cristo",
+   "author": "Alexandre Dumas"
+  }
+ },
+ {
+  "id": 124,
+  "title": "The Cuckoo's Calling",
+  "author": "Robert Galbraith",
+  "cover_id": 15219670,
+  "ol_key": "/works/OL29234411W",
+  "ol_title": "Der Ruf des Kuckucks",
+  "ol_author": "Robert Galbraith",
+  "how": {
+   "q": "The Cuckoo's Calling Robert Galbraith"
+  }
+ },
+ {
+  "id": 125,
+  "title": "The Da Vinci Code",
+  "author": "Dan Brown",
+  "cover_id": 9255229,
+  "ol_key": "/works/OL76837W",
+  "ol_title": "The Da Vinci Code",
+  "ol_author": "Dan Brown",
+  "how": {
+   "title": "The Da Vinci Code",
+   "author": "Dan Brown"
+  }
+ },
+ {
+  "id": 126,
+  "title": "The Dark Forest",
+  "author": "Cixin Liu",
+  "cover_id": 14632491,
+  "ol_key": "/works/OL26796577W",
+  "ol_title": "Three-Body Problem Series",
+  "ol_author": "刘慈欣, Ken Liu",
+  "how": {
+   "q": "The Dark Forest Cixin Liu"
+  }
+ },
+ {
+  "id": 127,
+  "title": "The Day of the Triffids",
+  "author": "John Wyndham",
+  "cover_id": 535027,
+  "ol_key": "/works/OL1911336W",
+  "ol_title": "The Day of the Triffids",
+  "ol_author": "John Wyndham, Marcel Battin",
+  "how": {
+   "title": "The Day of the Triffids",
+   "author": "John Wyndham"
+  }
+ },
+ {
+  "id": 128,
+  "title": "The Early Asimov: Volume 1",
+  "author": "Isaac Asimov",
+  "cover_id": 15155257,
+  "ol_key": "/works/OL20654648W",
+  "ol_title": "The Early Asimov. Volume 1 of 3 (Black friar of the flame / The Callistan menace / Half-breed / The magnificent possession / Ring around the sun / The secret sense / Trends / The weapon too dreadful to use)",
+  "ol_author": "Isaac Asimov",
+  "how": {
+   "title": "The Early Asimov: Volume 1",
+   "author": "Isaac Asimov"
+  }
+ },
+ {
+  "id": 129,
+  "title": "The Eighth Life (for Brilka)",
+  "author": "Nino Haratischwili"
+ },
+ {
+  "id": 130,
+  "title": "The Elements of Typographic Style",
+  "author": "Robert Bringhurst",
+  "cover_id": 678861,
+  "ol_key": "/works/OL854086W",
+  "ol_title": "The Elements of Typographic Style",
+  "ol_author": "Robert Bringhurst, Robert Bringhurst",
+  "how": {
+   "title": "The Elements of Typographic Style",
+   "author": "Robert Bringhurst"
+  }
+ },
+ {
+  "id": 131,
+  "title": "The Flatshare",
+  "author": "Beth O'Leary",
+  "cover_id": 9331546,
+  "ol_key": "/works/OL20664315W",
+  "ol_title": "The Flatshare",
+  "ol_author": "Beth O'Leary",
+  "how": {
+   "title": "The Flatshare",
+   "author": "Beth O'Leary"
+  }
+ },
+ {
+  "id": 132,
+  "title": "The Gene Keys",
+  "author": "Richard Rudd",
+  "cover_id": 13159940,
+  "ol_key": "/works/OL34308184W",
+  "ol_title": "The Venus Sequence",
+  "ol_author": "Richard Rudd",
+  "how": {
+   "q": "The Gene Keys Richard Rudd"
+  }
+ },
+ {
+  "id": 133,
+  "title": "The Grapes of Wrath",
+  "author": "John Steinbeck",
+  "cover_id": 12715902,
+  "ol_key": "/works/OL23205W",
+  "ol_title": "The Grapes of Wrath",
+  "ol_author": "John Steinbeck",
+  "how": {
+   "title": "The Grapes of Wrath",
+   "author": "John Steinbeck"
+  }
+ },
+ {
+  "id": 134,
+  "title": "The Great Dune Trilogy",
+  "author": "Frank Herbert",
+  "cover_id": 13849924,
+  "ol_key": "/works/OL893475W",
+  "ol_title": "The Second Great Dune Trilogy",
+  "ol_author": "Frank Herbert",
+  "how": {
+   "title": "The Great Dune Trilogy",
+   "author": "Frank Herbert"
+  }
+ },
+ {
+  "id": 135,
+  "title": "The Hard Thing About Hard Things",
+  "author": "Ben Horowitz",
+  "cover_id": 7279515,
+  "ol_key": "/works/OL16818208W",
+  "ol_title": "The Hard Thing About Hard Things",
+  "ol_author": "Ben Horowitz",
+  "how": {
+   "title": "The Hard Thing About Hard Things",
+   "author": "Ben Horowitz"
+  }
+ },
+ {
+  "id": 136,
+  "title": "The Help",
+  "author": "Kathryn Stockett",
+  "cover_id": 8387264,
+  "ol_key": "/works/OL11999891W",
+  "ol_title": "The Help",
+  "ol_author": "Kathryn Stockett, Álvaro Abella Villar",
+  "how": {
+   "title": "The Help",
+   "author": "Kathryn Stockett"
+  }
+ },
+ {
+  "id": 137,
+  "title": "The History of the World",
+  "author": "Plantagenet Somerset Fry",
+  "cover_id": 504496,
+  "ol_key": "/works/OL1686466W",
+  "ol_title": "The Dorling Kindersley history of the world",
+  "ol_author": "Plantagenet Somerset Fry",
+  "how": {
+   "title": "The History of the World",
+   "author": "Plantagenet Somerset Fry"
+  }
+ },
+ {
+  "id": 138,
+  "title": "The Hitchhiker's Guide to the Galaxy: A Trilogy in Five Parts",
+  "author": "Douglas Adams",
+  "cover_id": 12986869,
+  "ol_key": "/works/OL2163649W",
+  "ol_title": "The Hitchhiker's Guide to the Galaxy",
+  "ol_author": "Douglas Adams",
+  "how": {
+   "title": "The Hitchhiker's Guide to the Galaxy",
+   "author": "Douglas Adams"
+  }
+ },
+ {
+  "id": 139,
+  "title": "The Hobbit",
+  "author": "J.R.R. Tolkien",
+  "cover_id": 14627509,
+  "ol_key": "/works/OL27482W",
+  "ol_title": "The Hobbit",
+  "ol_author": "J.R.R. Tolkien",
+  "how": {
+   "title": "The Hobbit",
+   "author": "J.R.R. Tolkien"
+  }
+ },
+ {
+  "id": 140,
+  "title": "The Hunger Games",
+  "author": "Suzanne Collins",
+  "cover_id": 12646537,
+  "ol_key": "/works/OL5735363W",
+  "ol_title": "The Hunger Games",
+  "ol_author": "Suzanne Collins",
+  "how": {
+   "title": "The Hunger Games",
+   "author": "Suzanne Collins"
+  }
+ },
+ {
+  "id": 141,
+  "title": "The Idea of the Indian Constitution",
+  "author": "History for Peace (Seagull Foundation for the Arts)"
+ },
+ {
+  "id": 142,
+  "title": "The Kite Runner",
+  "author": "Khaled Hosseini",
+  "cover_id": 14846827,
+  "ol_key": "/works/OL5781992W",
+  "ol_title": "The Kite Runner",
+  "ol_author": "Khaled Hosseini",
+  "how": {
+   "title": "The Kite Runner",
+   "author": "Khaled Hosseini"
+  }
+ },
+ {
+  "id": 143,
+  "title": "The Lady of the Lake",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 12681713,
+  "ol_key": "/works/OL18132161W",
+  "ol_title": "Pani Jeziora",
+  "ol_author": "Andrzej Sapkowski",
+  "how": {
+   "q": "The Lady of the Lake Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 144,
+  "title": "The Last Don",
+  "author": "Mario Puzo",
+  "cover_id": 3848185,
+  "ol_key": "/works/OL1673258W",
+  "ol_title": "The Last Don",
+  "ol_author": "Mario Puzo",
+  "how": {
+   "title": "The Last Don",
+   "author": "Mario Puzo"
+  }
+ },
+ {
+  "id": 145,
+  "title": "The Last Wish",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 7360819,
+  "ol_key": "/works/OL2577482W",
+  "ol_title": "Ostatnie Życzenie",
+  "ol_author": "Andrzej Sapkowski",
+  "how": {
+   "q": "The Last Wish Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 146,
+  "title": "The Long Dark Tea-Time of the Soul",
+  "author": "Douglas Adams",
+  "cover_id": 11465134,
+  "ol_key": "/works/OL2163629W",
+  "ol_title": "The Long Dark Tea-Time of the Soul",
+  "ol_author": "Douglas Adams",
+  "how": {
+   "title": "The Long Dark Tea-Time of the Soul",
+   "author": "Douglas Adams"
+  }
+ },
+ {
+  "id": 147,
+  "title": "The Lord of the Rings",
+  "author": "J.R.R. Tolkien",
+  "cover_id": 14625765,
+  "ol_key": "/works/OL27448W",
+  "ol_title": "The Lord of the Rings",
+  "ol_author": "J.R.R. Tolkien",
+  "how": {
+   "title": "The Lord of the Rings",
+   "author": "J.R.R. Tolkien"
+  }
+ },
+ {
+  "id": 148,
+  "title": "The Love Hypothesis",
+  "author": "Ali Hazelwood",
+  "cover_id": 10601402,
+  "ol_key": "/works/OL24178205W",
+  "ol_title": "The Love Hypothesis",
+  "ol_author": "Ali Hazelwood",
+  "how": {
+   "title": "The Love Hypothesis",
+   "author": "Ali Hazelwood"
+  }
+ },
+ {
+  "id": 149,
+  "title": "The Naked Face",
+  "author": "Sidney Sheldon",
+  "cover_id": 9640110,
+  "ol_key": "/works/OL1881770W",
+  "ol_title": "The Naked Face",
+  "ol_author": "Sidney Sheldon",
+  "how": {
+   "title": "The Naked Face",
+   "author": "Sidney Sheldon"
+  }
+ },
+ {
+  "id": 150,
+  "title": "The Narrow Road to the Deep North",
+  "author": "Richard Flanagan",
+  "cover_id": 7307756,
+  "ol_key": "/works/OL17064845W",
+  "ol_title": "The Narrow Road to the Deep North",
+  "ol_author": "Richard Flanagan",
+  "how": {
+   "title": "The Narrow Road to the Deep North",
+   "author": "Richard Flanagan"
+  }
+ },
+ {
+  "id": 151,
+  "title": "The Pleasures of the Damned: Poems 1951–1993",
+  "author": "Charles Bukowski",
+  "cover_id": 4942101,
+  "ol_key": "/works/OL50422W",
+  "ol_title": "The Pleasures of the Damned",
+  "ol_author": "Charles Bukowski",
+  "how": {
+   "title": "The Pleasures of the Damned",
+   "author": "Charles Bukowski"
+  }
+ },
+ {
+  "id": 152,
+  "title": "The Portable MBA in Entrepreneurship",
+  "author": "William D. Bygrave & Andrew Zacharakis",
+  "cover_id": 301409,
+  "ol_key": "/works/OL2124359W",
+  "ol_title": "The portable MBA in entrepreneurship",
+  "ol_author": "William D. Bygrave",
+  "how": {
+   "title": "The Portable MBA in Entrepreneurship",
+   "author": "William D. Bygrave"
+  }
+ },
+ {
+  "id": 153,
+  "title": "The Portrait of a Lady",
+  "author": "Henry James",
+  "cover_id": 3352367,
+  "ol_key": "/works/OL276365W",
+  "ol_title": "The Portrait of a Lady",
+  "ol_author": "Henry James",
+  "how": {
+   "title": "The Portrait of a Lady",
+   "author": "Henry James"
+  }
+ },
+ {
+  "id": 154,
+  "title": "The Psychology of Stupidity",
+  "author": "Jean-François Marmion (editor)"
+ },
+ {
+  "id": 155,
+  "title": "The Reluctant Fundamentalist",
+  "author": "Mohsin Hamid",
+  "cover_id": 2010955,
+  "ol_key": "/works/OL489097W",
+  "ol_title": "The Reluctant Fundamentalist",
+  "ol_author": "Mohsin Hamid, Satya Bhabha",
+  "how": {
+   "title": "The Reluctant Fundamentalist",
+   "author": "Mohsin Hamid"
+  }
+ },
+ {
+  "id": 156,
+  "title": "The Republic",
+  "author": "Plato",
+  "cover_id": 14372887,
+  "ol_key": "/works/OL10328652W",
+  "ol_title": "The education of the young in The Republic of Plato",
+  "ol_author": "Plato, Bernard Bosanquet",
+  "how": {
+   "title": "The Republic",
+   "author": "Plato"
+  }
+ },
+ {
+  "id": 157,
+  "title": "The Richest Man in Babylon",
+  "author": "George S. Clason",
+  "cover_id": 10491331,
+  "ol_key": "/works/OL8165007W",
+  "ol_title": "The Richest Man in Babylon",
+  "ol_author": "George S. Clason",
+  "how": {
+   "title": "The Richest Man in Babylon",
+   "author": "George S. Clason"
+  }
+ },
+ {
+  "id": 158,
+  "title": "The Road to Wigan Pier",
+  "author": "George Orwell",
+  "cover_id": 116484,
+  "ol_key": "/works/OL1168126W",
+  "ol_title": "The Road to Wigan Pier",
+  "ol_author": "George Orwell",
+  "how": {
+   "title": "The Road to Wigan Pier",
+   "author": "George Orwell"
+  }
+ },
+ {
+  "id": 159,
+  "title": "The Rosie Project",
+  "author": "Graeme Simsion",
+  "cover_id": 10186221,
+  "ol_key": "/works/OL16813583W",
+  "ol_title": "The Rosie Project",
+  "ol_author": "Graeme Simsion",
+  "how": {
+   "title": "The Rosie Project",
+   "author": "Graeme Simsion"
+  }
+ },
+ {
+  "id": 160,
+  "title": "The Shock Doctrine",
+  "author": "Naomi Klein",
+  "cover_id": 13748432,
+  "ol_key": "/works/OL6017238W",
+  "ol_title": "The Shock Doctrine",
+  "ol_author": "Naomi Klein",
+  "how": {
+   "title": "The Shock Doctrine",
+   "author": "Naomi Klein"
+  }
+ },
+ {
+  "id": 161,
+  "title": "The Silence of the Lambs",
+  "author": "Thomas Harris",
+  "cover_id": 8580475,
+  "ol_key": "/works/OL23481W",
+  "ol_title": "The Silence of the Lambs",
+  "ol_author": "Thomas Harris",
+  "how": {
+   "title": "The Silence of the Lambs",
+   "author": "Thomas Harris"
+  }
+ },
+ {
+  "id": 162,
+  "title": "The Silk Roads: A New History of the World",
+  "author": "Peter Frankopan",
+  "cover_id": 8963642,
+  "ol_key": "/works/OL19666939W",
+  "ol_title": "The Silk Roads",
+  "ol_author": "Peter Frankopan",
+  "how": {
+   "title": "The Silk Roads",
+   "author": "Peter Frankopan"
+  }
+ },
+ {
+  "id": 163,
+  "title": "The Stand",
+  "author": "Stephen King",
+  "cover_id": 9255992,
+  "ol_key": "/works/OL81618W",
+  "ol_title": "The Stand",
+  "ol_author": "Stephen King",
+  "how": {
+   "title": "The Stand",
+   "author": "Stephen King"
+  }
+ },
+ {
+  "id": 164,
+  "title": "The Stasi Poetry Circle",
+  "author": "Philip Oltermann",
+  "cover_id": 14755918,
+  "ol_key": "/works/OL22137197W",
+  "ol_title": "The Stasi Poetry Circle",
+  "ol_author": "Philip Oltermann",
+  "how": {
+   "title": "The Stasi Poetry Circle",
+   "author": "Philip Oltermann"
+  }
+ },
+ {
+  "id": 165,
+  "title": "The Story of China",
+  "author": "Michael Wood",
+  "cover_id": 10121798,
+  "ol_key": "/works/OL20819618W",
+  "ol_title": "The Story of China",
+  "ol_author": "Wood, Michael",
+  "how": {
+   "title": "The Story of China",
+   "author": "Michael Wood"
+  }
+ },
+ {
+  "id": 166,
+  "title": "The Story of Stuff",
+  "author": "Annie Leonard",
+  "cover_id": 7990164,
+  "ol_key": "/works/OL15596865W",
+  "ol_title": "The story of stuff",
+  "ol_author": "Annie Leonard",
+  "how": {
+   "title": "The Story of Stuff",
+   "author": "Annie Leonard"
+  }
+ },
+ {
+  "id": 167,
+  "title": "The Ten-Day MBA",
+  "author": "Steven Silbiger",
+  "cover_id": 431263,
+  "ol_key": "/works/OL3919524W",
+  "ol_title": "The ten-day MBA",
+  "ol_author": "Steven Silbiger",
+  "how": {
+   "title": "The Ten-Day MBA",
+   "author": "Steven Silbiger"
+  }
+ },
+ {
+  "id": 168,
+  "title": "The Test",
+  "author": "Nathan Leamon"
+ },
+ {
+  "id": 169,
+  "title": "The Three-Body Problem",
+  "author": "Cixin Liu"
+ },
+ {
+  "id": 170,
+  "title": "The Thursday Murder Club",
+  "author": "Richard Osman",
+  "cover_id": 10201431,
+  "ol_key": "/works/OL20878311W",
+  "ol_title": "The Thursday Murder Club",
+  "ol_author": "Richard Osman",
+  "how": {
+   "title": "The Thursday Murder Club",
+   "author": "Richard Osman"
+  }
+ },
+ {
+  "id": 171,
+  "title": "The Tipping Point",
+  "author": "Malcolm Gladwell",
+  "cover_id": 10873292,
+  "ol_key": "/works/OL5749848W",
+  "ol_title": "The Tipping Point",
+  "ol_author": "Malcolm Gladwell",
+  "how": {
+   "title": "The Tipping Point",
+   "author": "Malcolm Gladwell"
+  }
+ },
+ {
+  "id": 172,
+  "title": "The Tower of the Swallow",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 4297939,
+  "ol_key": "/works/OL2577478W",
+  "ol_title": "Wieża jaskółki",
+  "ol_author": "Andrzej Sapkowski",
+  "how": {
+   "q": "The Tower of the Swallow Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 173,
+  "title": "The Ultimate Hitchhiker's Guide",
+  "author": "Douglas Adams",
+  "cover_id": 11972784,
+  "ol_key": "/works/OL25125779W",
+  "ol_title": "The Ultimate Hitchhiker's Guide to the Galaxy",
+  "ol_author": "Douglas Adams",
+  "how": {
+   "title": "The Ultimate Hitchhiker's Guide",
+   "author": "Douglas Adams"
+  }
+ },
+ {
+  "id": 174,
+  "title": "The Unbearable Lightness of Being",
+  "author": "Milan Kundera",
+  "cover_id": 967823,
+  "ol_key": "/works/OL8972751W",
+  "ol_title": "Nesnesitelná lehkost bytí",
+  "ol_author": "Milan Kundera",
+  "how": {
+   "q": "The Unbearable Lightness of Being Milan Kundera"
+  }
+ },
+ {
+  "id": 175,
+  "title": "Thirteen Reasons Why",
+  "author": "Jay Asher",
+  "cover_id": 15162168,
+  "ol_key": "/works/OL9264548W",
+  "ol_title": "Thirteen reasons why",
+  "ol_author": "Jay Asher, Jay Asher",
+  "how": {
+   "title": "Thirteen Reasons Why",
+   "author": "Jay Asher"
+  }
+ },
+ {
+  "id": 176,
+  "title": "Time of Contempt",
+  "author": "Andrzej Sapkowski",
+  "cover_id": 8309685,
+  "ol_key": "/works/OL2577481W",
+  "ol_title": "Czas pogardy",
+  "ol_author": "Andrzej Sapkowski",
+  "how": {
+   "q": "Time of Contempt Andrzej Sapkowski"
+  }
+ },
+ {
+  "id": 177,
+  "title": "Tom Jones",
+  "author": "Henry Fielding",
+  "cover_id": 12968864,
+  "ol_key": "/works/OL45623W",
+  "ol_title": "The History of Tom Jones",
+  "ol_author": "Henry Fielding",
+  "how": {
+   "title": "Tom Jones",
+   "author": "Henry Fielding"
+  }
+ },
+ {
+  "id": 178,
+  "title": "Tschick",
+  "author": "Wolfgang Herrndorf",
+  "cover_id": 8418261,
+  "ol_key": "/works/OL16621819W",
+  "ol_title": "Tschick",
+  "ol_author": "Wolfgang Herrndorf",
+  "how": {
+   "title": "Tschick",
+   "author": "Wolfgang Herrndorf"
+  }
+ },
+ {
+  "id": 179,
+  "title": "Twilight",
+  "author": "Stephenie Meyer",
+  "cover_id": 12641977,
+  "ol_key": "/works/OL5720023W",
+  "ol_title": "Twilight",
+  "ol_author": "Stephenie Meyer",
+  "how": {
+   "title": "Twilight",
+   "author": "Stephenie Meyer"
+  }
+ },
+ {
+  "id": 180,
+  "title": "Uncle Tom's Cabin",
+  "author": "Harriet Beecher Stowe",
+  "cover_id": 12728198,
+  "ol_key": "/works/OL152161W",
+  "ol_title": "Uncle Tom's Cabin",
+  "ol_author": "Harriet Beecher Stowe",
+  "how": {
+   "title": "Uncle Tom's Cabin",
+   "author": "Harriet Beecher Stowe"
+  }
+ },
+ {
+  "id": 181,
+  "title": "Unternehmen Deutsch: Aufbaukurs Lehrbuch",
+  "author": "Klett",
+  "cover_id": 11735944,
+  "ol_key": "/works/OL9873691W",
+  "ol_title": "Unternehmen Deutsch",
+  "ol_author": "Christine Conlin",
+  "how": {
+   "title": "Unternehmen Deutsch"
+  }
+ },
+ {
+  "id": 182,
+  "title": "Walking in Berlin",
+  "author": "Franz Hessel",
+  "cover_id": 8882068,
+  "ol_key": "/works/OL20228519W",
+  "ol_title": "Walking in Berlin",
+  "ol_author": "Franz Hessel",
+  "how": {
+   "title": "Walking in Berlin",
+   "author": "Franz Hessel"
+  }
+ },
+ {
+  "id": 183,
+  "title": "War and Peace",
+  "author": "Leo Tolstoy",
+  "cover_id": 12621906,
+  "ol_key": "/works/OL267171W",
+  "ol_title": "War and Peace",
+  "ol_author": "Leo Tolstoy",
+  "how": {
+   "title": "War and Peace",
+   "author": "Leo Tolstoy"
+  }
+ },
+ {
+  "id": 184,
+  "title": "What We Owe the Future",
+  "author": "William MacAskill",
+  "cover_id": 13110566,
+  "ol_key": "/works/OL27138977W",
+  "ol_title": "What We Owe the Future",
+  "ol_author": "William MacAskill",
+  "how": {
+   "title": "What We Owe the Future",
+   "author": "William MacAskill"
+  }
+ },
+ {
+  "id": 185,
+  "title": "Wild Irish Women",
+  "author": "Marian Broderick",
+  "cover_id": 159096,
+  "ol_key": "/works/OL5746454W",
+  "ol_title": "Wild Irish women",
+  "ol_author": "Marian Broderick",
+  "how": {
+   "title": "Wild Irish Women",
+   "author": "Marian Broderick"
+  }
+ },
+ {
+  "id": 186,
+  "title": "Wissen, Glaube und Ahndung",
+  "author": "Jakob Friedrich Fries",
+  "cover_id": 9756202,
+  "ol_key": "/works/OL13094968W",
+  "ol_title": "Wissen, glaube und Ahndung",
+  "ol_author": "Jakob Friedrich Fries",
+  "how": {
+   "title": "Wissen, Glaube und Ahndung",
+   "author": "Jakob Friedrich Fries"
+  }
+ },
+ {
+  "id": 187,
+  "title": "Xenocide",
+  "author": "Orson Scott Card",
+  "cover_id": 10564838,
+  "ol_key": "/works/OL49604W",
+  "ol_title": "Xenocide",
+  "ol_author": "Orson Scott Card",
+  "how": {
+   "title": "Xenocide",
+   "author": "Orson Scott Card"
+  }
+ },
+ {
+  "id": 188,
+  "title": "You Like It Darker",
+  "author": "Stephen King",
+  "cover_id": 14544172,
+  "ol_key": "/works/OL36914473W",
+  "ol_title": "You Like It Darker",
+  "ol_author": "Stephen King",
+  "how": {
+   "title": "You Like It Darker",
+   "author": "Stephen King"
+  }
+ }
+]
