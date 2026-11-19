@@ -87,3 +87,11 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Decision.** The 188 titles and 200 copies were copied from the old catalogue page into `supabase/02_import_books.sql`, which is in this repo. The librarian's personal reading statuses were imported with a separate file that is deliberately not in the repo.
 
 **Why.** The book list is fine to show publicly. Reading statuses are only meant for the librarian (that's what the `reading_status` table's rules enforce), so publishing them in a public repo would undo that. Book ids are set explicitly in the import so the copies can refer to them, and the id counter is moved on afterwards so new books continue from 189.
+
+## 9. The Restricted Section also protects fragile copies
+
+**Decision.** Besides the two books restricted for their content, 15 titles whose copies are too worn to lend freely also need the librarian's approval: Harry Potter 1–7, The Lord of the Rings, A Tale of Two Cities, Life and Character of Dickens, The Early Asimov Volume 1, Dr Jekyll and Mr Hyde, The Adventures of Tom Sawyer, A Century of Science Fiction and The Long Dark Tea-Time of the Soul. A new `restricted_reason` field ('Sensitive content' or 'Fragile copy') tells members why a book is restricted.
+
+**Why per title, not per copy.** Harry Potter 1 and 7 each have one worn copy and one in better shape. Marking individual copies would keep the better copy auto-confirmed, but it needs a per-copy flag and makes availability harder to work out. Restricting the whole title reuses the existing approval rule with no new logic. Since the librarian picks the copy at hand-over anyway, nothing is lost. This can move to per-copy later if it becomes a nuisance.
+
+**Why show a reason.** One "Restricted" label for both Mein Kampf and Harry Potter would confuse members; a short reason explains the wait.
