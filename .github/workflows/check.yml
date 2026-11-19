@@ -1,0 +1,19 @@
+# Runs on every pull request: install, test and build, so a broken change
+# shows a red cross on the pull request before it reaches the live site.
+name: Check
+
+on:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build

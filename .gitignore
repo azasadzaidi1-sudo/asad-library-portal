@@ -1,0 +1,13 @@
+# Installed packages and build output: recreated by `npm ci` and `npm run build`
+node_modules/
+dist/
+
+# Secrets and private data never go into this public repo
+.env
+.env.*
+*_PRIVATE.sql
+
+# Editor and system clutter
+.DS_Store
+.vscode/
+*.log
