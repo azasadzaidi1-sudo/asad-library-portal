@@ -1,6 +1,7 @@
 // Every conversation with the database lives here, so the screens only
 // deal with plain data and friendly error messages.
 import { supabase } from '../supabaseClient'
+import { localDate } from './desk'
 
 const BOOK_COLUMNS =
   'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, restricted, restricted_reason, cover_id'
@@ -94,15 +95,15 @@ export async function loadLibrarianDetails(bookId) {
   const copies = unwrap(
     await supabase.from('copies').select('id, edition_note').eq('book_id', bookId).order('id'),
   )
-  const [loans, queue, reading, interested] = await Promise.all([
+  const [loans, queue, reading, interested, members] = await Promise.all([
     supabase
       .from('loans')
-      .select('id, copy_id, lent_on, due_on, member:members(name, city)')
+      .select('id, copy_id, member_id, lent_on, due_on, member:members(name, city)')
       .is('returned_on', null)
       .in('copy_id', copies.map((c) => c.id)),
     supabase
       .from('reservations')
-      .select('id, status, created_at, member:members(name, city)')
+      .select('id, status, created_at, member_id, member:members(name, city)')
       .eq('book_id', bookId)
       .in('status', ['pending_approval', 'active'])
       .order('created_at'),
@@ -112,6 +113,7 @@ export async function loadLibrarianDetails(bookId) {
       .select('created_at, member:members(name, city)')
       .eq('book_id', bookId)
       .order('created_at'),
+    loadMembers(),
   ])
   const loansByCopy = new Map(unwrap(loans).map((loan) => [loan.copy_id, loan]))
   return {
@@ -119,6 +121,7 @@ export async function loadLibrarianDetails(bookId) {
     queue: unwrap(queue),
     readingStatus: unwrap(reading)?.status ?? 'unread',
     interested: unwrap(interested),
+    members,
   }
 }
 
@@ -142,4 +145,54 @@ export async function setInterested(bookId, memberId, interested) {
     ? await supabase.from('interests').insert({ book_id: bookId, member_id: memberId })
     : await supabase.from('interests').delete().eq('book_id', bookId).eq('member_id', memberId)
   unwrap(result, (error) => `Your interested list wasn't updated: ${error.message}`)
+}
+
+// ---------- Lending (librarian only) ----------
+
+// Every member with whether they already have a book out, for the "Lend to" list.
+export async function loadMembers() {
+  const [members, loans] = await Promise.all([
+    supabase.from('members').select('id, name, city').order('name'),
+    supabase.from('loans').select('member_id').is('returned_on', null),
+  ])
+  const borrowing = new Set(unwrap(loans).map((l) => l.member_id))
+  return unwrap(members).map((m) => ({ ...m, hasBook: borrowing.has(m.id) }))
+}
+
+// Everything the lending desk needs in one go.
+export async function loadDesk() {
+  const [copies, loans, reservations, members] = await Promise.all([
+    supabase.from('copies').select('id, book_id, edition_note').order('id'),
+    supabase
+      .from('loans')
+      .select('id, copy_id, member_id, lent_on, due_on, member:members(name, city)')
+      .is('returned_on', null),
+    supabase
+      .from('reservations')
+      .select('id, book_id, member_id, status, created_at, member:members(name, city)')
+      .in('status', ['pending_approval', 'active'])
+      .order('created_at'),
+    loadMembers(),
+  ])
+  return { copies: unwrap(copies), loans: unwrap(loans), reservations: unwrap(reservations), members }
+}
+
+// Lends a copy (and closes the member's reservation for it, if they had one)
+// in a single database step: see supabase/05_lending.sql.
+export async function lendCopy(copyId, memberId, reservationId = null) {
+  unwrap(
+    await supabase.rpc('lend_copy', {
+      p_copy_id: copyId,
+      p_member_id: memberId,
+      p_lent_on: localDate(),
+      p_reservation_id: reservationId,
+    }),
+  )
+}
+
+export async function returnLoan(loanId) {
+  unwrap(
+    await supabase.from('loans').update({ returned_on: localDate() }).eq('id', loanId),
+    (error) => `The return wasn't saved: ${error.message}`,
+  )
 }

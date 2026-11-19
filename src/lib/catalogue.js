@@ -135,3 +135,9 @@ export const READING_STATUSES = [
   { value: 'reading', label: 'Reading' },
   { value: 'read', label: 'Read' },
 ]
+
+// "Sara (Hamburg)", or a stand-in for a member who hasn't filled in their name yet.
+export function memberLabel(member) {
+  if (!member?.name) return 'A new member (no name yet)'
+  return member.city ? `${member.name} (${member.city})` : member.name
+}

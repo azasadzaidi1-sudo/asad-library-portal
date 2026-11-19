@@ -147,3 +147,13 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **How the covers were matched.** A one-off script ran on GitHub Actions (the development workspace can't reach Open Library): it searched by title and author, then drew contact sheets of all 188 matches so every cover could be checked by eye. A second pass collected alternative covers for wrong or foreign-language matches (for example a Spanish *Shock Doctrine*) and the right ones were picked by hand.
 
 **Why link instead of copying the images.** Cover art is copyrighted, and copying it into a public repository would mean redistributing it. *Trade-off:* each visitor's browser contacts Open Library (run by the Internet Archive) to load covers, unlike the fonts, which are bundled (decision 13). For an invite-only library among friends that's acceptable; the alternative would be storing copies in private Supabase Storage.
+
+## 18. The lending desk
+
+**Decision.** The librarian gets a "Lending desk" page with four tabs, each with a count: Overdue, Reserved, Lent out and Available. It opens on the first tab that needs attention. Handing over a reserved book is one click ("Lend to Lena"); any free copy can also be lent straight to a member without a reservation, for a friend picking a book at the librarian's place. The same Lend and Mark returned buttons appear in each book's pop-up. Returns ask for a second click to confirm. A ready reservation is held until the librarian cancels it; the desk shows how many days it has waited.
+
+**Why computed, not stored.** The four groups are worked out in `src/lib/desk.js` from copies, open loans and open reservations each time the page loads, so there's no status column that could drift out of step. Each book's queue is walked in order: earlier reservations claim the copies on the shelf, and only unclaimed copies count as available. This is the same rule members see in "You're 2nd in the queue".
+
+**Why lending is a database function.** Lending writes a loan *and* closes the member's reservation. `lend_copy()` (in `supabase/05_lending.sql`) does both in one transaction, refuses with a plain message when the copy is already out or the member already has a book, and finds the member's reservation by itself if the desk didn't name one. It runs with the caller's rights, so the existing rules still allow only the librarian to lend. The app passes the date, because the database clock runs on UTC and a loan made after midnight in Berlin would otherwise be dated the day before.
+
+**Left for later.** Extending a loan and back-dating loans weren't needed yet; extending would need the due date to stop being a fixed "lent on + 28 days" column.
