@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import {
   availability,
+  coverUrl,
+  describeMyReservation,
+  isOverdue,
+  ordinal,
   awardName,
   countBy,
   filingTitle,
@@ -99,5 +103,33 @@ describe('countBy', () => {
     const awards = countBy(books, (b) => b.prizes.map(awardName))
     expect(awards).toContainEqual({ value: 'Hugo Award', count: 2 })
     expect(awards[0].value).toBe('Arthur C. Clarke Award')
+  })
+})
+
+describe('reservations', () => {
+  it('writes ordinals', () => {
+    expect([1, 2, 3, 4, 11, 12, 13, 21, 22, 101].map(ordinal))
+      .toEqual(['1st', '2nd', '3rd', '4th', '11th', '12th', '13th', '21st', '22nd', '101st'])
+  })
+
+  it('says when a request still needs approval', () => {
+    expect(describeMyReservation({ status: 'pending_approval', queue_place: 1 }).state).toBe('pending')
+  })
+
+  it('says a copy is waiting when enough are on the shelf', () => {
+    const counts = { copies_total: 2, copies_out: 1 }
+    expect(describeMyReservation({ status: 'active', queue_place: 1 }, counts).state).toBe('ready')
+    expect(describeMyReservation({ status: 'active', queue_place: 2 }, counts).text)
+      .toBe("You're 2nd in the queue")
+  })
+
+  it('builds cover addresses and handles missing covers', () => {
+    expect(coverUrl(123, 'S')).toBe('https://covers.openlibrary.org/b/id/123-S.jpg')
+    expect(coverUrl(null)).toBeNull()
+  })
+
+  it('knows when a loan is overdue', () => {
+    expect(isOverdue('2026-12-17', new Date('2026-12-17T20:00:00'))).toBe(false)
+    expect(isOverdue('2026-12-17', new Date('2026-12-18T09:00:00'))).toBe(true)
   })
 })

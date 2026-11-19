@@ -1,62 +1,33 @@
-import { useEffect, useMemo, useState } from 'react'
-import { supabase } from '../supabaseClient'
-import { awardName, countBy, filterBooks, languageName, sortByFilingTitle } from '../lib/catalogue'
+import { useMemo, useState } from 'react'
+import { awardName, countBy, filterBooks, languageName } from '../lib/catalogue'
+import ApprovalBox from './ApprovalBox'
 import BookCard from './BookCard'
 
-const NO_FILTERS = { query: '', genre: '', award: '', language: '' }
+export const NO_FILTERS = { query: '', genre: '', award: '', language: '' }
 
-const BOOK_COLUMNS =
-  'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, restricted, restricted_reason'
-
-export default function Catalogue() {
-  const [books, setBooks] = useState(null)
-  const [availabilityById, setAvailabilityById] = useState(new Map())
-  const [error, setError] = useState('')
-  const [filters, setFilters] = useState(NO_FILTERS)
+export default function Catalogue({ library, filters, setFilters, onOpenBook }) {
   const [showFilters, setShowFilters] = useState(false) // phones only: filters fold away
+  const { books } = library
 
-  useEffect(() => {
-    // Two requests at once: the books, and the counts of copies out / people waiting.
-    Promise.all([
-      supabase.from('books').select(BOOK_COLUMNS).limit(1000),
-      supabase.rpc('book_availability'),
-    ]).then(([booksResult, availabilityResult]) => {
-      const failed = booksResult.error || availabilityResult.error
-      if (failed) {
-        setError(failed.message)
-        return
-      }
-      setBooks(sortByFilingTitle(booksResult.data))
-      setAvailabilityById(new Map(availabilityResult.data.map((row) => [row.book_id, row])))
-    })
-  }, [])
-
-  const options = useMemo(() => {
-    if (!books) return null
-    return {
+  const options = useMemo(
+    () => ({
       genres: countBy(books, (b) => [b.genre]),
       awards: countBy(books, (b) => (b.prizes ?? []).map(awardName)),
       languages: countBy(books, (b) => [b.language]),
-    }
-  }, [books])
+    }),
+    [books],
+  )
 
-  const shown = useMemo(() => (books ? filterBooks(books, filters) : []), [books, filters])
-
-  if (error) {
-    return (
-      <p className="status-page" role="alert">
-        The catalogue couldn't load: {error}. Refresh the page to try again.
-      </p>
-    )
-  }
-  if (!books) return <p className="status-page">Opening the catalogue drawers…</p>
-
+  const shown = useMemo(() => filterBooks(books, filters), [books, filters])
   const filtered = Object.values(filters).some(Boolean)
   const dropdownsInUse = [filters.genre, filters.award, filters.language].filter(Boolean).length
   const update = (key) => (event) => setFilters({ ...filters, [key]: event.target.value })
 
   return (
     <>
+      <h1 className="visually-hidden">Catalogue</h1>
+      {library.isLibrarian && <ApprovalBox library={library} onOpenBook={onOpenBook} />}
+
       <form className={`finder${showFilters ? ' finder-open' : ''}`} role="search"
         onSubmit={(e) => e.preventDefault()}>
         <label className="finder-search">
@@ -123,7 +94,12 @@ export default function Catalogue() {
         <ul className="drawer">
           {shown.map((book) => (
             <li key={book.id}>
-              <BookCard book={book} counts={availabilityById.get(book.id)} />
+              <BookCard
+                book={book}
+                counts={library.availability.get(book.id)}
+                interested={library.interests.has(book.id)}
+                onOpen={() => onOpenBook(book.id)}
+              />
             </li>
           ))}
         </ul>

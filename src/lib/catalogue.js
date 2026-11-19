@@ -90,3 +90,48 @@ export function countBy(books, valuesOf) {
     .map(([value, count]) => ({ value, count }))
     .sort((a, b) => a.value.localeCompare(b.value))
 }
+
+// ---------- Covers ----------
+
+// Open Library serves covers by number; size is S, M or L.
+export function coverUrl(coverId, size = 'M') {
+  return coverId ? `https://covers.openlibrary.org/b/id/${coverId}-${size}.jpg` : null
+}
+
+// ---------- Reservations ----------
+
+export function ordinal(n) {
+  const tens = n % 100
+  if (tens >= 11 && tens <= 13) return `${n}th`
+  return `${n}${{ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] ?? 'th'}`
+}
+
+// What a member's own open reservation means right now.
+//   reservation: { status, queue_place } from my_open_reservation()
+//   counts:      { copies_total, copies_out } from book_availability()
+export function describeMyReservation(reservation, counts = {}) {
+  if (reservation.status === 'pending_approval') {
+    return { state: 'pending', text: "Waiting for Asad's approval" }
+  }
+  const onShelf = Math.max((counts.copies_total ?? 0) - (counts.copies_out ?? 0), 0)
+  if (reservation.queue_place <= onShelf) {
+    return { state: 'ready', text: 'A copy is waiting for you. Asad will arrange the handover.' }
+  }
+  return { state: 'queued', text: `You're ${ordinal(reservation.queue_place)} in the queue` }
+}
+
+// Due dates and request dates, written the British way: 17 Dec 2026.
+export function formatDate(value) {
+  return new Date(value).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+}
+
+export function isOverdue(dueOn, today = new Date()) {
+  return new Date(`${dueOn}T23:59:59`) < today
+}
+
+export const READING_STATUSES = [
+  { value: 'unread', label: 'Unread' },
+  { value: 'next', label: 'Next up' },
+  { value: 'reading', label: 'Reading' },
+  { value: 'read', label: 'Read' },
+]

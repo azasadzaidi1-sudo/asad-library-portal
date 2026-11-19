@@ -125,3 +125,25 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Decision.** The catalogue logic (filters, availability wording, filing order) lives in plain functions in `src/lib/catalogue.js` with unit tests (Vitest). A GitHub Actions check runs the tests and a build on every pull request, and the deploy workflow runs them again before publishing.
 
 **Why.** Keeping logic out of the screens makes it easy to test, and the automatic check means a mistake shows up as a red cross on the pull request rather than on the live site.
+
+## 15. Reservations, approvals and the Interested list
+
+**Decision.** Members reserve from a book's pop-up, one book at a time, and can cancel. Restricted Section requests appear in a "Waiting for your approval" box above the librarian's catalogue. A declined request shows on the member's "My books" page for a week. Members can also mark books as interested; that list is visible to the member and the librarian, and to nobody else.
+
+**How the queue works.** The queue is first come, first served. Members can't see other people's reservations, so `my_open_reservation()` (in `supabase/04_reservations_and_covers.sql`) counts with the owner's rights and returns only the member's own reservation and its place, e.g. "You're 2nd in the queue". The one-reservation rule was already enforced by the database (decision 7), so the app only turns that error into a plain sentence.
+
+**Why the Interested list is shared with the librarian.** It shows which books friends want, which helps decide what to lend next or buy a second copy of. *Considered:* private (simpler, but less useful to the librarian) and visible to all members (more social, but needs more privacy rules).
+
+## 16. A pop-up per book and a "My books" page
+
+**Decision.** Clicking a card opens the book in a pop-up over the list, so search, filters and scroll position stay put. "My books" is a separate page, reached from the top bar, with three shelves: Borrowed, Reserved and Interested. The two pages are switched with the address bar's `#my-books`, so the back button works without adding a routing library.
+
+**Why a pop-up without its own link.** It's the lightest option and keeps people in the catalogue. *Considered:* a pop-up that also changes the address (shareable link to one book) and a separate page per book (filters would need extra work to survive going back).
+
+## 17. Covers from Open Library, linked rather than copied
+
+**Decision.** Each book stores the number of its cover at Open Library, a free non-profit book database, and the app loads the picture from Open Library's cover service. Books without a good match show a cloth-bound placeholder with their first letter.
+
+**How the covers were matched.** A one-off script ran on GitHub Actions (the development workspace can't reach Open Library): it searched by title and author, then drew contact sheets of all 188 matches so every cover could be checked by eye. A second pass collected alternative covers for wrong or foreign-language matches (for example a Spanish *Shock Doctrine*) and the right ones were picked by hand.
+
+**Why link instead of copying the images.** Cover art is copyrighted, and copying it into a public repository would mean redistributing it. *Trade-off:* each visitor's browser contacts Open Library (run by the Internet Archive) to load covers, unlike the fonts, which are bundled (decision 13). For an invite-only library among friends that's acceptable; the alternative would be storing copies in private Supabase Storage.
