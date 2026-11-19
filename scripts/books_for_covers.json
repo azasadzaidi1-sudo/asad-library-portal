@@ -1,0 +1,1318 @@
+[
+{
+"id": 1,
+"title": "'Salem's Lot",
+"author": "Stephen King",
+"language": "en",
+"year": 1975
+},
+{
+"id": 2,
+"title": "13 Things Mentally Strong People Don't Do",
+"author": "Amy Morin",
+"language": "en",
+"year": 2014
+},
+{
+"id": 3,
+"title": "50 Great Short Stories",
+"author": "Milton Crane (editor)",
+"language": "en",
+"year": 1952
+},
+{
+"id": 4,
+"title": "A Brief History of Japan",
+"author": "Jonathan Clements",
+"language": "en",
+"year": 2017
+},
+{
+"id": 5,
+"title": "A Century of Science Fiction",
+"author": "Damon Knight (editor)",
+"language": "en",
+"year": 1962
+},
+{
+"id": 6,
+"title": "A Clash of Kings",
+"author": "George R.R. Martin",
+"language": "en",
+"year": 1998
+},
+{
+"id": 7,
+"title": "A Dance with Dragons",
+"author": "George R.R. Martin",
+"language": "en",
+"year": 2011
+},
+{
+"id": 8,
+"title": "A Feast for Crows",
+"author": "George R.R. Martin",
+"language": "en",
+"year": 2005
+},
+{
+"id": 9,
+"title": "A Game of Thrones",
+"author": "George R.R. Martin",
+"language": "en",
+"year": 1996
+},
+{
+"id": 10,
+"title": "A History of Japan",
+"author": "R.H.P. Mason & J.G. Caiger",
+"language": "en",
+"year": 1972
+},
+{
+"id": 11,
+"title": "A Short History of Europe",
+"author": "Simon Jenkins",
+"language": "en",
+"year": 2018
+},
+{
+"id": 12,
+"title": "A Storm of Swords",
+"author": "George R.R. Martin",
+"language": "en",
+"year": 2000
+},
+{
+"id": 13,
+"title": "A Tale of Two Cities",
+"author": "Charles Dickens",
+"language": "en",
+"year": 1859
+},
+{
+"id": 14,
+"title": "A Year of Positive Thinking",
+"author": "Cyndie Spiegel",
+"language": "en",
+"year": 2018
+},
+{
+"id": 15,
+"title": "About a Boy",
+"author": "Nick Hornby",
+"language": "en",
+"year": 1998
+},
+{
+"id": 16,
+"title": "American Gods",
+"author": "Neil Gaiman",
+"language": "en",
+"year": 2001
+},
+{
+"id": 17,
+"title": "Anna Karenina",
+"author": "Leo Tolstoy",
+"language": "en",
+"year": 1878
+},
+{
+"id": 18,
+"title": "Aspekte: Mittelstufe Deutsch 1, Teil 1",
+"author": "Langenscheidt",
+"language": "de",
+"year": null
+},
+{
+"id": 19,
+"title": "Ausweg",
+"author": "Edward St Aubyn",
+"language": "de",
+"year": 2000
+},
+{
+"id": 20,
+"title": "Autobiography of a Yogi",
+"author": "Paramahansa Yogananda",
+"language": "en",
+"year": 1946
+},
+{
+"id": 21,
+"title": "Baptism of Fire",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 1996
+},
+{
+"id": 22,
+"title": "Bird by Bird",
+"author": "Anne Lamott",
+"language": "en",
+"year": 1994
+},
+{
+"id": 23,
+"title": "Blood of Elves",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 1994
+},
+{
+"id": 24,
+"title": "Brave New World",
+"author": "Aldous Huxley",
+"language": "en",
+"year": 1932
+},
+{
+"id": 25,
+"title": "Buckskin Brigades",
+"author": "L. Ron Hubbard",
+"language": "en",
+"year": 1937
+},
+{
+"id": 26,
+"title": "Business the Richard Branson Way",
+"author": "Des Dearlove",
+"language": "en",
+"year": null
+},
+{
+"id": 27,
+"title": "Capital",
+"author": "Karl Marx",
+"language": "en",
+"year": 1867
+},
+{
+"id": 28,
+"title": "Color and Light",
+"author": "James Gurney",
+"language": "en",
+"year": 2010
+},
+{
+"id": 29,
+"title": "Creating Character Arcs",
+"author": "K.M. Weiland",
+"language": "en",
+"year": 2016
+},
+{
+"id": 30,
+"title": "Crossroads of Ravens",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 2024
+},
+{
+"id": 31,
+"title": "Dark Places",
+"author": "Gillian Flynn",
+"language": "en",
+"year": 2009
+},
+{
+"id": 32,
+"title": "Dastak Na Do (دستک نہ دو)",
+"author": "Altaf Fatima",
+"language": "ur",
+"year": 1964
+},
+{
+"id": 33,
+"title": "Daughters",
+"author": "Paule Marshall",
+"language": "en",
+"year": 1991
+},
+{
+"id": 34,
+"title": "David Copperfield",
+"author": "Charles Dickens",
+"language": "en",
+"year": 1850
+},
+{
+"id": 35,
+"title": "Deadhouse Gates",
+"author": "Steven Erikson",
+"language": "en",
+"year": 2000
+},
+{
+"id": 36,
+"title": "Death by Shakespeare",
+"author": "Kathryn Harkup",
+"language": "en",
+"year": 2020
+},
+{
+"id": 37,
+"title": "Death's End",
+"author": "Cixin Liu",
+"language": "en",
+"year": 2010
+},
+{
+"id": 38,
+"title": "Die Winterrose",
+"author": "Jennifer Donnelly",
+"language": "de",
+"year": 2008
+},
+{
+"id": 39,
+"title": "Different Seasons",
+"author": "Stephen King",
+"language": "en",
+"year": 1982
+},
+{
+"id": 40,
+"title": "Digital Fortress",
+"author": "Dan Brown",
+"language": "en",
+"year": 1998
+},
+{
+"id": 41,
+"title": "Do the Work",
+"author": "Steven Pressfield",
+"language": "en",
+"year": 2011
+},
+{
+"id": 42,
+"title": "Dolores Claiborne",
+"author": "Stephen King",
+"language": "en",
+"year": 1992
+},
+{
+"id": 43,
+"title": "Dr Jekyll and Mr Hyde",
+"author": "Robert Louis Stevenson",
+"language": "en",
+"year": 1886
+},
+{
+"id": 44,
+"title": "Dracula",
+"author": "Bram Stoker",
+"language": "en",
+"year": 1897
+},
+{
+"id": 45,
+"title": "Drawing on the Right Side of the Brain",
+"author": "Betty Edwards",
+"language": "en",
+"year": 1979
+},
+{
+"id": 46,
+"title": "Dune",
+"author": "Frank Herbert",
+"language": "en",
+"year": 1965
+},
+{
+"id": 47,
+"title": "Everything Is F*cked: A Book About Hope",
+"author": "Mark Manson",
+"language": "en",
+"year": 2019
+},
+{
+"id": 48,
+"title": "Fall of Civilizations: Stories of Greatness and Decline",
+"author": "Paul M.M. Cooper",
+"language": "en",
+"year": 2024
+},
+{
+"id": 49,
+"title": "Finders Keepers",
+"author": "Stephen King",
+"language": "en",
+"year": 2015
+},
+{
+"id": 50,
+"title": "Fool's Errand",
+"author": "Robin Hobb",
+"language": "en",
+"year": 2001
+},
+{
+"id": 51,
+"title": "Framed Perspective Vol. 1",
+"author": "Marcos Mateu-Mestre",
+"language": "en",
+"year": 2016
+},
+{
+"id": 52,
+"title": "Franklin Flyer",
+"author": "Nicholas Christopher",
+"language": "en",
+"year": 2002
+},
+{
+"id": 53,
+"title": "Freeman's: Change",
+"author": "John Freeman (editor)",
+"language": "en",
+"year": 2021
+},
+{
+"id": 54,
+"title": "Future Shock",
+"author": "Alvin Toffler",
+"language": "en",
+"year": 1970
+},
+{
+"id": 55,
+"title": "Gardens of the Moon",
+"author": "Steven Erikson",
+"language": "en",
+"year": 1999
+},
+{
+"id": 56,
+"title": "Globalization and Its Discontents",
+"author": "Joseph E. Stiglitz",
+"language": "en",
+"year": 2002
+},
+{
+"id": 57,
+"title": "Great Expectations",
+"author": "Charles Dickens",
+"language": "en",
+"year": 1861
+},
+{
+"id": 58,
+"title": "Harry Potter and the Chamber of Secrets",
+"author": "J.K. Rowling",
+"language": "en",
+"year": 1998
+},
+{
+"id": 59,
+"title": "Harry Potter and the Deathly Hallows",
+"author": "J.K. Rowling",
+"language": "en",
+"year": 2007
+},
+{
+"id": 60,
+"title": "Harry Potter and the Goblet of Fire",
+"author": "J.K. Rowling",
+"language": "en",
+"year": 2000
+},
+{
+"id": 61,
+"title": "Harry Potter and the Half-Blood Prince",
+"author": "J.K. Rowling",
+"language": "en",
+"year": 2005
+},
+{
+"id": 62,
+"title": "Harry Potter and the Order of the Phoenix",
+"author": "J.K. Rowling",
+"language": "en",
+"year": 2003
+},
+{
+"id": 63,
+"title": "Harry Potter and the Philosopher's Stone",
+"author": "J.K. Rowling",
+"language": "en",
+"year": 1997
+},
+{
+"id": 64,
+"title": "Harry Potter and the Prisoner of Azkaban",
+"author": "J.K. Rowling",
+"language": "en",
+"year": 1999
+},
+{
+"id": 65,
+"title": "Harry Potter und das verwunschene Kind",
+"author": "J.K. Rowling, John Tiffany & Jack Thorne",
+"language": "de",
+"year": 2016
+},
+{
+"id": 66,
+"title": "Hearts in Atlantis",
+"author": "Stephen King",
+"language": "en",
+"year": 1999
+},
+{
+"id": 67,
+"title": "Hüttenkochbuch",
+"author": "Melanie Zanin",
+"language": "de",
+"year": null
+},
+{
+"id": 68,
+"title": "I, Claudius",
+"author": "Robert Graves",
+"language": "en",
+"year": 1934
+},
+{
+"id": 69,
+"title": "In Search of the Miraculous",
+"author": "P.D. Ouspensky",
+"language": "en",
+"year": 1947
+},
+{
+"id": 70,
+"title": "Inferno",
+"author": "Dan Brown",
+"language": "en",
+"year": 2013
+},
+{
+"id": 71,
+"title": "Jane Eyre",
+"author": "Charlotte Brontë",
+"language": "en",
+"year": 1847
+},
+{
+"id": 72,
+"title": "Jenseits von Mitternacht",
+"author": "Sidney Sheldon",
+"language": "de",
+"year": 1973
+},
+{
+"id": 73,
+"title": "Jurassic Park",
+"author": "Michael Crichton",
+"language": "en",
+"year": 1990
+},
+{
+"id": 74,
+"title": "Keys to Drawing",
+"author": "Bert Dodson",
+"language": "en",
+"year": 1985
+},
+{
+"id": 75,
+"title": "Kochen für junge Leute",
+"author": "Brigitte",
+"language": "de",
+"year": null
+},
+{
+"id": 76,
+"title": "Let the Great World Spin",
+"author": "Colum McCann",
+"language": "en",
+"year": 2009
+},
+{
+"id": 77,
+"title": "Life and Character of Dickens",
+"author": "H.C. Dent",
+"language": "en",
+"year": null
+},
+{
+"id": 78,
+"title": "Live by Night",
+"author": "Dennis Lehane",
+"language": "en",
+"year": 2012
+},
+{
+"id": 79,
+"title": "Long Walk to Freedom",
+"author": "Nelson Mandela",
+"language": "en",
+"year": 1994
+},
+{
+"id": 80,
+"title": "Mansfield Park",
+"author": "Jane Austen",
+"language": "en",
+"year": 1814
+},
+{
+"id": 81,
+"title": "Meditations",
+"author": "Marcus Aurelius",
+"language": "en",
+"year": null
+},
+{
+"id": 82,
+"title": "Mein Kampf",
+"author": "Adolf Hitler",
+"language": "en",
+"year": 1925
+},
+{
+"id": 83,
+"title": "Moby-Dick",
+"author": "Herman Melville",
+"language": "en",
+"year": 1851
+},
+{
+"id": 84,
+"title": "Mortal Engines",
+"author": "Philip Reeve",
+"language": "en",
+"year": 2001
+},
+{
+"id": 85,
+"title": "Nachts im Kanzleramt",
+"author": "Marietta Slomka",
+"language": "de",
+"year": 2022
+},
+{
+"id": 86,
+"title": "Negotiate to Close",
+"author": "Gary Karrass",
+"language": "en",
+"year": 1985
+},
+{
+"id": 87,
+"title": "Neuromancer",
+"author": "William Gibson",
+"language": "en",
+"year": 1984
+},
+{
+"id": 88,
+"title": "Next",
+"author": "Michael Crichton",
+"language": "en",
+"year": 2006
+},
+{
+"id": 89,
+"title": "Nineteen Eighty-Four",
+"author": "George Orwell",
+"language": "en",
+"year": 1949
+},
+{
+"id": 90,
+"title": "Omertà",
+"author": "Mario Puzo",
+"language": "en",
+"year": 2000
+},
+{
+"id": 91,
+"title": "On Writing: A Memoir of the Craft",
+"author": "Stephen King",
+"language": "en",
+"year": 2000
+},
+{
+"id": 92,
+"title": "One Day",
+"author": "David Nicholls",
+"language": "en",
+"year": 2009
+},
+{
+"id": 93,
+"title": "Other People's Children",
+"author": "Joanna Trollope",
+"language": "en",
+"year": 1998
+},
+{
+"id": 94,
+"title": "Outlining Your Novel",
+"author": "K.M. Weiland",
+"language": "en",
+"year": 2011
+},
+{
+"id": 95,
+"title": "Perdido Street Station",
+"author": "China Miéville",
+"language": "en",
+"year": 2000
+},
+{
+"id": 96,
+"title": "Perspective Made Easy",
+"author": "Ernest R. Norling",
+"language": "en",
+"year": 1939
+},
+{
+"id": 97,
+"title": "Ready Player One",
+"author": "Ernest Cline",
+"language": "en",
+"year": 2011
+},
+{
+"id": 98,
+"title": "Rosen für Afrika",
+"author": "Ludwig Fels",
+"language": "de",
+"year": null
+},
+{
+"id": 99,
+"title": "SPQR: A History of Ancient Rome",
+"author": "Mary Beard",
+"language": "en",
+"year": 2015
+},
+{
+"id": 100,
+"title": "Save the Cat! Writes a Novel",
+"author": "Jessica Brody",
+"language": "en",
+"year": 2018
+},
+{
+"id": 101,
+"title": "Schritte plus Neu 5",
+"author": "Hueber",
+"language": "de",
+"year": null
+},
+{
+"id": 102,
+"title": "Schritte plus Neu 6",
+"author": "Hueber",
+"language": "de",
+"year": null
+},
+{
+"id": 103,
+"title": "Sea of Silver Light",
+"author": "Tad Williams",
+"language": "en",
+"year": 2001
+},
+{
+"id": 104,
+"title": "Season of Storms",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 2013
+},
+{
+"id": 105,
+"title": "Sense and Sensibility",
+"author": "Jane Austen",
+"language": "en",
+"year": 1811
+},
+{
+"id": 106,
+"title": "Shakespeare: The World as Stage",
+"author": "Bill Bryson",
+"language": "en",
+"year": 2007
+},
+{
+"id": 107,
+"title": "Shuggie Bain",
+"author": "Douglas Stuart",
+"language": "en",
+"year": 2020
+},
+{
+"id": 108,
+"title": "Shōgun",
+"author": "James Clavell",
+"language": "en",
+"year": 1975
+},
+{
+"id": 109,
+"title": "Sick Puppy",
+"author": "Carl Hiaasen",
+"language": "en",
+"year": 2000
+},
+{
+"id": 110,
+"title": "Speaker for the Dead",
+"author": "Orson Scott Card",
+"language": "en",
+"year": 1986
+},
+{
+"id": 111,
+"title": "Sprint",
+"author": "Jake Knapp, John Zeratsky & Braden Kowitz",
+"language": "en",
+"year": 2016
+},
+{
+"id": 112,
+"title": "Start Your Own Import/Export Business",
+"author": "Entrepreneur Press",
+"language": "en",
+"year": null
+},
+{
+"id": 113,
+"title": "Structuring Your Novel",
+"author": "K.M. Weiland",
+"language": "en",
+"year": 2013
+},
+{
+"id": 114,
+"title": "Sword of Destiny",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 1992
+},
+{
+"id": 115,
+"title": "The Adventures of Tom Sawyer",
+"author": "Mark Twain",
+"language": "en",
+"year": 1876
+},
+{
+"id": 116,
+"title": "The Alchemist",
+"author": "Paulo Coelho",
+"language": "en",
+"year": 1988
+},
+{
+"id": 117,
+"title": "The Ballad of Songbirds & Snakes",
+"author": "Suzanne Collins",
+"language": "en",
+"year": 2020
+},
+{
+"id": 118,
+"title": "The Be (Happy) Attitudes",
+"author": "Robert H. Schuller",
+"language": "en",
+"year": 1985
+},
+{
+"id": 119,
+"title": "The Call of Cthulhu and Other Frightening Tales",
+"author": "H.P. Lovecraft",
+"language": "en",
+"year": null
+},
+{
+"id": 120,
+"title": "The Circle",
+"author": "Dave Eggers",
+"language": "en",
+"year": 2013
+},
+{
+"id": 121,
+"title": "The Colour of Law",
+"author": "Mark Gimenez",
+"language": "en",
+"year": 2005
+},
+{
+"id": 122,
+"title": "The Communist Manifesto",
+"author": "Karl Marx & Friedrich Engels",
+"language": "en",
+"year": 1848
+},
+{
+"id": 123,
+"title": "The Count of Monte Cristo",
+"author": "Alexandre Dumas",
+"language": "en",
+"year": 1844
+},
+{
+"id": 124,
+"title": "The Cuckoo's Calling",
+"author": "Robert Galbraith",
+"language": "en",
+"year": 2013
+},
+{
+"id": 125,
+"title": "The Da Vinci Code",
+"author": "Dan Brown",
+"language": "en",
+"year": 2003
+},
+{
+"id": 126,
+"title": "The Dark Forest",
+"author": "Cixin Liu",
+"language": "en",
+"year": 2008
+},
+{
+"id": 127,
+"title": "The Day of the Triffids",
+"author": "John Wyndham",
+"language": "en",
+"year": 1951
+},
+{
+"id": 128,
+"title": "The Early Asimov: Volume 1",
+"author": "Isaac Asimov",
+"language": "en",
+"year": 1972
+},
+{
+"id": 129,
+"title": "The Eighth Life (for Brilka)",
+"author": "Nino Haratischwili",
+"language": "en",
+"year": 2014
+},
+{
+"id": 130,
+"title": "The Elements of Typographic Style",
+"author": "Robert Bringhurst",
+"language": "en",
+"year": 1992
+},
+{
+"id": 131,
+"title": "The Flatshare",
+"author": "Beth O'Leary",
+"language": "en",
+"year": 2019
+},
+{
+"id": 132,
+"title": "The Gene Keys",
+"author": "Richard Rudd",
+"language": "en",
+"year": 2011
+},
+{
+"id": 133,
+"title": "The Grapes of Wrath",
+"author": "John Steinbeck",
+"language": "en",
+"year": 1939
+},
+{
+"id": 134,
+"title": "The Great Dune Trilogy",
+"author": "Frank Herbert",
+"language": "en",
+"year": 1965
+},
+{
+"id": 135,
+"title": "The Hard Thing About Hard Things",
+"author": "Ben Horowitz",
+"language": "en",
+"year": 2014
+},
+{
+"id": 136,
+"title": "The Help",
+"author": "Kathryn Stockett",
+"language": "en",
+"year": 2009
+},
+{
+"id": 137,
+"title": "The History of the World",
+"author": "Plantagenet Somerset Fry",
+"language": "en",
+"year": null
+},
+{
+"id": 138,
+"title": "The Hitchhiker's Guide to the Galaxy: A Trilogy in Five Parts",
+"author": "Douglas Adams",
+"language": "en",
+"year": 1979
+},
+{
+"id": 139,
+"title": "The Hobbit",
+"author": "J.R.R. Tolkien",
+"language": "en",
+"year": 1937
+},
+{
+"id": 140,
+"title": "The Hunger Games",
+"author": "Suzanne Collins",
+"language": "en",
+"year": 2008
+},
+{
+"id": 141,
+"title": "The Idea of the Indian Constitution",
+"author": "History for Peace (Seagull Foundation for the Arts)",
+"language": "en",
+"year": null
+},
+{
+"id": 142,
+"title": "The Kite Runner",
+"author": "Khaled Hosseini",
+"language": "en",
+"year": 2003
+},
+{
+"id": 143,
+"title": "The Lady of the Lake",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 1999
+},
+{
+"id": 144,
+"title": "The Last Don",
+"author": "Mario Puzo",
+"language": "en",
+"year": 1996
+},
+{
+"id": 145,
+"title": "The Last Wish",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 1993
+},
+{
+"id": 146,
+"title": "The Long Dark Tea-Time of the Soul",
+"author": "Douglas Adams",
+"language": "en",
+"year": 1988
+},
+{
+"id": 147,
+"title": "The Lord of the Rings",
+"author": "J.R.R. Tolkien",
+"language": "en",
+"year": 1954
+},
+{
+"id": 148,
+"title": "The Love Hypothesis",
+"author": "Ali Hazelwood",
+"language": "en",
+"year": 2021
+},
+{
+"id": 149,
+"title": "The Naked Face",
+"author": "Sidney Sheldon",
+"language": "en",
+"year": 1970
+},
+{
+"id": 150,
+"title": "The Narrow Road to the Deep North",
+"author": "Richard Flanagan",
+"language": "en",
+"year": 2013
+},
+{
+"id": 151,
+"title": "The Pleasures of the Damned: Poems 1951–1993",
+"author": "Charles Bukowski",
+"language": "en",
+"year": 2007
+},
+{
+"id": 152,
+"title": "The Portable MBA in Entrepreneurship",
+"author": "William D. Bygrave & Andrew Zacharakis",
+"language": "en",
+"year": null
+},
+{
+"id": 153,
+"title": "The Portrait of a Lady",
+"author": "Henry James",
+"language": "en",
+"year": 1881
+},
+{
+"id": 154,
+"title": "The Psychology of Stupidity",
+"author": "Jean-François Marmion (editor)",
+"language": "en",
+"year": 2019
+},
+{
+"id": 155,
+"title": "The Reluctant Fundamentalist",
+"author": "Mohsin Hamid",
+"language": "en",
+"year": 2007
+},
+{
+"id": 156,
+"title": "The Republic",
+"author": "Plato",
+"language": "en",
+"year": null
+},
+{
+"id": 157,
+"title": "The Richest Man in Babylon",
+"author": "George S. Clason",
+"language": "en",
+"year": 1926
+},
+{
+"id": 158,
+"title": "The Road to Wigan Pier",
+"author": "George Orwell",
+"language": "en",
+"year": 1937
+},
+{
+"id": 159,
+"title": "The Rosie Project",
+"author": "Graeme Simsion",
+"language": "en",
+"year": 2013
+},
+{
+"id": 160,
+"title": "The Shock Doctrine",
+"author": "Naomi Klein",
+"language": "en",
+"year": 2007
+},
+{
+"id": 161,
+"title": "The Silence of the Lambs",
+"author": "Thomas Harris",
+"language": "en",
+"year": 1988
+},
+{
+"id": 162,
+"title": "The Silk Roads: A New History of the World",
+"author": "Peter Frankopan",
+"language": "en",
+"year": 2015
+},
+{
+"id": 163,
+"title": "The Stand",
+"author": "Stephen King",
+"language": "en",
+"year": 1978
+},
+{
+"id": 164,
+"title": "The Stasi Poetry Circle",
+"author": "Philip Oltermann",
+"language": "en",
+"year": 2022
+},
+{
+"id": 165,
+"title": "The Story of China",
+"author": "Michael Wood",
+"language": "en",
+"year": 2020
+},
+{
+"id": 166,
+"title": "The Story of Stuff",
+"author": "Annie Leonard",
+"language": "de",
+"year": 2010
+},
+{
+"id": 167,
+"title": "The Ten-Day MBA",
+"author": "Steven Silbiger",
+"language": "en",
+"year": 1993
+},
+{
+"id": 168,
+"title": "The Test",
+"author": "Nathan Leamon",
+"language": "en",
+"year": 2018
+},
+{
+"id": 169,
+"title": "The Three-Body Problem",
+"author": "Cixin Liu",
+"language": "en",
+"year": 2006
+},
+{
+"id": 170,
+"title": "The Thursday Murder Club",
+"author": "Richard Osman",
+"language": "en",
+"year": 2020
+},
+{
+"id": 171,
+"title": "The Tipping Point",
+"author": "Malcolm Gladwell",
+"language": "en",
+"year": 2000
+},
+{
+"id": 172,
+"title": "The Tower of the Swallow",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 1997
+},
+{
+"id": 173,
+"title": "The Ultimate Hitchhiker's Guide",
+"author": "Douglas Adams",
+"language": "en",
+"year": 1996
+},
+{
+"id": 174,
+"title": "The Unbearable Lightness of Being",
+"author": "Milan Kundera",
+"language": "en",
+"year": 1984
+},
+{
+"id": 175,
+"title": "Thirteen Reasons Why",
+"author": "Jay Asher",
+"language": "en",
+"year": 2007
+},
+{
+"id": 176,
+"title": "Time of Contempt",
+"author": "Andrzej Sapkowski",
+"language": "en",
+"year": 1995
+},
+{
+"id": 177,
+"title": "Tom Jones",
+"author": "Henry Fielding",
+"language": "en",
+"year": 1749
+},
+{
+"id": 178,
+"title": "Tschick",
+"author": "Wolfgang Herrndorf",
+"language": "de",
+"year": 2010
+},
+{
+"id": 179,
+"title": "Twilight",
+"author": "Stephenie Meyer",
+"language": "en",
+"year": 2005
+},
+{
+"id": 180,
+"title": "Uncle Tom's Cabin",
+"author": "Harriet Beecher Stowe",
+"language": "en",
+"year": 1852
+},
+{
+"id": 181,
+"title": "Unternehmen Deutsch: Aufbaukurs Lehrbuch",
+"author": "Klett",
+"language": "de",
+"year": null
+},
+{
+"id": 182,
+"title": "Walking in Berlin",
+"author": "Franz Hessel",
+"language": "en",
+"year": 1929
+},
+{
+"id": 183,
+"title": "War and Peace",
+"author": "Leo Tolstoy",
+"language": "en",
+"year": 1869
+},
+{
+"id": 184,
+"title": "What We Owe the Future",
+"author": "William MacAskill",
+"language": "en",
+"year": 2022
+},
+{
+"id": 185,
+"title": "Wild Irish Women",
+"author": "Marian Broderick",
+"language": "en",
+"year": 2001
+},
+{
+"id": 186,
+"title": "Wissen, Glaube und Ahndung",
+"author": "Jakob Friedrich Fries",
+"language": "de",
+"year": 1805
+},
+{
+"id": 187,
+"title": "Xenocide",
+"author": "Orson Scott Card",
+"language": "en",
+"year": 1991
+},
+{
+"id": 188,
+"title": "You Like It Darker",
+"author": "Stephen King",
+"language": "en",
+"year": 2024
+}
+]

@@ -1,0 +1,28 @@
+# One-off helper on a scratch branch: look up Open Library covers and
+# commit the results back to this branch.
+name: Cover lookup
+
+on:
+  push:
+    branches: [cover-lookup]
+    paths: [scripts/cover_lookup.py, scripts/books_for_covers.json]
+
+permissions:
+  contents: write
+
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install requests pillow
+      - run: python scripts/cover_lookup.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/out
+          git commit -m "Cover lookup results"
+          git push
