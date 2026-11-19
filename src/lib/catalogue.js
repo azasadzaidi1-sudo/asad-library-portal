@@ -115,7 +115,7 @@ export function describeMyReservation(reservation, counts = {}) {
   }
   const onShelf = Math.max((counts.copies_total ?? 0) - (counts.copies_out ?? 0), 0)
   if (reservation.queue_place <= onShelf) {
-    return { state: 'ready', text: 'A copy is waiting for you. Asad will arrange the handover.' }
+    return { state: 'ready', text: 'A copy is waiting for you. Get in touch with Asad on when you can pick up.' }
   }
   return { state: 'queued', text: `You're ${ordinal(reservation.queue_place)} in the queue` }
 }

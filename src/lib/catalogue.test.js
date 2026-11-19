@@ -118,7 +118,10 @@ describe('reservations', () => {
 
   it('says a copy is waiting when enough are on the shelf', () => {
     const counts = { copies_total: 2, copies_out: 1 }
-    expect(describeMyReservation({ status: 'active', queue_place: 1 }, counts).state).toBe('ready')
+    expect(describeMyReservation({ status: 'active', queue_place: 1 }, counts)).toEqual({
+      state: 'ready',
+      text: 'A copy is waiting for you. Get in touch with Asad on when you can pick up.',
+    })
     expect(describeMyReservation({ status: 'active', queue_place: 2 }, counts).text)
       .toBe("You're 2nd in the queue")
   })
