@@ -12,6 +12,7 @@ import {
   cancelReservation,
   lendCopy,
   loadLibrarianDetails,
+  removeCopy,
   requestBook,
   returnLoan,
   saveReadingStatus,
@@ -21,6 +22,7 @@ import {
 import { listAwards, Stamp } from './BookCard'
 import Cover from './Cover'
 import LendControls from './LendControls'
+import ConfirmButton from './ConfirmButton'
 import ReturnButton from './ReturnButton'
 import Reviews from './Reviews'
 
@@ -333,9 +335,16 @@ function LibrarianPanel({ book, library, member, version, onChanged }) {
             {copy.loan ? (
               <ReturnButton busy={busy} onReturn={() => run(() => returnLoan(copy.loan.id))} />
             ) : (
-              <LendControls key={version} copies={[{ ...copy, number: i + 1 }]} members={details.members}
-                defaultMemberId={firstReady?.member_id ?? ''} busy={busy}
-                onLend={(copyId, memberId) => run(() => lendCopy(copyId, memberId))} />
+              <>
+                <LendControls key={version} copies={[{ ...copy, number: i + 1 }]} members={details.members}
+                  defaultMemberId={firstReady?.member_id ?? ''} busy={busy}
+                  onLend={(copyId, memberId) => run(() => lendCopy(copyId, memberId))} />
+                <ConfirmButton label="Remove from my shelf" busy={busy} className="link-button panel-remove"
+                  question={details.copies.length === 1
+                    ? 'Remove your only copy? Anyone waiting for it on your shelf has their reservation cancelled.'
+                    : 'Remove this copy from your shelf?'}
+                  confirmLabel="Remove" onConfirm={() => run(() => removeCopy(copy.id))} />
+              </>
             )}
           </li>
         ))}

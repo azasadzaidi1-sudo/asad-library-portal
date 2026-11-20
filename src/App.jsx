@@ -9,6 +9,7 @@ import MyBooks from './components/MyBooks'
 import BookDialog from './components/BookDialog'
 import LendingDesk from './components/LendingDesk'
 import Libraries from './components/Libraries'
+import AddBook from './components/AddBook'
 
 // The app has three screens, chosen by who is visiting:
 //   not signed in          -> Login
@@ -56,7 +57,7 @@ function MemberArea({ userId }) {
 
 // Which page to show comes from the end of the address (#libraries, #my-books,
 // #desk), so the browser's back button and bookmarks work without a routing library.
-const PAGES = ['catalogue', 'libraries', 'my-books', 'desk']
+const PAGES = ['catalogue', 'libraries', 'my-books', 'desk', 'add-book']
 
 function usePage() {
   const read = () => {
@@ -100,6 +101,8 @@ function Library({ member }) {
           window.location.hash = 'catalogue'
         }} />
     )
+  } else if (page === 'add-book') {
+    content = <AddBook library={library} onOpenBook={setOpenBookId} />
   } else if (page === 'my-books') {
     content = <MyBooks library={library} onOpenBook={setOpenBookId} />
   } else {

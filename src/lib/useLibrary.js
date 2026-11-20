@@ -29,7 +29,8 @@ export function useLibrary(member) {
   const refresh = useCallback(async () => {
     try {
       // For someone without a shelf, the librarian lists simply come back empty.
-      const [libs, counts, restrictedTitles, card, mine, requests, names] = await Promise.all([
+      const [rows, libs, counts, restrictedTitles, card, mine, requests, names] = await Promise.all([
+        loadBooks(),
         loadLibraries(),
         loadAvailability(),
         loadRestricted(),
@@ -38,6 +39,7 @@ export function useLibrary(member) {
         loadApprovalRequests(member.id),
         loadPeople(),
       ])
+      setBooks(sortByFilingTitle(rows))
       setLibraries(libs)
       setAvailability(counts)
       setRestricted(restrictedTitles)
@@ -51,9 +53,6 @@ export function useLibrary(member) {
   }, [member.id])
 
   useEffect(() => {
-    loadBooks()
-      .then((rows) => setBooks(sortByFilingTitle(rows)))
-      .catch((e) => setError(e.message))
     refresh()
   }, [refresh])
 

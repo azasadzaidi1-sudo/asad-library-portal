@@ -14,6 +14,7 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `06_descriptions.sql` | A short description for every book | #6 | Done |
 | `07_reviews.sql` | Reviews and replies on each book | #8 | Done |
 | `08_multiple_libraries.sql` | Several libraries: copy owners, first-time borrower approvals, who invited whom, limits per library | #11 | Done |
+| `09_add_books.sql` | Librarians add their own books (new titles or copies of existing ones) and remove copies | #12 | **Not yet: run before merging #12** |
 
 When a pull request adds a new file, it gets the next number and a new row here.
 

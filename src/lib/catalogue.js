@@ -1,7 +1,19 @@
 // Pure helper functions for the catalogue: no React, no Supabase.
 // Keeping them separate makes them easy to test (see catalogue.test.js).
 
-export const LANGUAGE_NAMES = { en: 'English', de: 'German', ur: 'Urdu' }
+export const LANGUAGE_NAMES = {
+  en: 'English',
+  de: 'German',
+  ur: 'Urdu',
+  fr: 'French',
+  es: 'Spanish',
+  it: 'Italian',
+  tr: 'Turkish',
+  ar: 'Arabic',
+  fa: 'Persian',
+  nl: 'Dutch',
+  pt: 'Portuguese',
+}
 
 export function languageName(code) {
   return LANGUAGE_NAMES[code] ?? code.toUpperCase()

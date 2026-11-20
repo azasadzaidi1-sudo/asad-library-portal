@@ -7,7 +7,10 @@ export const NO_FILTERS = { query: '', library: '', genre: '', award: '', langua
 
 export default function Catalogue({ library, filters, setFilters, onOpenBook }) {
   const [showFilters, setShowFilters] = useState(false) // phones only: filters fold away
-  const { books, libraries, ownersByBook } = library
+  const { libraries, ownersByBook } = library
+  // Only titles with at least one copy on a shelf (a title can lose its last
+  // copy when a librarian removes it).
+  const books = useMemo(() => library.books.filter((b) => ownersByBook.has(b.id)), [library.books, ownersByBook])
 
   const options = useMemo(
     () => ({

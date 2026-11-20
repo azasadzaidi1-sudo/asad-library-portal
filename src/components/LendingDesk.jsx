@@ -68,7 +68,10 @@ export default function LendingDesk({ library, onOpenBook }) {
 
   return (
     <div className="desk">
-      <h1 className="page-title">Lending desk</h1>
+      <div className="page-head">
+        <h1 className="page-title">Lending desk</h1>
+        <a className="button button-quiet" href="#add-book">Add a book</a>
+      </div>
       <ApprovalBox library={{ ...library, refresh: async () => { await Promise.all([reload(), library.refresh()]) } }}
         onOpenBook={onOpenBook} />
 
