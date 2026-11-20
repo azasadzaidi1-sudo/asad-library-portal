@@ -163,3 +163,13 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Decision.** Every book has a short, spoiler-free description of two or three sentences in English, shown in its pop-up. They were written for this library, not copied from the back covers, and the facts for lesser-known books (an Urdu classic, German novels, a cricket novel, cookbooks) were checked online first. They live in a `description` column added by `supabase/06_descriptions.sql`.
 
 **Why not the publishers' blurbs.** Back-cover blurbs are copyrighted, and copying 188 of them into a public repository would be redistributing them. *Considered:* loading Open Library's descriptions live (like the covers), but many books have none there and others are long or not in English. Writing them fresh gives every book, including the German textbooks and the Urdu novel, a description in one consistent voice.
+
+## 21. Installable on phones, with a shelf icon
+
+**Decision.** The app can now be installed from Chrome ("Install app") and gets its own icon on the home screen, labelled "Common Shelf", and opens in its own window without the browser bar. The icon is three book spines on a brass shelf, in the library's green, paper, brass and oxblood; the browser tab icon uses it too.
+
+**How.** Chrome only offers to install a site that has a web app manifest (`public/manifest.webmanifest`): a small file with the app's name, a 192px and a 512px icon, the start page, and `display: standalone`. The icon is drawn once in `scripts/icons/shelf.svg.tmpl`, and `make_icons.sh` turns it into every size needed: rounded icons, "maskable" icons with the shelf shrunk into the middle so Android can crop them to a circle without cutting off a book, and a square 180px icon for iPhones, which round the corners themselves. Paths in the manifest are relative, so they work under the `/asad-library-portal/` address.
+
+**Why no offline mode.** A service worker could cache the app so it opens without internet, but Chrome no longer requires one to install, and every page needs live data from the database anyway. Offline, the app would only be able to show an error. *Left for later* if members ask for it.
+
+**Name ahead of the rename.** The home-screen name and the install prompt already say The Common Shelf, the planned name for the multi-library version; the page title still says Asad's Library until the full rename.
