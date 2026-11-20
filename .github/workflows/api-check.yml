@@ -1,0 +1,34 @@
+name: API check (temporary)
+on:
+  push:
+    branches: [api-check]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Fetch sample answers from Open Library and Wikidata
+        run: |
+          set -x
+          UA="TheCommonShelf/1.0 (github.com/azasadzaidi1-sudo/asad-library-portal)"
+          F="key,title,author_name,first_publish_year,cover_i,language,ratings_average,ratings_count"
+          curl -s -A "$UA" "https://openlibrary.org/search.json?q=american+gods+gaiman&fields=$F&limit=3" > scripts/api-check/ol-search.json
+          curl -s -A "$UA" "https://openlibrary.org/search.json?isbn=9780747591054&fields=$F&limit=3" > scripts/api-check/ol-isbn.json
+          curl -s -A "$UA" "https://openlibrary.org/search.json?q=dastak+na+do&fields=$F&limit=3" > scripts/api-check/ol-urdu.json
+          curl -s -I -H "Origin: https://azasadzaidi1-sudo.github.io" -A "$UA" "https://openlibrary.org/search.json?q=dune&limit=1" > scripts/api-check/ol-cors.txt
+          KEY=$(jq -r '.docs[0].key' scripts/api-check/ol-search.json | sed 's#/works/##')
+          echo "$KEY" > scripts/api-check/key.txt
+          for K in "$KEY" OL893415W OL82563W; do
+            Q="SELECT ?work ?awardLabel ?year WHERE { ?work wdt:P648 \"$K\" . OPTIONAL { ?work p:P166 ?st . ?st ps:P166 ?award . OPTIONAL { ?st pq:P585 ?date . BIND(YEAR(?date) AS ?year) } } SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } }"
+            curl -s -G -A "$UA" -H "Accept: application/sparql-results+json" --data-urlencode "query=$Q" https://query.wikidata.org/sparql > "scripts/api-check/wd-$K.json"
+          done
+          curl -s -I -G -H "Origin: https://azasadzaidi1-sudo.github.io" -A "$UA" --data-urlencode "query=ASK{}" -H "Accept: application/sparql-results+json" https://query.wikidata.org/sparql > scripts/api-check/wd-cors.txt
+      - name: Commit results
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add scripts/api-check
+          git commit -m "API check results" || echo "nothing to commit"
+          git push
