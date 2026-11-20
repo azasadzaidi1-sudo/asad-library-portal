@@ -1,4 +1,4 @@
-# Asad's Library
+# The Common Shelf
 
 A lending library for friends, built around my own bookshelves: 188 titles and 200 physical copies. Members browse the catalogue, see what's on the shelf, and (coming next) reserve books; I lend them out and get reminders when they're due back.
 
@@ -16,7 +16,7 @@ A lending library for friends, built around my own bookshelves: 188 titles and 2
 - For the librarian: Restricted Section requests to approve or decline, who has each copy and when it's due, the queue, who's interested, and a private reading tracker.
 - A lending desk for the librarian (Overdue / Reserved / Lent out / Available), with one-click lending of reserved books, lending without a reservation, and returns.
 
-**Planned:** inviting members by email with their own passwords, and reminders a week before a loan is due.
+**Planned:** friends adding their own shelves to one shared catalogue, with a page to choose a library; inviting members by email with their own passwords, and reminders a week before a loan is due.
 
 ## How it's built
 

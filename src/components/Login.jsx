@@ -26,7 +26,7 @@ export default function Login() {
   return (
     <main className="entry">
       <div className="entry-card">
-        <h1 className="entry-title">Asad's Library</h1>
+        <h1 className="entry-title">The Common Shelf</h1>
         <p className="entry-lede">
           A lending library for friends. Sign in with the email address Asad invited.
         </p>
