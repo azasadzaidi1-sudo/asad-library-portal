@@ -157,3 +157,9 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Why lending is a database function.** Lending writes a loan *and* closes the member's reservation. `lend_copy()` (in `supabase/05_lending.sql`) does both in one transaction, refuses with a plain message when the copy is already out or the member already has a book, and finds the member's reservation by itself if the desk didn't name one. It runs with the caller's rights, so the existing rules still allow only the librarian to lend. The app passes the date, because the database clock runs on UTC and a loan made after midnight in Berlin would otherwise be dated the day before.
 
 **Left for later.** Extending a loan and back-dating loans weren't needed yet; extending would need the due date to stop being a fixed "lent on + 28 days" column.
+
+## 19. Book descriptions written for this library
+
+**Decision.** Every book has a short, spoiler-free description of two or three sentences in English, shown in its pop-up. They were written for this library, not copied from the back covers, and the facts for lesser-known books (an Urdu classic, German novels, a cricket novel, cookbooks) were checked online first. They live in a `description` column added by `supabase/06_descriptions.sql`.
+
+**Why not the publishers' blurbs.** Back-cover blurbs are copyrighted, and copying 188 of them into a public repository would be redistributing them. *Considered:* loading Open Library's descriptions live (like the covers), but many books have none there and others are long or not in English. Writing them fresh gives every book, including the German textbooks and the Urdu novel, a description in one consistent voice.
