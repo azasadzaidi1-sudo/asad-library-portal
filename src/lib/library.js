@@ -2,6 +2,7 @@
 // deal with plain data and friendly error messages.
 import { supabase } from '../supabaseClient'
 import { localDate } from './desk'
+import { attachAuthors } from './reviews'
 
 const BOOK_COLUMNS =
   'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, restricted, restricted_reason, cover_id, description'
@@ -194,5 +195,71 @@ export async function returnLoan(loanId) {
   unwrap(
     await supabase.from('loans').update({ returned_on: localDate() }).eq('id', loanId),
     (error) => `The return wasn't saved: ${error.message}`,
+  )
+}
+
+// ---------- Reviews and replies ----------
+
+// All reviews of a book (newest first) with their replies (oldest first),
+// plus each author's name and whether they've borrowed the book.
+export async function loadDiscussion(bookId) {
+  const [reviews, people] = await Promise.all([
+    supabase
+      .from('reviews')
+      .select('id, member_id, body, has_spoilers, created_at, edited_at, replies:review_replies(id, member_id, body, created_at, edited_at)')
+      .eq('book_id', bookId)
+      .order('created_at', { ascending: false })
+      .order('created_at', { referencedTable: 'replies', ascending: true }),
+    supabase.rpc('book_discussion_people', { p_book_id: bookId }),
+  ])
+  return attachAuthors(unwrap(reviews), unwrap(people))
+}
+
+const duplicateReview = (error) =>
+  error.code === '23505'
+    ? "You've already reviewed this book. Edit your review instead."
+    : `Your review wasn't saved: ${error.message}`
+
+export async function postReview(bookId, memberId, body, hasSpoilers) {
+  unwrap(
+    await supabase
+      .from('reviews')
+      .insert({ book_id: bookId, member_id: memberId, body: body.trim(), has_spoilers: hasSpoilers }),
+    duplicateReview,
+  )
+}
+
+export async function updateReview(reviewId, body, hasSpoilers) {
+  unwrap(
+    await supabase.from('reviews').update({ body: body.trim(), has_spoilers: hasSpoilers }).eq('id', reviewId),
+    (error) => `Your changes weren't saved: ${error.message}`,
+  )
+}
+
+export async function deleteReview(reviewId) {
+  unwrap(
+    await supabase.from('reviews').delete().eq('id', reviewId),
+    (error) => `The review wasn't deleted: ${error.message}`,
+  )
+}
+
+export async function postReply(reviewId, memberId, body) {
+  unwrap(
+    await supabase.from('review_replies').insert({ review_id: reviewId, member_id: memberId, body: body.trim() }),
+    (error) => `Your reply wasn't posted: ${error.message}`,
+  )
+}
+
+export async function updateReply(replyId, body) {
+  unwrap(
+    await supabase.from('review_replies').update({ body: body.trim() }).eq('id', replyId),
+    (error) => `Your changes weren't saved: ${error.message}`,
+  )
+}
+
+export async function deleteReply(replyId) {
+  unwrap(
+    await supabase.from('review_replies').delete().eq('id', replyId),
+    (error) => `The reply wasn't deleted: ${error.message}`,
   )
 }
