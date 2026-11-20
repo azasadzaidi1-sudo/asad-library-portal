@@ -215,7 +215,7 @@ input[type='search']::-webkit-search-cancel-button {
 
 .finder {
   display: grid;
-  grid-template-columns: 2fr repeat(3, 1fr);
+  grid-template-columns: 2fr repeat(4, 1fr);
   gap: 1rem;
   align-items: end;
 }
@@ -391,7 +391,7 @@ input[type='search']::-webkit-search-cancel-button {
 
 @media (max-width: 52rem) {
   .finder {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .finder-search {
@@ -441,11 +441,13 @@ input[type='search']::-webkit-search-cancel-button {
 
 .masthead-nav {
   display: flex;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
   font-size: 1.0625rem;
 }
 
 .nav-link {
+  white-space: nowrap;
   color: var(--card);
   text-decoration: none;
   padding-bottom: 0.15rem;
@@ -820,12 +822,26 @@ body:has(.book-dialog[open]) {
 
 .declined-note {
   margin-top: 0.9rem;
-  color: var(--oxblood);
+  font: italic 1.0625rem/1.4 var(--display);
+  color: var(--ink-soft);
+}
+
+.book-row + .book-row {
+  margin-top: 0.75rem;
+}
+
+label.checkbox input {
+  accent-color: var(--green);
 }
 
 @media (max-width: 34rem) {
   .masthead-title {
     width: 100%;
+  }
+
+  .masthead-nav {
+    gap: 0.4rem 1rem;
+    font-size: 1rem;
   }
 
   .dialog-inner {
@@ -1113,3 +1129,210 @@ label.checkbox input {
   width: auto;
   height: auto;
 }
+
+/* ---------- Several libraries ---------- */
+
+.page-lede {
+  max-width: 40rem;
+  margin-top: 0.6rem;
+  color: var(--ink-soft);
+}
+
+.library-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.library-card {
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+  padding: 1.1rem 1.2rem 1.2rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--green);
+  border-radius: 3px;
+}
+
+.library-card .button {
+  justify-self: start;
+  margin-top: 0.5rem;
+}
+
+.library-name {
+  font: 1.5rem/1.15 var(--display);
+  color: var(--green);
+}
+
+.library-meta {
+  color: var(--ink-soft);
+}
+
+.library-status {
+  font-size: 0.9375rem;
+}
+
+.library-approved,
+.library-own {
+  color: var(--green-lit);
+}
+
+.library-pending {
+  color: var(--amber);
+}
+
+/* Copies of one title, one row per library, in the book pop-up */
+.shelf-rows {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shelf-row {
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.shelf-row:first-child {
+  border-top: 0;
+  padding-top: 0.4rem;
+}
+
+.shelf-row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.shelf-row-name {
+  font-weight: 500;
+}
+
+.shelf-row > .button,
+.shelf-row > .dialog-note {
+  margin-top: 0.6rem;
+}
+
+.first-request {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+}
+
+.first-request .dialog-note {
+  margin-top: 0;
+}
+
+.optional {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.panel-restricted {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.75rem 1.5rem;
+  margin-top: 0.9rem;
+}
+
+.panel-restricted label:not(.checkbox) {
+  width: 12rem;
+}
+
+/* The first-time borrower card */
+.approval-new {
+  display: block;
+}
+
+.approval-kind {
+  font-size: 0.875rem;
+  color: var(--brass-ink);
+}
+
+.approval-lead {
+  margin-top: 0.15rem;
+  font-size: 1.0625rem;
+}
+
+.approval-lead strong {
+  font-weight: 700;
+}
+
+.approval-book {
+  color: var(--ink-soft);
+}
+
+.approval-note {
+  margin: 0.6rem 0 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--brass);
+  background: #f4ecd8;
+  font-style: italic;
+}
+
+.approval-facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.2rem 1rem;
+  margin: 0.75rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
+}
+
+.approval-facts dt {
+  color: var(--ink-soft);
+}
+
+.approval-facts dd {
+  margin: 0;
+}
+
+.approval-new .approval-actions {
+  margin-top: 0.85rem;
+}
+
+.approval-hint {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+/* The Borrowers tab on the lending desk */
+.borrower-list {
+  max-width: 40rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.borrower {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.borrower-name {
+  font-weight: 500;
+}
+
+.borrower-meta {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+

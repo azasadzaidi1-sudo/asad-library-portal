@@ -16,7 +16,7 @@ export default function CompleteProfile({ member, onSaved }) {
       .from('members')
       .update({ name: name.trim(), city: city.trim() })
       .eq('id', member.id)
-      .select('id, name, city, role')
+      .select('id, name, city, is_admin')
       .single()
     if (error) {
       setError(`Your details weren't saved: ${error.message}`)
@@ -31,8 +31,10 @@ export default function CompleteProfile({ member, onSaved }) {
       <div className="entry-card">
         <h1 className="entry-title">Welcome to the library</h1>
         <p className="entry-lede">
-          Before you browse, tell Asad who's borrowing. Other members see your name on reviews and
-          replies you write; only Asad sees your city.
+          Before you browse, tell us who's borrowing. Other members see your name on reviews and
+          replies you write, and librarians see it when you ask to borrow. Your city stays private,
+          unless you add books of your own: then it shows next to your shelf, so members can find a
+          copy nearby.
         </p>
         <form onSubmit={save} className="form">
           <label>

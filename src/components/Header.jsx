@@ -1,6 +1,6 @@
 import { supabase } from '../supabaseClient'
 
-export default function Header({ member, page }) {
+export default function Header({ member, page, isLibrarian }) {
   const link = (target, label) => (
     <a href={`#${target}`} className="nav-link" aria-current={page === target ? 'page' : undefined}>
       {label}
@@ -13,13 +13,14 @@ export default function Header({ member, page }) {
         <p className="masthead-title">The Common Shelf</p>
         <nav className="masthead-nav" aria-label="Pages">
           {link('catalogue', 'Catalogue')}
+          {link('libraries', 'Libraries')}
           {link('my-books', 'My books')}
-          {member.role === 'librarian' && link('desk', 'Lending desk')}
+          {isLibrarian && link('desk', 'Lending desk')}
         </nav>
         <div className="masthead-user">
           <span>
             {member.name}
-            {member.role === 'librarian' && <span className="role"> (librarian)</span>}
+            {isLibrarian && <span className="role"> (librarian)</span>}
           </span>
           <button type="button" className="link-button" onClick={() => supabase.auth.signOut()}>
             Sign out

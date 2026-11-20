@@ -1,14 +1,16 @@
-import { availability, languageName } from '../lib/catalogue'
+import { languageName, summariseAvailability } from '../lib/catalogue'
 import Cover from './Cover'
 
 // One book, laid out like a card from a library's card catalogue.
 // The whole card opens the book's pop-up (the title button stretches over it).
-export default function BookCard({ book, counts, interested, onOpen }) {
-  const status = availability(counts)
+export default function BookCard({ book, library, interested, onOpen }) {
+  const rows = library.availability.get(book.id) ?? []
+  const status = summariseAvailability(rows)
+  const restriction = restrictionOf(book.id, rows, library)
   const details = [book.genre, book.year_published, languageName(book.language)].filter(Boolean)
 
   return (
-    <article className={`card${book.restricted ? ' card-restricted' : ''}`}>
+    <article className={`card${restriction ? ' card-restricted' : ''}`}>
       {interested && (
         <span className="ribbon" title="You're interested in this book">
           <span className="visually-hidden">You're interested in this book.</span>
@@ -36,12 +38,24 @@ export default function BookCard({ book, counts, interested, onOpen }) {
       <div className="card-foot">
         <div>
           <p className={`card-status status-${status.state}`}>{status.text}</p>
-          {book.restricted && <p className="card-approval">Needs Asad's approval to borrow</p>}
+          {restriction && <p className="card-approval">{restriction.text}</p>}
         </div>
-        {book.restricted && <Stamp reason={book.restricted_reason} />}
+        {restriction && <Stamp reason={restriction.reason} />}
       </div>
     </article>
   )
+}
+
+// The card only shows the Restricted Section stamp when every library that
+// has the title restricts it; otherwise the pop-up shows which ones do.
+export function restrictionOf(bookId, rows, library) {
+  const reasons = library.restricted.get(bookId)
+  if (!reasons || rows.length === 0 || !rows.every((r) => reasons.has(r.owner_id))) return null
+  if (rows.length === 1) {
+    const owner = rows[0].owner_id
+    return { reason: reasons.get(owner), text: `Needs ${library.ownerName(owner)}'s approval to borrow` }
+  }
+  return { reason: reasons.get(rows[0].owner_id), text: "Needs the librarian's approval to borrow" }
 }
 
 export function Stamp({ reason }) {

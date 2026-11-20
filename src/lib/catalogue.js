@@ -63,11 +63,39 @@ export function availability({ copies_total = 0, copies_out = 0, waiting = 0 } =
   return { state: 'out', text: waiting > 0 ? `${out}, ${queue}` : out }
 }
 
-// Applies the search box and the three filters.
-export function filterBooks(books, { query = '', genre = '', award = '', language = '' } = {}) {
+// The catalogue card's line when a title is on several shelves, e.g.
+// "2 libraries, 1 copy on the shelf". rows are this title's entries from
+// library_availability(), one per library. One library: same as above.
+export function summariseAvailability(rows = []) {
+  if (rows.length === 0) return { state: 'none', text: 'No copies yet' }
+  if (rows.length === 1) return availability(rows[0])
+
+  const states = rows.map((row) => ({ row, status: availability(row) }))
+  const free = rows.reduce((sum, r) => {
+    const onShelf = Math.max(r.copies_total - r.copies_out, 0)
+    return sum + Math.max(onShelf - r.waiting, 0)
+  }, 0)
+  const libraries = `${rows.length} libraries`
+  if (free > 0) {
+    return { state: 'available', text: `${libraries}, ${free} ${free === 1 ? 'copy' : 'copies'} on the shelf` }
+  }
+  if (states.some((s) => s.status.state === 'reserved')) {
+    return { state: 'reserved', text: `${libraries}, every free copy reserved` }
+  }
+  return { state: 'out', text: `${libraries}, all copies out` }
+}
+
+// Applies the search box and the filters. ownersByBook (a Map of book id
+// -> owner ids) is only needed for the library filter.
+export function filterBooks(
+  books,
+  { query = '', genre = '', award = '', language = '', library = '' } = {},
+  ownersByBook = new Map(),
+) {
   const words = normalise(query).split(/\s+/).filter(Boolean)
 
   return books.filter((book) => {
+    if (library && !(ownersByBook.get(book.id) ?? []).includes(library)) return false
     if (genre && book.genre !== genre) return false
     if (language && book.language !== language) return false
     if (award && !(book.prizes ?? []).some((p) => awardName(p) === award)) return false
@@ -107,17 +135,30 @@ export function ordinal(n) {
 }
 
 // What a member's own open reservation means right now.
-//   reservation: { status, queue_place } from my_open_reservation()
-//   counts:      { copies_total, copies_out } from book_availability()
-export function describeMyReservation(reservation, counts = {}) {
+//   reservation: { status, queue_place, waiting_for } from my_open_reservations()
+//   counts:      { copies_total, copies_out } for that library, from library_availability()
+//   owner:       the librarian's name
+export function describeMyReservation(reservation, counts = {}, owner = 'the librarian') {
   if (reservation.status === 'pending_approval') {
-    return { state: 'pending', text: "Waiting for Asad's approval" }
+    return reservation.waiting_for === 'borrower'
+      ? { state: 'pending', text: `Waiting for ${owner}'s OK as a new borrower` }
+      : { state: 'pending', text: `Waiting for ${owner}'s approval` }
   }
   const onShelf = Math.max((counts.copies_total ?? 0) - (counts.copies_out ?? 0), 0)
   if (reservation.queue_place <= onShelf) {
-    return { state: 'ready', text: 'A copy is waiting for you. Get in touch with Asad on when you can pick up.' }
+    return {
+      state: 'ready',
+      text: `A copy is waiting for you. Get in touch with ${owner} on when you can pick up.`,
+    }
   }
   return { state: 'queued', text: `You're ${ordinal(reservation.queue_place)} in the queue` }
+}
+
+// What a borrower sees on My books for a week after a librarian says no.
+// Asad's wording: warm, and without "you" or "your request".
+export function declineText(title, owner, otherCopies) {
+  const first = `${title} won't be coming from ${owner}'s shelf this time.`
+  return otherCopies ? `${first} Have a look at the other copies.` : first
 }
 
 // Due dates and request dates, written the British way: 17 Dec 2026.
@@ -136,8 +177,32 @@ export const READING_STATUSES = [
   { value: 'read', label: 'Read' },
 ]
 
-// "Sara (Hamburg)", or a stand-in for a member who hasn't filled in their name yet.
+// A member's name, or a stand-in for someone who hasn't filled it in yet.
+// (Borrowers' cities stay private, so they're never part of the label.)
 export function memberLabel(member) {
-  if (!member?.name) return 'A new member (no name yet)'
-  return member.city ? `${member.name} (${member.city})` : member.name
+  return member?.name || 'A new member (no name yet)'
+}
+
+// "Mira, Hamburg": librarians show their city so members can find a copy nearby.
+export function libraryLabel(library) {
+  if (!library) return 'Another library'
+  return library.city ? `${library.name}, ${library.city}` : library.name
+}
+
+// "October 2026"
+export function memberSince(value) {
+  return new Date(value).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })
+}
+
+// The "Borrowing record" line on a first-time request card.
+//   loans_total: every loan they've had, from any library
+//   loans_late:  came back after the due date, or overdue now
+//   loans_out:   still out and not yet due
+export function borrowingRecord({ loans_total: total = 0, loans_late: late = 0, loans_out: out = 0 } = {}) {
+  if (total === 0) return 'No books borrowed yet'
+  const books = total === 1 ? '1 book' : `${total} books`
+  if (late > 0) return `${books}, ${late} late`
+  if (out === total) return `${books}, out now`
+  if (out > 0) return `${books}, ${out} out now, the rest back on time`
+  return total === 1 ? `${books}, back on time` : `${books}, all back on time`
 }
