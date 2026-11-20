@@ -849,7 +849,6 @@ body:has(.book-dialog[open]) {
 .tabs {
   display: flex;
   gap: 0.25rem;
-  overflow-x: auto;
   margin-top: 1.25rem;
   border-bottom: 1px solid var(--rule-strong);
 }
@@ -962,6 +961,12 @@ body:has(.book-dialog[open]) {
 }
 
 @media (max-width: 34rem) {
+  /* On phones the four tabs may not fit: let them scroll sideways. */
+  .tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
   .tab {
     padding-inline: 0.6rem;
   }
