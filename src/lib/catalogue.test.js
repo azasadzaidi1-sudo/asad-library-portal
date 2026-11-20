@@ -1,8 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import {
   availability,
+  borrowingRecord,
   coverUrl,
+  declineText,
   describeMyReservation,
+  libraryLabel,
+  memberLabel,
+  summariseAvailability,
   isOverdue,
   ordinal,
   awardName,
@@ -96,6 +101,51 @@ describe('filterBooks', () => {
   it('returns everything with no filters', () => {
     expect(titles({})).toHaveLength(books.length)
   })
+
+  it('narrows to one library', () => {
+    const withIds = books.map((b, i) => ({ ...b, id: i + 1 }))
+    const owners = new Map([[1, ['asad']], [2, ['asad', 'mira']], [5, ['mira']]])
+    expect(filterBooks(withIds, { library: 'mira' }, owners).map((b) => b.title)).toEqual(['American Gods', 'Dune'])
+  })
+})
+
+describe('several libraries', () => {
+  it('summarises a title on several shelves', () => {
+    const free = { copies_total: 1, copies_out: 0, waiting: 0 }
+    const out = { copies_total: 1, copies_out: 1, waiting: 0 }
+    const claimed = { copies_total: 1, copies_out: 0, waiting: 1 }
+    expect(summariseAvailability([free, out])).toEqual({ state: 'available', text: '2 libraries, 1 copy on the shelf' })
+    expect(summariseAvailability([free, { copies_total: 2, copies_out: 0, waiting: 0 }]).text)
+      .toBe('2 libraries, 3 copies on the shelf')
+    expect(summariseAvailability([claimed, out]).text).toBe('2 libraries, every free copy reserved')
+    expect(summariseAvailability([out, out]).text).toBe('2 libraries, all copies out')
+  })
+
+  it('reads like before when only one library has the title', () => {
+    expect(summariseAvailability([{ copies_total: 2, copies_out: 1, waiting: 0 }]).text).toBe('1 of 2 on the shelf')
+    expect(summariseAvailability([]).state).toBe('none')
+  })
+
+  it('writes the decline note without "you"', () => {
+    expect(declineText('The Kite Runner', 'Mira', true))
+      .toBe("The Kite Runner won't be coming from Mira's shelf this time. Have a look at the other copies.")
+    expect(declineText('Dune', 'Asad', false)).toBe("Dune won't be coming from Asad's shelf this time.")
+  })
+
+  it('sums up a borrowing record', () => {
+    expect(borrowingRecord({ loans_total: 0 })).toBe('No books borrowed yet')
+    expect(borrowingRecord({ loans_total: 3, loans_late: 0, loans_out: 0 })).toBe('3 books, all back on time')
+    expect(borrowingRecord({ loans_total: 1, loans_late: 0, loans_out: 0 })).toBe('1 book, back on time')
+    expect(borrowingRecord({ loans_total: 3, loans_late: 0, loans_out: 1 })).toBe('3 books, 1 out now, the rest back on time')
+    expect(borrowingRecord({ loans_total: 1, loans_late: 0, loans_out: 1 })).toBe('1 book, out now')
+    expect(borrowingRecord({ loans_total: 4, loans_late: 1, loans_out: 0 })).toBe('4 books, 1 late')
+  })
+
+  it('labels librarians with their city and borrowers by name only', () => {
+    expect(libraryLabel({ name: 'Mira', city: 'Hamburg' })).toBe('Mira, Hamburg')
+    expect(memberLabel({ name: 'Lena', city: 'Potsdam' })).toBe('Lena')
+    expect(memberLabel({ name: '' })).toBe('A new member (no name yet)')
+  })
 })
 
 describe('countBy', () => {
@@ -112,13 +162,16 @@ describe('reservations', () => {
       .toEqual(['1st', '2nd', '3rd', '4th', '11th', '12th', '13th', '21st', '22nd', '101st'])
   })
 
-  it('says when a request still needs approval', () => {
-    expect(describeMyReservation({ status: 'pending_approval', queue_place: 1 }).state).toBe('pending')
+  it('says when a request still needs approval, and which kind', () => {
+    expect(describeMyReservation({ status: 'pending_approval', queue_place: 1, waiting_for: 'borrower' }, {}, 'Mira'))
+      .toEqual({ state: 'pending', text: "Waiting for Mira's OK as a new borrower" })
+    expect(describeMyReservation({ status: 'pending_approval', queue_place: 1, waiting_for: 'restricted' }, {}, 'Asad').text)
+      .toBe("Waiting for Asad's approval")
   })
 
-  it('says a copy is waiting when enough are on the shelf', () => {
+  it('says a copy is waiting when enough are on the shelf, naming its librarian', () => {
     const counts = { copies_total: 2, copies_out: 1 }
-    expect(describeMyReservation({ status: 'active', queue_place: 1 }, counts)).toEqual({
+    expect(describeMyReservation({ status: 'active', queue_place: 1 }, counts, 'Asad')).toEqual({
       state: 'ready',
       text: 'A copy is waiting for you. Get in touch with Asad on when you can pick up.',
     })

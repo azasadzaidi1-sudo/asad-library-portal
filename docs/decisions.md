@@ -189,3 +189,24 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 ## 22. The Common Shelf inside the app too
 
 **Decision.** The header, the sign-in page and the browser tab now say The Common Shelf instead of Asad's Library, matching the installed app's name. The catalogue page shows no single library's name, because the next build adds friends' shelves and a page to choose a library. Lines that refer to Asad as the lender ("Needs Asad's approval to borrow", "Get in touch with Asad") stay as they are for now, since he is still the only librarian; they'll name each book's own librarian once there are several.
+
+## 23. Several libraries, and trust between friends
+
+**Decision.** The Common Shelf now holds more than one library. Every copy has an owner, and anyone with a copy on their shelf is a librarian of that shelf. Members browse all shelves in one catalogue (with a Libraries page and a library filter), and a title owned by several friends keeps one card, with its description and reviews shared, showing "2 libraries, 1 copy on the shelf". In the pop-up, each library's copies get their own row, and members reserve from the library they choose.
+
+**Trust circles.** The first time someone asks to borrow from a librarian, the request waits for that librarian. The request card shows what helps decide: the person's note (prompted with "Remind Mira how you know each other"), who invited them, which librarians already lend to them, when they joined and how their past loans went. After one approval they reserve from that shelf freely. If the librarian declines, the borrower sees "The Kite Runner won't be coming from Mira's shelf this time. Have a look at the other copies." The wording is deliberately warm, without "you" or "your request", and the same note is used for declined Restricted requests. A librarian can stop lending to someone later: their reservation on that shelf is cancelled, and a book they already have comes back as normal. Asad's existing members count as already approved for his shelf.
+
+**Rules per library, enforced in the database** (`supabase/08_multiple_libraries.sql`):
+- one book borrowed and one open reservation per member per library
+- only a copy's owner can lend it
+- each librarian has their own Restricted Section, with a reason shown to members
+- a first-time borrower asking for a Restricted book needs two approvals: first as a borrower, then for the book
+- lending a book in person counts as approving that borrower
+
+**Privacy.** Members still can't read each other's profiles. Librarians get names only (never cities or emails) for the people connected to their shelf, through functions that return just that. Librarians' own name and city are public on the Libraries page, so members can pick a copy nearby. The Interested list is visible to the member and to librarians who own that title.
+
+**Admin.** Asad becomes the admin. He removes inappropriate reviews, which librarians can't do; he keeps his private reading tracker, which isn't extended to other librarians for now; and he records who invited each new member until in-app invites exist.
+
+**Kept working during the switch.** The file keeps the old functions and columns, so the live site keeps working between running the SQL and the new website going live. A later clean-up can remove them.
+
+*Considered:* making members pick a library before seeing any books (it hides most of the catalogue), and one approval covering both a new borrower and a Restricted book (two separate approvals were preferred).

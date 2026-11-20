@@ -5,7 +5,7 @@ import { localDate } from './desk'
 import { attachAuthors } from './reviews'
 
 const BOOK_COLUMNS =
-  'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, restricted, restricted_reason, cover_id, description'
+  'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, cover_id, description'
 
 // Supabase answers { data, error }; turn an error into a thrown Error.
 function unwrap({ data, error }, friendly) {
@@ -17,46 +17,70 @@ export async function loadBooks() {
   return unwrap(await supabase.from('books').select(BOOK_COLUMNS).limit(1000))
 }
 
-// Map of book id -> { copies_total, copies_out, waiting }
-export async function loadAvailability() {
-  const rows = unwrap(await supabase.rpc('book_availability'))
-  return new Map(rows.map((row) => [row.book_id, row]))
+// Every library (anyone with a copy on the shelf): name, city, how many
+// titles, and where the signed-in member stands with that librarian.
+export async function loadLibraries() {
+  return unwrap(await supabase.rpc('libraries'))
 }
 
-// What the signed-in member has going on: one open reservation (with its
-// place in the queue), one book on loan, and requests declined this week.
+// Map of book id -> [{ owner_id, copies_total, copies_out, waiting }], one entry per library.
+export async function loadAvailability() {
+  const rows = unwrap(await supabase.rpc('library_availability'))
+  const byBook = new Map()
+  for (const row of rows) {
+    if (!byBook.has(row.book_id)) byBook.set(row.book_id, [])
+    byBook.get(row.book_id).push(row)
+  }
+  return byBook
+}
+
+// Map of book id -> Map of owner id -> reason, for every librarian's Restricted Section.
+export async function loadRestricted() {
+  const rows = unwrap(await supabase.from('restricted_titles').select('owner_id, book_id, reason'))
+  const byBook = new Map()
+  for (const row of rows) {
+    if (!byBook.has(row.book_id)) byBook.set(row.book_id, new Map())
+    byBook.get(row.book_id).set(row.owner_id, row.reason)
+  }
+  return byBook
+}
+
+// What the signed-in member has going on: open reservations (at most one
+// per library, each with its place in that library's queue), books on
+// loan (at most one per library), and requests declined this week.
 export async function loadMyCard(memberId) {
   const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-  const [reservation, loan, declined] = await Promise.all([
-    supabase.rpc('my_open_reservation').maybeSingle(),
+  const [reservations, loans, declined] = await Promise.all([
+    supabase.rpc('my_open_reservations'),
     supabase
       .from('loans')
-      .select('id, due_on, copy:copies(book_id)')
+      .select('id, due_on, owner_id, copy:copies(book_id)')
       .eq('member_id', memberId)
       .is('returned_on', null)
-      .maybeSingle(),
+      .order('due_on'),
     supabase
       .from('reservations')
-      .select('id, book_id, decided_at')
+      .select('id, book_id, owner_id, decided_at')
       .eq('member_id', memberId)
       .eq('status', 'declined')
       .gte('decided_at', weekAgo)
       .order('decided_at', { ascending: false }),
   ])
-  const myLoan = unwrap(loan)
   return {
-    reservation: unwrap(reservation),
-    loan: myLoan && { id: myLoan.id, due_on: myLoan.due_on, book_id: myLoan.copy.book_id },
+    reservations: unwrap(reservations),
+    loans: unwrap(loans).map((l) => ({ id: l.id, due_on: l.due_on, owner_id: l.owner_id, book_id: l.copy.book_id })),
     declined: unwrap(declined),
   }
 }
 
-export async function reserve(bookId, memberId) {
+// Reserve a title from one library. A first request to a librarian can
+// carry a note ("Remind Mira how you know each other").
+export async function requestBook(bookId, ownerId, note = '') {
   unwrap(
-    await supabase.from('reservations').insert({ book_id: bookId, member_id: memberId }),
+    await supabase.rpc('request_book', { p_book_id: bookId, p_owner_id: ownerId, p_note: note || null }),
     (error) =>
       error.code === '23505'
-        ? 'You already have a reservation open. Cancel it before reserving another book.'
+        ? 'You already have a reservation open on this shelf. Cancel it before reserving another book from it.'
         : `The reservation didn't go through: ${error.message}`,
   )
 }
@@ -68,18 +92,52 @@ export async function cancelReservation(reservationId) {
   )
 }
 
-// ---------- Librarian only (the database refuses these for members) ----------
+// ---------- Librarians (the database only shows your own shelf) ----------
 
-export async function loadApprovalRequests() {
-  return unwrap(
-    await supabase
+// Map of member id -> name, for everyone connected to the signed-in
+// librarian's shelf. Members can't read each other's profiles, so names
+// come from library_people() in supabase/08_multiple_libraries.sql.
+export async function loadPeople() {
+  const rows = unwrap(await supabase.rpc('library_people'))
+  return new Map(rows.map((row) => [row.member_id, row.name]))
+}
+
+// What's waiting for the signed-in librarian's OK: first-time borrowers
+// (with everything the request card shows) and Restricted Section requests
+// from people they've already approved.
+export async function loadApprovalRequests(ownerId) {
+  const [newBorrowers, pending] = await Promise.all([
+    supabase.rpc('borrower_requests'),
+    supabase
       .from('reservations')
-      .select('id, book_id, created_at, member:members(name, city)')
+      .select('id, book_id, member_id, created_at')
+      .eq('owner_id', ownerId)
       .eq('status', 'pending_approval')
       .order('created_at'),
+  ])
+  const firstTimers = unwrap(newBorrowers)
+  const waitingAsNew = new Set(firstTimers.map((b) => b.borrower_id))
+  return {
+    newBorrowers: firstTimers,
+    restricted: unwrap(pending).filter((r) => !waitingAsNew.has(r.member_id)),
+  }
+}
+
+export async function decideBorrower(borrowerId, approve) {
+  unwrap(
+    await supabase.rpc('decide_borrower', { p_borrower_id: borrowerId, p_approve: approve }),
+    (error) => `That decision wasn't saved: ${error.message}`,
   )
 }
 
+export async function stopLending(borrowerId) {
+  unwrap(
+    await supabase.rpc('stop_lending', { p_borrower_id: borrowerId }),
+    (error) => `That wasn't saved: ${error.message}`,
+  )
+}
+
+// Restricted Section requests: approve (into the queue) or decline.
 export async function decideRequest(reservationId, approve) {
   unwrap(
     await supabase
@@ -90,31 +148,36 @@ export async function decideRequest(reservationId, approve) {
   )
 }
 
-// Copies with who has each one, the queue, who's interested, and the
-// librarian's own reading status.
-export async function loadLibrarianDetails(bookId) {
+// The signed-in librarian's borrowers: approved ones (with whether they
+// have a book from this shelf) and anyone they've stopped lending to.
+export async function loadMyBorrowers() {
+  const rows = unwrap(await supabase.rpc('my_borrowers'))
+  return rows.map((row) => ({ id: row.borrower_id, name: row.name, status: row.status, since: row.since, hasBook: row.has_my_book }))
+}
+
+// For one title on the signed-in librarian's shelf: their copies with who
+// has each one, their queue, who's interested, and (for the admin) the
+// reading tracker.
+export async function loadLibrarianDetails(bookId, ownerId) {
   const copies = unwrap(
-    await supabase.from('copies').select('id, edition_note').eq('book_id', bookId).order('id'),
+    await supabase.from('copies').select('id, edition_note').eq('book_id', bookId).eq('owner_id', ownerId).order('id'),
   )
-  const [loans, queue, reading, interested, members] = await Promise.all([
+  const [loans, queue, reading, interested, borrowers] = await Promise.all([
     supabase
       .from('loans')
-      .select('id, copy_id, member_id, lent_on, due_on, member:members(name, city)')
+      .select('id, copy_id, member_id, lent_on, due_on')
       .is('returned_on', null)
       .in('copy_id', copies.map((c) => c.id)),
     supabase
       .from('reservations')
-      .select('id, status, created_at, member_id, member:members(name, city)')
+      .select('id, status, created_at, member_id')
       .eq('book_id', bookId)
+      .eq('owner_id', ownerId)
       .in('status', ['pending_approval', 'active'])
       .order('created_at'),
     supabase.from('reading_status').select('status').eq('book_id', bookId).maybeSingle(),
-    supabase
-      .from('interests')
-      .select('created_at, member:members(name, city)')
-      .eq('book_id', bookId)
-      .order('created_at'),
-    loadMembers(),
+    supabase.from('interests').select('created_at, member_id').eq('book_id', bookId).order('created_at'),
+    loadMyBorrowers(),
   ])
   const loansByCopy = new Map(unwrap(loans).map((loan) => [loan.copy_id, loan]))
   return {
@@ -122,7 +185,7 @@ export async function loadLibrarianDetails(bookId) {
     queue: unwrap(queue),
     readingStatus: unwrap(reading)?.status ?? 'unread',
     interested: unwrap(interested),
-    members,
+    members: borrowers.filter((b) => b.status === 'approved'),
   }
 }
 
@@ -133,7 +196,26 @@ export async function saveReadingStatus(bookId, status) {
   )
 }
 
-// ---------- Interested list (seen by the member and the librarian) ----------
+// Put one of your titles in your Restricted Section (with a reason shown
+// to members), or take it out again (reason = null).
+export async function setRestricted(bookId, ownerId, reason) {
+  const friendly = (error) => `The Restricted Section wasn't updated: ${error.message}`
+  const mine = () => supabase.from('restricted_titles')
+  if (!reason) {
+    unwrap(await mine().delete().eq('book_id', bookId).eq('owner_id', ownerId), friendly)
+    return
+  }
+  // Change the reason if the title is already restricted, otherwise add it.
+  const changed = unwrap(
+    await mine().update({ reason }).eq('book_id', bookId).eq('owner_id', ownerId).select('book_id'),
+    friendly,
+  )
+  if (changed.length === 0) {
+    unwrap(await mine().insert({ book_id: bookId, owner_id: ownerId, reason }), friendly)
+  }
+}
+
+// ---------- Interested list (seen by the member and librarians with a copy) ----------
 
 // Set of book ids the member has marked as interested.
 export async function loadMyInterests(memberId) {
@@ -148,38 +230,36 @@ export async function setInterested(bookId, memberId, interested) {
   unwrap(result, (error) => `Your interested list wasn't updated: ${error.message}`)
 }
 
-// ---------- Lending (librarian only) ----------
+// ---------- Lending (your own shelf) ----------
 
-// Every member with whether they already have a book out, for the "Lend to" list.
-export async function loadMembers() {
-  const [members, loans] = await Promise.all([
-    supabase.from('members').select('id, name, city').order('name'),
-    supabase.from('loans').select('member_id').is('returned_on', null),
-  ])
-  const borrowing = new Set(unwrap(loans).map((l) => l.member_id))
-  return unwrap(members).map((m) => ({ ...m, hasBook: borrowing.has(m.id) }))
-}
-
-// Everything the lending desk needs in one go.
-export async function loadDesk() {
-  const [copies, loans, reservations, members] = await Promise.all([
-    supabase.from('copies').select('id, book_id, edition_note').order('id'),
+// Everything the lending desk needs in one go, for the signed-in librarian's shelf.
+export async function loadDesk(ownerId) {
+  const [copies, loans, reservations, borrowers] = await Promise.all([
+    supabase.from('copies').select('id, book_id, edition_note').eq('owner_id', ownerId).order('id'),
     supabase
       .from('loans')
-      .select('id, copy_id, member_id, lent_on, due_on, member:members(name, city)')
+      .select('id, copy_id, member_id, lent_on, due_on')
+      .eq('owner_id', ownerId)
       .is('returned_on', null),
     supabase
       .from('reservations')
-      .select('id, book_id, member_id, status, created_at, member:members(name, city)')
+      .select('id, book_id, member_id, status, created_at')
+      .eq('owner_id', ownerId)
       .in('status', ['pending_approval', 'active'])
       .order('created_at'),
-    loadMembers(),
+    loadMyBorrowers(),
   ])
-  return { copies: unwrap(copies), loans: unwrap(loans), reservations: unwrap(reservations), members }
+  return {
+    copies: unwrap(copies),
+    loans: unwrap(loans),
+    reservations: unwrap(reservations),
+    borrowers,
+    members: borrowers.filter((b) => b.status === 'approved'),
+  }
 }
 
 // Lends a copy (and closes the member's reservation for it, if they had one)
-// in a single database step: see supabase/05_lending.sql.
+// in a single database step: see lend_copy() in supabase/08_multiple_libraries.sql.
 export async function lendCopy(copyId, memberId, reservationId = null) {
   unwrap(
     await supabase.rpc('lend_copy', {

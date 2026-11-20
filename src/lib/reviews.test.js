@@ -29,15 +29,15 @@ describe('orderReviews', () => {
 })
 
 describe('permissions', () => {
-  const sara = { id: 's', role: 'member' }
-  const asad = { id: 'a', role: 'librarian' }
+  const sara = { id: 's', is_admin: false }
+  const asad = { id: 'a', is_admin: true }
 
   it('lets you edit only your own posts', () => {
     expect(canEdit({ member_id: 's' }, sara)).toBe(true)
     expect(canEdit({ member_id: 's' }, asad)).toBe(false)
   })
 
-  it('lets the librarian delete anything', () => {
+  it('lets the admin delete anything', () => {
     expect(canDelete({ member_id: 't' }, sara)).toBe(false)
     expect(canDelete({ member_id: 't' }, asad)).toBe(true)
   })

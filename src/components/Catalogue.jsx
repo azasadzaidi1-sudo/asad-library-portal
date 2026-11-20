@@ -3,11 +3,11 @@ import { awardName, countBy, filterBooks, languageName } from '../lib/catalogue'
 import ApprovalBox from './ApprovalBox'
 import BookCard from './BookCard'
 
-export const NO_FILTERS = { query: '', genre: '', award: '', language: '' }
+export const NO_FILTERS = { query: '', library: '', genre: '', award: '', language: '' }
 
 export default function Catalogue({ library, filters, setFilters, onOpenBook }) {
   const [showFilters, setShowFilters] = useState(false) // phones only: filters fold away
-  const { books } = library
+  const { books, libraries, ownersByBook } = library
 
   const options = useMemo(
     () => ({
@@ -18,9 +18,9 @@ export default function Catalogue({ library, filters, setFilters, onOpenBook }) 
     [books],
   )
 
-  const shown = useMemo(() => filterBooks(books, filters), [books, filters])
+  const shown = useMemo(() => filterBooks(books, filters, ownersByBook), [books, filters, ownersByBook])
   const filtered = Object.values(filters).some(Boolean)
-  const dropdownsInUse = [filters.genre, filters.award, filters.language].filter(Boolean).length
+  const dropdownsInUse = [filters.library, filters.genre, filters.award, filters.language].filter(Boolean).length
   const update = (key) => (event) => setFilters({ ...filters, [key]: event.target.value })
 
   return (
@@ -39,8 +39,19 @@ export default function Catalogue({ library, filters, setFilters, onOpenBook }) 
           onClick={() => setShowFilters(!showFilters)}>
           {showFilters
             ? 'Hide filters'
-            : `Filter by genre, award or language${dropdownsInUse ? ` (${dropdownsInUse} in use)` : ''}`}
+            : `Filter by library, genre, award or language${dropdownsInUse ? ` (${dropdownsInUse} in use)` : ''}`}
         </button>
+        <label className="finder-filter">
+          Library
+          <select value={filters.library} onChange={update('library')}>
+            <option value="">All libraries</option>
+            {libraries.map((lib) => (
+              <option key={lib.owner_id} value={lib.owner_id}>
+                {lib.is_me ? 'Your shelf' : lib.name} ({lib.titles})
+              </option>
+            ))}
+          </select>
+        </label>
         <label className="finder-filter">
           Genre
           <select value={filters.genre} onChange={update('genre')}>
@@ -96,7 +107,7 @@ export default function Catalogue({ library, filters, setFilters, onOpenBook }) 
             <li key={book.id}>
               <BookCard
                 book={book}
-                counts={library.availability.get(book.id)}
+                library={library}
                 interested={library.interests.has(book.id)}
                 onOpen={() => onOpenBook(book.id)}
               />

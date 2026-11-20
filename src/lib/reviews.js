@@ -26,6 +26,7 @@ export function canEdit(post, member) {
   return post.member_id === member.id
 }
 
+// You can delete your own posts; the admin (Asad) can remove anything.
 export function canDelete(post, member) {
-  return post.member_id === member.id || member.role === 'librarian'
+  return post.member_id === member.id || Boolean(member.is_admin)
 }
