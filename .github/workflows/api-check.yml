@@ -24,6 +24,12 @@ jobs:
             Q="SELECT ?work ?awardLabel ?year WHERE { ?work wdt:P648 \"$K\" . OPTIONAL { ?work p:P166 ?st . ?st ps:P166 ?award . OPTIONAL { ?st pq:P585 ?date . BIND(YEAR(?date) AS ?year) } } SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } }"
             curl -s -G -A "$UA" -H "Accept: application/sparql-results+json" --data-urlencode "query=$Q" https://query.wikidata.org/sparql > "scripts/api-check/wd-$K.json"
           done
+          for QID in Q430514 Q190192 Q43361; do
+            Q="SELECT ?prop ?value WHERE { VALUES ?prop { wdt:P2969 wdt:P8383 wdt:P444 } wd:$QID ?prop ?value . }"
+            curl -s -G -A "$UA" -H "Accept: application/sparql-results+json" --data-urlencode "query=$Q" https://query.wikidata.org/sparql > "scripts/api-check/gr-$QID.json"
+            Q2="SELECT ?pLabel ?value WHERE { wd:$QID ?pd ?value . ?p wikibase:directClaim ?pd . FILTER(CONTAINS(LCASE(STR(?pLabel)), 'goodreads') || CONTAINS(LCASE(STR(?pLabel)), 'rating') || CONTAINS(LCASE(STR(?pLabel)), 'score')) SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. ?p rdfs:label ?pLabel } }"
+            curl -s -G -A "$UA" -H "Accept: application/sparql-results+json" --data-urlencode "query=$Q2" https://query.wikidata.org/sparql > "scripts/api-check/grall-$QID.json"
+          done
           curl -s -I -G -H "Origin: https://azasadzaidi1-sudo.github.io" -A "$UA" --data-urlencode "query=ASK{}" -H "Accept: application/sparql-results+json" https://query.wikidata.org/sparql > scripts/api-check/wd-cors.txt
       - name: Commit results
         run: |
