@@ -185,3 +185,7 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Why no offline mode.** A service worker could cache the app so it opens without internet, but Chrome no longer requires one to install, and every page needs live data from the database anyway. Offline, the app would only be able to show an error. *Left for later* if members ask for it.
 
 **Name ahead of the rename.** The home-screen name and the install prompt already say The Common Shelf, the planned name for the multi-library version; the page title still says Asad's Library until the full rename.
+
+## 22. The Common Shelf inside the app too
+
+**Decision.** The header, the sign-in page and the browser tab now say The Common Shelf instead of Asad's Library, matching the installed app's name. The catalogue page shows no single library's name, because the next build adds friends' shelves and a page to choose a library. Lines that refer to Asad as the lender ("Needs Asad's approval to borrow", "Get in touch with Asad") stay as they are for now, since he is still the only librarian; they'll name each book's own librarian once there are several.

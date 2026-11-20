@@ -10,7 +10,7 @@ export default function Header({ member, page }) {
   return (
     <header className="masthead">
       <div className="masthead-inner">
-        <p className="masthead-title">Asad's Library</p>
+        <p className="masthead-title">The Common Shelf</p>
         <nav className="masthead-nav" aria-label="Pages">
           {link('catalogue', 'Catalogue')}
           {link('my-books', 'My books')}
