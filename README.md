@@ -13,8 +13,9 @@ A lending library for friends, built around my own bookshelves: 188 titles and 2
 - Cover images, and a pop-up per book with the option to reserve it (one at a time, first come, first served) or mark it as interested.
 - A "My books" page with what a member has borrowed, reserved and marked as interested.
 - For the librarian: Restricted Section requests to approve or decline, who has each copy and when it's due, the queue, who's interested, and a private reading tracker.
+- A lending desk for the librarian (Overdue / Reserved / Lent out / Available), with one-click lending of reserved books, lending without a reservation, and returns.
 
-**Planned:** a librarian view (Available / Reserved / Lent out / Overdue), lending and returns, inviting members by email, and reminders a week before a loan is due.
+**Planned:** inviting members by email with their own passwords, and reminders a week before a loan is due.
 
 ## How it's built
 
@@ -31,7 +32,7 @@ The house rules live in the database itself, not just in the website: one loan a
 
 ```
 supabase/          SQL run in Supabase, in order: tables and rules, book import, availability,
-                   reservations and covers
+                   reservations and covers, lending
 src/               the React app
   components/      screens and pieces of the page
   lib/             plain logic (filters, availability wording) and its tests

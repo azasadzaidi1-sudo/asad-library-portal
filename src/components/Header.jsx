@@ -14,6 +14,7 @@ export default function Header({ member, page }) {
         <nav className="masthead-nav" aria-label="Pages">
           {link('catalogue', 'Catalogue')}
           {link('my-books', 'My books')}
+          {member.role === 'librarian' && link('desk', 'Lending desk')}
         </nav>
         <div className="masthead-user">
           <span>

@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Catalogue, { NO_FILTERS } from './components/Catalogue'
 import MyBooks from './components/MyBooks'
 import BookDialog from './components/BookDialog'
+import LendingDesk from './components/LendingDesk'
 
 // The app has three screens, chosen by who is visiting:
 //   not signed in          -> Login
@@ -52,10 +53,15 @@ function MemberArea({ userId }) {
   return <Library member={member} />
 }
 
-// Which page to show comes from the end of the address (#my-books), so the
-// browser's back button and bookmarks work without a routing library.
+// Which page to show comes from the end of the address (#my-books, #desk),
+// so the browser's back button and bookmarks work without a routing library.
+const PAGES = ['catalogue', 'my-books', 'desk']
+
 function usePage() {
-  const read = () => (window.location.hash === '#my-books' ? 'my-books' : 'catalogue')
+  const read = () => {
+    const page = window.location.hash.slice(1)
+    return PAGES.includes(page) ? page : 'catalogue'
+  }
   const [page, setPage] = useState(read)
   useEffect(() => {
     const onChange = () => {
@@ -83,6 +89,8 @@ function Library({ member }) {
     )
   } else if (!library.books) {
     content = <p className="status-page">Opening the catalogue drawers…</p>
+  } else if (page === 'desk' && library.isLibrarian) {
+    content = <LendingDesk library={library} onOpenBook={setOpenBookId} />
   } else if (page === 'my-books') {
     content = <MyBooks library={library} onOpenBook={setOpenBookId} />
   } else {

@@ -5,17 +5,22 @@ import {
   formatDate,
   isOverdue,
   languageName,
+  memberLabel,
   READING_STATUSES,
 } from '../lib/catalogue'
 import {
   cancelReservation,
+  lendCopy,
   loadLibrarianDetails,
   reserve,
+  returnLoan,
   saveReadingStatus,
   setInterested,
 } from '../lib/library'
 import { listAwards, Stamp } from './BookCard'
 import Cover from './Cover'
+import LendControls from './LendControls'
+import ReturnButton from './ReturnButton'
 
 // The pop-up that opens when a book card is clicked. Built on the browser's
 // own <dialog>, which handles the Escape key and keeps keyboard focus inside.
@@ -64,7 +69,7 @@ export default function BookDialog({ book, library, member, onClose }) {
 
         <MemberActions book={book} library={library} member={member} onChanged={changed} />
 
-        {library.isLibrarian && <LibrarianPanel bookId={book.id} version={version} />}
+        {library.isLibrarian && <LibrarianPanel bookId={book.id} version={version} onChanged={changed} />}
       </div>
     </dialog>
   )
@@ -147,15 +152,24 @@ function MemberActions({ book, library, member, onChanged }) {
   )
 }
 
-function memberLabel(m) {
-  if (!m?.name) return 'A new member'
-  return m.city ? `${m.name} (${m.city})` : m.name
-}
-
-function LibrarianPanel({ bookId, version }) {
+function LibrarianPanel({ bookId, version, onChanged }) {
   const [details, setDetails] = useState(null)
   const [error, setError] = useState('')
   const [saved, setSaved] = useState('')
+  const [busy, setBusy] = useState(false)
+
+  async function run(action) {
+    setBusy(true)
+    setError('')
+    try {
+      await action()
+      await onChanged()
+    } catch (e) {
+      setError(e.message)
+    } finally {
+      setBusy(false)
+    }
+  }
 
   useEffect(() => {
     loadLibrarianDetails(bookId).then(setDetails).catch((e) => setError(e.message))
@@ -173,8 +187,13 @@ function LibrarianPanel({ bookId, version }) {
     }
   }
 
-  if (error) return <p className="form-error" role="alert">{error}</p>
-  if (!details) return <p className="dialog-loading">Checking the ledger…</p>
+  if (!details) {
+    return error
+      ? <p className="form-error" role="alert">{error}</p>
+      : <p className="dialog-loading">Checking the ledger…</p>
+  }
+  // Suggest lending to the first person in the queue, if their reservation is confirmed.
+  const firstReady = details.queue[0]?.status === 'active' ? details.queue[0] : null
 
   return (
     <section className="dialog-section librarian-panel" aria-label="Librarian details">
@@ -193,21 +212,31 @@ function LibrarianPanel({ bookId, version }) {
       </div>
 
       <h4 className="panel-heading">Copies</h4>
-      <ul className="panel-list">
+      <ul className="panel-copies">
         {details.copies.map((copy, i) => (
           <li key={copy.id}>
-            Copy {i + 1}{copy.edition_note ? `, ${copy.edition_note}` : ''}:{' '}
+            <p>
+              Copy {i + 1}{copy.edition_note ? `, ${copy.edition_note}` : ''}:{' '}
+              {copy.loan ? (
+                <span className={isOverdue(copy.loan.due_on) ? 'overdue' : undefined}>
+                  with {memberLabel(copy.loan.member)}, due {formatDate(copy.loan.due_on)}
+                  {isOverdue(copy.loan.due_on) && ' (overdue)'}
+                </span>
+              ) : (
+                'on the shelf'
+              )}
+            </p>
             {copy.loan ? (
-              <span className={isOverdue(copy.loan.due_on) ? 'overdue' : undefined}>
-                with {memberLabel(copy.loan.member)}, due {formatDate(copy.loan.due_on)}
-                {isOverdue(copy.loan.due_on) && ' (overdue)'}
-              </span>
+              <ReturnButton busy={busy} onReturn={() => run(() => returnLoan(copy.loan.id))} />
             ) : (
-              'on the shelf'
+              <LendControls key={version} copies={[{ ...copy, number: i + 1 }]} members={details.members}
+                defaultMemberId={firstReady?.member_id ?? ''} busy={busy}
+                onLend={(copyId, memberId) => run(() => lendCopy(copyId, memberId))} />
             )}
           </li>
         ))}
       </ul>
+      {error && <p className="form-error" role="alert">{error}</p>}
 
       <h4 className="panel-heading">Queue</h4>
       {details.queue.length === 0 ? (

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { formatDate } from '../lib/catalogue'
+import { formatDate, memberLabel } from '../lib/catalogue'
 import { decideRequest } from '../lib/library'
 
 // Librarian only: Restricted Section requests waiting for a decision.
@@ -28,9 +28,7 @@ export default function ApprovalBox({ library, onOpenBook }) {
       <ul>
         {library.approvals.map((r) => {
           const book = library.booksById.get(r.book_id)
-          const who = r.member?.name
-            ? `${r.member.name}${r.member.city ? ` (${r.member.city})` : ''}`
-            : 'A new member'
+          const who = memberLabel(r.member)
           return (
             <li key={r.id} className="approval">
               <p>

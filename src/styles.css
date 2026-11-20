@@ -777,6 +777,7 @@ body:has(.book-dialog[open]) {
 
 .book-row {
   display: flex;
+  align-items: flex-start;
   gap: 1.1rem;
   max-width: 40rem;
   padding: 1rem 1.2rem;
@@ -840,5 +841,133 @@ body:has(.book-dialog[open]) {
 
   .dialog-title {
     font-size: 1.4rem;
+  }
+}
+
+/* ---------- Lending round: desk, tabs, lend and return controls ---------- */
+
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  margin-top: 1.25rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.tab {
+  flex: none;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  margin-bottom: -1px;
+  padding: 0.55rem 1rem 0.5rem;
+  background: none;
+  color: var(--ink-soft);
+  font: 1.0625rem/1.2 var(--text);
+  cursor: pointer;
+}
+
+.tab[aria-selected='true'] {
+  background: var(--card);
+  border-color: var(--rule-strong);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.tab-count {
+  display: inline-block;
+  min-width: 1.5rem;
+  margin-left: 0.3rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: var(--rule);
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tab-alert .tab-count {
+  background: var(--oxblood);
+  color: var(--card);
+}
+
+.desk-panel {
+  display: grid;
+  gap: 0.9rem;
+  padding-top: 1.25rem;
+}
+
+.desk-row {
+  max-width: 46rem;
+}
+
+.desk-error {
+  margin-top: 1rem;
+}
+
+.desk-search {
+  max-width: 28rem;
+}
+
+.desk-cancel {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.lend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.6rem;
+}
+
+.lend label {
+  min-width: 12rem;
+}
+
+.confirm {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.panel-copies {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.panel-copies > li {
+  display: grid;
+  gap: 0.4rem;
+  justify-items: start;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.panel-copies > li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+@media (max-width: 34rem) {
+  .tab {
+    padding-inline: 0.6rem;
+  }
+
+  .lend label {
+    min-width: 0;
+    width: 100%;
   }
 }
