@@ -1,11 +1,11 @@
 HTTP/2 405 
 server: nginx/1.30.7
-date: Fri, 20 Nov 2026 23:29:35 GMT
+date: Fri, 20 Nov 2026 23:30:30 GMT
 content-type: application/json
 content-length: 31
 allow: GET
 access-control-allow-origin: *
 vary: Origin
 x-served-by: FastAPI
-server-timing: total;dur=4.4
+server-timing: total;dur=3.8
 

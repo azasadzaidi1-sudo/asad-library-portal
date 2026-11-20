@@ -1,0 +1,17 @@
+{
+  "head" : {
+    "vars" : [ "prop", "value" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "prop" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/prop/direct/P8383"
+      },
+      "value" : {
+        "type" : "literal",
+        "value" : "3634639"
+      }
+    } ]
+  }
+}
