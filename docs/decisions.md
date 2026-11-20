@@ -164,6 +164,18 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 
 **Why not the publishers' blurbs.** Back-cover blurbs are copyrighted, and copying 188 of them into a public repository would be redistributing them. *Considered:* loading Open Library's descriptions live (like the covers), but many books have none there and others are long or not in English. Writing them fresh gives every book, including the German textbooks and the Urdu novel, a description in one consistent voice.
 
+## 20. Reviews with replies, and a badge for library readers
+
+**Decision.** Any member can write one review per book (they can edit it later) and reply to any review in a single conversation under it. A "Borrowed from the library" badge marks reviews from members who have had a loan of that book. Reviewers can flag spoilers, which hides the review until a reader chooses to see it. Members can edit and delete their own posts; the librarian can delete anything.
+
+**Why the badge instead of borrowers only.** Limiting reviews to borrowers would have kept them about this library's copies, but with a brand-new library nobody could have reviewed anything for weeks. Letting everyone post while badging borrowers gets conversations going straight away and still shows whose review comes from a library copy. *Considered:* borrowers only; any member with no badge.
+
+**Why one level of replies.** Nested threads get cramped inside a pop-up, especially on phones.
+
+**Privacy.** Members still can't read each other's profiles. `book_discussion_people()` (in `supabase/07_reviews.sql`) returns only the names of people who posted about that book and whether each borrowed it, never cities or anything else. The first-visit screen now says so. The badge does reveal that a reviewer once borrowed the book, which they opt into by writing the review.
+
+**Rules in the database.** Row-level security lets members post only as themselves and edit only their own posts; column grants mean only the text and spoiler flag can change after posting; a trigger stamps `edited_at`; deleting a review removes its replies.
+
 ## 21. Installable on phones, with a shelf icon
 
 **Decision.** The app can now be installed from Chrome ("Install app") and gets its own icon on the home screen, labelled "Common Shelf", and opens in its own window without the browser bar. The icon is three book spines on a brass shelf, in the library's green, paper, brass and oxblood; the browser tab icon uses it too.

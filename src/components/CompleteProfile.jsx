@@ -31,7 +31,8 @@ export default function CompleteProfile({ member, onSaved }) {
       <div className="entry-card">
         <h1 className="entry-title">Welcome to the library</h1>
         <p className="entry-lede">
-          Before you browse, tell Asad who's borrowing. Only Asad sees your name and city.
+          Before you browse, tell Asad who's borrowing. Other members see your name on reviews and
+          replies you write; only Asad sees your city.
         </p>
         <form onSubmit={save} className="form">
           <label>

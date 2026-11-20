@@ -21,6 +21,7 @@ import { listAwards, Stamp } from './BookCard'
 import Cover from './Cover'
 import LendControls from './LendControls'
 import ReturnButton from './ReturnButton'
+import Reviews from './Reviews'
 
 // The pop-up that opens when a book card is clicked. Built on the browser's
 // own <dialog>, which handles the Escape key and keeps keyboard focus inside.
@@ -70,6 +71,8 @@ export default function BookDialog({ book, library, member, onClose }) {
         {book.description && <p className="dialog-description">{book.description}</p>}
 
         <MemberActions book={book} library={library} member={member} onChanged={changed} />
+
+        <Reviews book={book} member={member} />
 
         {library.isLibrarian && <LibrarianPanel bookId={book.id} version={version} onChanged={changed} />}
       </div>
