@@ -1,0 +1,22 @@
+HTTP/2 200 
+server: nginx/1.22.1
+date: Fri, 20 Nov 2026 23:29:36 GMT
+content-type: application/sparql-results+json;charset=utf-8
+x-served-by: wdqs2008
+access-control-allow-origin: *
+access-control-allow-headers: accept, content-type, content-length, user-agent, api-user-agent
+cache-control: public, max-age=300
+age: 0
+accept-ranges: bytes
+vary: Accept, Accept-Encoding
+x-cache: cp4038 miss, cp4038 pass
+x-cache-status: pass
+strict-transport-security: max-age=106384710; includeSubDomains; preload
+report-to: { "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0" }] }
+nel: { "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction": 0.0}
+x-client-ip: 134.33.70.49
+set-cookie: WMF-Uniq=sAx6xLVlWuazDtIYEOFVZwQeAAAAAFvdgdg8DMIJKowJ4dDyAhYOLAnonm5Hnf70;Domain=.wikidata.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Sat, 20 Nov 2027 00:00:00 GMT
+x-request-id: a14a15bf-4bd5-416b-ae43-96f503d9afda
+x-analytics: 
+server-timing: cache;desc="pass", host;desc="cp4038",co_id;desc="2740000857"
+

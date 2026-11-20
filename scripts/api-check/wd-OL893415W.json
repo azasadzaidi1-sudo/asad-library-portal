@@ -1,0 +1,53 @@
+{
+  "head" : {
+    "vars" : [ "work", "awardLabel", "year" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "year" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "1966"
+      },
+      "work" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q190192"
+      },
+      "awardLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nebula Award for Best Novel"
+      }
+    }, {
+      "year" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "1966"
+      },
+      "work" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q190192"
+      },
+      "awardLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hugo Award for Best Novel"
+      }
+    }, {
+      "year" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "1974"
+      },
+      "work" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q190192"
+      },
+      "awardLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Seiun Award for Best Translated Long Work"
+      }
+    } ]
+  }
+}

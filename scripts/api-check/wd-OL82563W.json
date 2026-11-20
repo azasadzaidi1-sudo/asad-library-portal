@@ -1,0 +1,33 @@
+{
+  "head" : {
+    "vars" : [ "work", "awardLabel", "year" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "year" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "1997"
+      },
+      "work" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43361"
+      },
+      "awardLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nestlé Children's Book Prize"
+      }
+    }, {
+      "work" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43361"
+      },
+      "awardLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The British Book Awards"
+      }
+    } ]
+  }
+}
