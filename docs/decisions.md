@@ -175,3 +175,13 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Privacy.** Members still can't read each other's profiles. `book_discussion_people()` (in `supabase/07_reviews.sql`) returns only the names of people who posted about that book and whether each borrowed it, never cities or anything else. The first-visit screen now says so. The badge does reveal that a reviewer once borrowed the book, which they opt into by writing the review.
 
 **Rules in the database.** Row-level security lets members post only as themselves and edit only their own posts; column grants mean only the text and spoiler flag can change after posting; a trigger stamps `edited_at`; deleting a review removes its replies.
+
+## 21. Installable on phones, with a shelf icon
+
+**Decision.** The app can now be installed from Chrome ("Install app") and gets its own icon on the home screen, labelled "Common Shelf", and opens in its own window without the browser bar. The icon is three book spines on a brass shelf, in the library's green, paper, brass and oxblood; the browser tab icon uses it too.
+
+**How.** Chrome only offers to install a site that has a web app manifest (`public/manifest.webmanifest`): a small file with the app's name, a 192px and a 512px icon, the start page, and `display: standalone`. The icon is drawn once in `scripts/icons/shelf.svg.tmpl`, and `make_icons.sh` turns it into every size needed: rounded icons, "maskable" icons with the shelf shrunk into the middle so Android can crop them to a circle without cutting off a book, and a square 180px icon for iPhones, which round the corners themselves. Paths in the manifest are relative, so they work under the `/asad-library-portal/` address.
+
+**Why no offline mode.** A service worker could cache the app so it opens without internet, but Chrome no longer requires one to install, and every page needs live data from the database anyway. Offline, the app would only be able to show an error. *Left for later* if members ask for it.
+
+**Name ahead of the rename.** The home-screen name and the install prompt already say The Common Shelf, the planned name for the multi-library version; the page title still says Asad's Library until the full rename.

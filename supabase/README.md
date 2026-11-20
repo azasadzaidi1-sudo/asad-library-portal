@@ -12,7 +12,7 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `04_reservations_and_covers.sql` | Queue places for reservations, cover pictures, and the "Interested" list | #4 | Done |
 | `05_lending.sql` | Lending a copy and closing the reservation in one step | #5 | Done |
 | `06_descriptions.sql` | A short description for every book | #6 | Done |
-| `07_reviews.sql` | Reviews and replies on each book | #8 | **Not yet: run before merging #8** |
+| `07_reviews.sql` | Reviews and replies on each book | #8 | Done |
 
 When a pull request adds a new file, it gets the next number and a new row here.
 
