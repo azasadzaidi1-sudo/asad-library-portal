@@ -210,3 +210,24 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Kept working during the switch.** The file keeps the old functions and columns, so the live site keeps working between running the SQL and the new website going live. A later clean-up can remove them.
 
 *Considered:* making members pick a library before seeing any books (it hides most of the catalogue), and one approval covering both a new borrower and a Restricted book (two separate approvals were preferred).
+
+## 24. Librarians add their own books
+
+**Decision.** An Add book page lets any member put books on their own shelf, so new librarians don't need Asad (or a round of shelf photos) to get started. It's reached from the Libraries page: "Start your shelf" for someone without books yet, and "Add a book" on your own library card. It's deliberately not on the lending desk: the desk is for day-to-day lending, and looking after your shelf (adding, removing, the Restricted Section) is separate work, so the two stay apart. Librarians find a book by typing a title, author or ISBN, or by scanning the barcode on the back with their phone camera. Chrome on Android reads barcodes natively (the BarcodeDetector API), so there's no extra library; on devices without it, only search shows.
+
+**One card per title.** If the book is already in the catalogue (same Open Library work, or the same title and author however they're written), the librarian's copy joins that card, and the shared description and reviews stay as they are. Only a genuinely new title creates a new card. The database checks this too, so the same book can't be added twice.
+
+**Keeping the catalogue consistent:**
+- **Basics:** Open Library fills in title, author, year, cover and a guess at the language.
+- **Genre:** the librarian picks one from the existing list (required), so filters keep working.
+- **Description:** optional, in their own words. Publisher blurbs aren't copied, as with the original catalogue.
+- **Prizes:** filled in automatically from Wikidata, which links books to their Open Library ID. Only prizes with a year are kept, which leaves out "best of" lists, and names are shortened to match the catalogue ("Hugo Award 2002").
+- **Goodreads ratings:** Goodreads closed its API in 2020, and Wikidata only stores the Goodreads ID, not the rating. So ratings for new titles are looked up by hand in occasional batches. (A "See it on Goodreads" link was considered and not chosen.)
+
+**Removing a copy** marks it as removed rather than deleting it, so past loans and the "Borrowed from the library" badge on reviews stay true. A lent-out copy can't be removed. If it was the librarian's last copy of a title, anyone waiting for it on their shelf has their reservation cancelled, and a title with no copies left disappears from the catalogue.
+
+*Considered:* a free-text genre (it would split the genre filter), requiring a description (slower for librarians, and an empty one is better than a copied blurb), and a barcode library such as ZXing (heavier; the built-in detector covers the phones that matter here).
+
+## 25. "My books" becomes "Borrowing lists"
+
+**Decision.** The page with what a member has borrowed, reserved and marked as interested is now called **Borrowing lists** (Asad's wording). Once members could have shelves of their own, "My books" read just as naturally as "the books I own", and that page is about books from other people's shelves. Old links to `#my-books` still open it.

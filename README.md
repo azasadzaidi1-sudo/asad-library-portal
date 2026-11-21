@@ -13,12 +13,13 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 - Live availability per book ("1 of 2 on the shelf", "All copies out, 2 in the queue"), without revealing who has borrowed what.
 - A Restricted Section per librarian: titles that need that librarian's approval, with a reason such as a fragile copy.
 - Cover images, a short spoiler-free description of every book, and a pop-up per book showing each library's copies, with the option to reserve from a chosen library (one book and one reservation per library, first come, first served) or mark it as interested.
-- A "My books" page with what a member has borrowed, reserved and marked as interested, from every library.
+- A "Borrowing lists" page with what a member has borrowed, reserved and marked as interested, from every library.
 - Reviews with replies in each book's pop-up, spoiler warnings, and a "Borrowed from the library" badge for reviewers who read the library's copy.
 - For each librarian, on their own shelf: requests to approve or decline, who has each copy and when it's due, the queue, who's interested, and their Restricted Section.
 - A lending desk per librarian (Overdue / Reserved / Lent out / Available / Borrowers), with one-click lending of reserved books, lending without a reservation, returns, and stopping or restarting lending to someone.
+- Add book: librarians search by title, author or ISBN, or scan the barcode with their phone camera. A title that's already in the catalogue gets their copy; a new one comes from Open Library with its cover, and its prizes are filled in automatically from Wikidata. Librarians can also remove copies; past loans are kept.
 
-**Planned:** an "Add book" form so librarians add their own books, in-app invitations (only people who lend books can invite) with their own passwords, and reminders a week before a loan is due.
+**Planned:** in-app invitations (only people who lend books can invite) with their own passwords, and reminders a week before a loan is due.
 
 ## How it's built
 
@@ -28,6 +29,7 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 | Website | React + Vite, published to GitHub Pages |
 | Checks and deploys | GitHub Actions: tests and build on every pull request, deploy on merge |
 | Tests | Vitest |
+| Book data | [Open Library](https://openlibrary.org/developers/api) (search, covers) and [Wikidata](https://www.wikidata.org) (prizes), called from the browser |
 
 The house rules live in the database itself, not just in the website: one loan and one reservation per member per library, only a copy's owner can lend it, first-time borrowers and Restricted Section requests wait for the librarian's approval, members only see their own loans, borrowers' cities stay private, and a loan is due 28 days after it starts. Every choice, with the alternatives considered, is written up in [docs/decisions.md](docs/decisions.md).
 
@@ -36,7 +38,7 @@ The house rules live in the database itself, not just in the website: one loan a
 ```
 supabase/          SQL run in Supabase, in order (checklist in supabase/README.md): tables and rules,
                    book import, availability, reservations and covers, lending, descriptions,
-                   reviews, several libraries
+                   reviews, several libraries, adding books
 src/               the React app
   components/      screens and pieces of the page
   lib/             plain logic (filters, availability wording) and its tests

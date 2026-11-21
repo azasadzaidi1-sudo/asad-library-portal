@@ -1,7 +1,19 @@
 // Pure helper functions for the catalogue: no React, no Supabase.
 // Keeping them separate makes them easy to test (see catalogue.test.js).
 
-export const LANGUAGE_NAMES = { en: 'English', de: 'German', ur: 'Urdu' }
+export const LANGUAGE_NAMES = {
+  en: 'English',
+  de: 'German',
+  ur: 'Urdu',
+  fr: 'French',
+  es: 'Spanish',
+  it: 'Italian',
+  tr: 'Turkish',
+  ar: 'Arabic',
+  fa: 'Persian',
+  nl: 'Dutch',
+  pt: 'Portuguese',
+}
 
 export function languageName(code) {
   return LANGUAGE_NAMES[code] ?? code.toUpperCase()
@@ -154,7 +166,7 @@ export function describeMyReservation(reservation, counts = {}, owner = 'the lib
   return { state: 'queued', text: `You're ${ordinal(reservation.queue_place)} in the queue` }
 }
 
-// What a borrower sees on My books for a week after a librarian says no.
+// What a borrower sees on Borrowing lists for a week after a librarian says no.
 // Asad's wording: warm, and without "you" or "your request".
 export function declineText(title, owner, otherCopies) {
   const first = `${title} won't be coming from ${owner}'s shelf this time.`

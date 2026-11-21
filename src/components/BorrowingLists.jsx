@@ -4,9 +4,11 @@ import { cancelReservation } from '../lib/library'
 import BookCard from './BookCard'
 import Cover from './Cover'
 
-// A member's own page: what they've borrowed, reserved and marked as interested.
+// "Borrowing lists": what a member has borrowed, reserved and marked as
+// interested, from every library. (It used to be called "My books", which
+// could be misread as the books on your own shelf.)
 // Members can have one book and one reservation from each library at a time.
-export default function MyBooks({ library, onOpenBook }) {
+export default function BorrowingLists({ library, onOpenBook }) {
   const { myCard, booksById, availability, interests, ownerName } = library
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -28,8 +30,8 @@ export default function MyBooks({ library, onOpenBook }) {
   }
 
   return (
-    <div className="my-books">
-      <h1 className="page-title">My books</h1>
+    <div className="borrowing-lists">
+      <h1 className="page-title">Borrowing lists</h1>
 
       <section className="shelf" aria-labelledby="borrowed-title">
         <h2 id="borrowed-title" className="shelf-title">Borrowed</h2>

@@ -5,7 +5,7 @@ import { localDate } from './desk'
 import { attachAuthors } from './reviews'
 
 const BOOK_COLUMNS =
-  'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, cover_id, description'
+  'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, cover_id, description, ol_work_key'
 
 // Supabase answers { data, error }; turn an error into a thrown Error.
 function unwrap({ data, error }, friendly) {
@@ -275,6 +275,43 @@ export async function returnLoan(loanId) {
   unwrap(
     await supabase.from('loans').update({ returned_on: localDate() }).eq('id', loanId),
     (error) => `The return wasn't saved: ${error.message}`,
+  )
+}
+
+// ---------- Adding and removing books (your own shelf) ----------
+
+// Adds a copy to your shelf, and the book to the catalogue if it's new.
+// Returns the book's id. See add_book() in supabase/09_add_books.sql.
+export async function addBook(book, editionNote = '') {
+  return unwrap(
+    await supabase.rpc('add_book', {
+      p_title: book.title,
+      p_author: book.author,
+      p_genre: book.genre,
+      p_language: book.language,
+      p_year: book.year || null,
+      p_description: book.description || null,
+      p_cover_id: book.coverId || null,
+      p_ol_work_key: book.workKey || null,
+      p_prizes: book.prizes ?? [],
+      p_edition_note: editionNote || null,
+    }),
+    (error) => `The book wasn't added: ${error.message}`,
+  )
+}
+
+// Adds your copy of a title that's already in the catalogue.
+export async function addCopy(bookId, editionNote = '') {
+  unwrap(
+    await supabase.from('copies').insert({ book_id: bookId, edition_note: editionNote || null }),
+    (error) => `Your copy wasn't added: ${error.message}`,
+  )
+}
+
+export async function removeCopy(copyId) {
+  unwrap(
+    await supabase.rpc('remove_copy', { p_copy_id: copyId }),
+    (error) => `The copy wasn't removed: ${error.message}`,
   )
 }
 

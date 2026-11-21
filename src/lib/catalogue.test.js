@@ -64,7 +64,8 @@ describe('awards and languages', () => {
 
   it('names languages', () => {
     expect(languageName('de')).toBe('German')
-    expect(languageName('fr')).toBe('FR')
+    expect(languageName('fr')).toBe('French')
+    expect(languageName('xx')).toBe('XX')
   })
 })
 

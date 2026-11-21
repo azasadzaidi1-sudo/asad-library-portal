@@ -13,7 +13,16 @@ export default function Libraries({ library, onBrowse }) {
         that you reserve from their shelf like any other.
       </p>
 
-      {libraries.length === 0 && <p className="shelf-empty">No one has added books yet.</p>}
+      {own.length === 0 && (
+        <section className="start-shelf" aria-labelledby="start-shelf-title">
+          <h2 id="start-shelf-title" className="library-name">Start your shelf</h2>
+          <p>
+            Add the books you're happy to lend. Friends can then borrow them, and you decide who borrows from
+            you the first time.
+          </p>
+          <a className="button" href="#add-book">Add your first book</a>
+        </section>
+      )}
 
       <ul className="library-list">
         {[...own, ...others].map((lib) => (
@@ -25,9 +34,12 @@ export default function Libraries({ library, onBrowse }) {
               {lib.copies > lib.titles && `, ${lib.copies} copies`}
             </p>
             <p className={`library-status library-${lib.my_status ?? 'new'}`}>{standing(lib)}</p>
-            <button type="button" className="button button-quiet" onClick={() => onBrowse(lib.owner_id)}>
-              Browse this shelf
-            </button>
+            <div className="library-actions">
+              <button type="button" className="button button-quiet" onClick={() => onBrowse(lib.owner_id)}>
+                Browse this shelf
+              </button>
+              {lib.is_me && <a className="button button-quiet" href="#add-book">Add a book</a>}
+            </div>
           </li>
         ))}
       </ul>

@@ -5,15 +5,16 @@ import Login from './components/Login'
 import CompleteProfile from './components/CompleteProfile'
 import Header from './components/Header'
 import Catalogue, { NO_FILTERS } from './components/Catalogue'
-import MyBooks from './components/MyBooks'
+import BorrowingLists from './components/BorrowingLists'
 import BookDialog from './components/BookDialog'
 import LendingDesk from './components/LendingDesk'
 import Libraries from './components/Libraries'
+import AddBook from './components/AddBook'
 
 // The app has three screens, chosen by who is visiting:
 //   not signed in          -> Login
 //   signed in, no name yet -> CompleteProfile (first visit after an invite)
-//   signed in with a name  -> the library (catalogue or "My books")
+//   signed in with a name  -> the library (catalogue, Borrowing lists, …)
 export default function App() {
   // undefined = still checking, null = signed out, object = signed in
   const [session, setSession] = useState(undefined)
@@ -54,13 +55,16 @@ function MemberArea({ userId }) {
   return <Library member={member} />
 }
 
-// Which page to show comes from the end of the address (#libraries, #my-books,
+// Which page to show comes from the end of the address (#libraries, #borrowing,
 // #desk), so the browser's back button and bookmarks work without a routing library.
-const PAGES = ['catalogue', 'libraries', 'my-books', 'desk']
+const PAGES = ['catalogue', 'libraries', 'borrowing', 'desk', 'add-book']
+// Old addresses that still work: "My books" was renamed "Borrowing lists".
+const OLD_PAGES = { 'my-books': 'borrowing' }
 
 function usePage() {
   const read = () => {
-    const page = window.location.hash.slice(1)
+    const hash = window.location.hash.slice(1)
+    const page = OLD_PAGES[hash] ?? hash
     return PAGES.includes(page) ? page : 'catalogue'
   }
   const [page, setPage] = useState(read)
@@ -78,7 +82,7 @@ function usePage() {
 function Library({ member }) {
   const library = useLibrary(member)
   const page = usePage()
-  const [filters, setFilters] = useState(NO_FILTERS) // kept here so they survive a visit to My books
+  const [filters, setFilters] = useState(NO_FILTERS) // kept here so they survive a visit to another page
   const [openBookId, setOpenBookId] = useState(null)
 
   let content
@@ -100,8 +104,10 @@ function Library({ member }) {
           window.location.hash = 'catalogue'
         }} />
     )
-  } else if (page === 'my-books') {
-    content = <MyBooks library={library} onOpenBook={setOpenBookId} />
+  } else if (page === 'add-book') {
+    content = <AddBook library={library} onOpenBook={setOpenBookId} />
+  } else if (page === 'borrowing') {
+    content = <BorrowingLists library={library} onOpenBook={setOpenBookId} />
   } else {
     content = (
       <Catalogue library={library} filters={filters} setFilters={setFilters} onOpenBook={setOpenBookId} />
