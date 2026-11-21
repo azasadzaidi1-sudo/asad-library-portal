@@ -14,9 +14,9 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `06_descriptions.sql` | A short description for every book | #6 | Done |
 | `07_reviews.sql` | Reviews and replies on each book | #8 | Done |
 | `08_multiple_libraries.sql` | Several libraries: copy owners, first-time borrower approvals, who invited whom, limits per library | #11 | Done |
-| `09_add_books.sql` | Librarians add their own books (new titles or copies of existing ones) and remove copies | #12 | **Not yet: run before merging #12** |
-| `10_invites.sql` | Invitation links: any member invites a friend; new accounts need a valid link | #13 | **Not yet: run before merging #13, then change the two sign-up settings** |
-| `11_shelf_descriptions.sql` | Shelf descriptions: a librarian's two lines (personality, pick-ups) and each shelf's top 3 genres | #14 | **Not yet: run before merging #14** |
+| `09_add_books.sql` | Librarians add their own books (new titles or copies of existing ones) and remove copies | #12 | Done |
+| `10_invites.sql` | Invitation links: any member invites a friend; new accounts need a valid link | #13 | Done |
+| `11_shelf_descriptions.sql` | Shelf descriptions: a librarian's two lines (personality, pick-ups) and each shelf's top 3 genres | #14 | Done |
 
 When a pull request adds a new file, it gets the next number and a new row here.
 
