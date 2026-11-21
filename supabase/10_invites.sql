@@ -1,5 +1,5 @@
 -- =====================================================================
--- Invitation links: librarians invite friends, who create their own account
+-- Invitation links: any member invites friends, who create their own account
 -- Run once in Supabase: SQL Editor -> New query -> paste -> Run.
 -- Then change two settings (see the pull request): allow new users to
 -- sign up, and turn off email confirmation.
@@ -28,7 +28,7 @@ create table public.invites (
   created_at  timestamptz not null default now(),
   expires_at  timestamptz not null default now() + interval '14 days',
   used_by     uuid references public.members (id) on delete set null,
-  used_at     timestamptz
+  used_at     timestamptz                  -- set once, when someone joins: a link with this is used
 );
 create index invites_by_inviter on public.invites (invited_by, created_at desc);
 
@@ -58,7 +58,7 @@ begin
     raise exception 'Sign in first.';
   end if;
   if (select count(*) from public.invites
-      where invited_by = v_me and used_by is null and expires_at > now()) >= 20 then
+      where invited_by = v_me and used_at is null and expires_at > now()) >= 20 then
     raise exception 'You have 20 open invitations. Cancel some, or wait for them to be used.';
   end if;
 
@@ -78,7 +78,7 @@ language sql stable security definer set search_path = ''
 as $$
   select
     m.name,
-    case when i.used_by is not null then 'used'
+    case when i.used_at is not null then 'used'
          when i.expires_at <= now() then 'expired'
          else 'valid' end
   from public.invites i
@@ -96,15 +96,18 @@ language plpgsql security definer set search_path = ''
 as $$
 begin
   delete from public.invites
-  where code = p_code and invited_by = (select auth.uid()) and used_by is null;
+  where code = p_code and invited_by = (select auth.uid()) and used_at is null;
   if not found then
     raise exception 'That invitation can''t be cancelled.';
   end if;
 end;
 $$;
 
--- People who joined with your invitations, by name, for your list of
--- sent invitations. (Members can't read each other's profiles directly.)
+-- The list under "Invite a friend": your open links, and the friends who
+-- joined with one of your links in the last 14 days (by name, since members
+-- can't read each other's profiles directly). Used links drop off after
+-- 14 days and expired ones aren't shown, so the list never grows into a
+-- running tally. (Open links are capped at 20, so no limit is needed.)
 create or replace function public.my_invites()
 returns table (code text, created_at timestamptz, expires_at timestamptz, used_at timestamptz, joined_name text)
 language sql stable security definer set search_path = ''
@@ -113,8 +116,11 @@ as $$
   from public.invites i
   left join public.members m on m.id = i.used_by
   where i.invited_by = (select auth.uid())
-  order by i.created_at desc
-  limit 30;
+    and (
+      (i.used_at is null and i.expires_at > now())     -- open
+      or i.used_at > now() - interval '14 days'        -- joined recently
+    )
+  order by coalesce(i.used_at, i.created_at) desc;
 $$;
 
 revoke execute on function public.create_invite() from public, anon;
@@ -145,7 +151,7 @@ declare
 begin
   select i.invited_by into v_inviter
   from public.invites i
-  where i.code = v_code and i.used_by is null and i.expires_at > now()
+  where i.code = v_code and i.used_at is null and i.expires_at > now()
   for update;
 
   if v_inviter is null then

@@ -5,7 +5,8 @@ import { cancelInvite, createInvite, inviteLink, inviteState, loadMyInvites } fr
 const SHARE_TEXT = 'Join me on The Common Shelf, a lending library of friends’ bookshelves:'
 
 // On the Libraries page, for every member: make an invitation link, send it
-// however you like, and see who joined with your links.
+// however you like, and see your open links plus who joined with one in the
+// last 14 days (the database only sends those; see my_invites in 10_invites.sql).
 export default function InviteFriend() {
   const [invites, setInvites] = useState(null)
   const [fresh, setFresh] = useState(null)
