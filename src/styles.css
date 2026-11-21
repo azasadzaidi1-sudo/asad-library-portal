@@ -1545,3 +1545,20 @@ a.button {
   display: flex;
   gap: 1rem;
 }
+
+.invite-joined {
+  width: 100%;
+  margin-top: 0.6rem;
+}
+
+.invite-list-label {
+  margin: 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.invite-joined .invite-list {
+  margin-top: 0.3rem;
+}

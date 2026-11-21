@@ -52,6 +52,7 @@ export default function InviteFriend() {
   const open = (invites ?? []).filter((i) => inviteState(i) === 'open')
   const joined = (invites ?? []).filter((i) => inviteState(i) === 'joined')
   const freshInvite = fresh && open.find((i) => i.code === fresh)
+  const older = open.filter((i) => i.code !== fresh)   // the new link is already shown above
 
   return (
     <section className="invite" aria-labelledby="invite-title">
@@ -81,9 +82,9 @@ export default function InviteFriend() {
       )}
       {error && <p className="form-error" role="alert">{error}</p>}
 
-      {(open.length > 0 || joined.length > 0) && (
+      {older.length > 0 && (
         <ul className="invite-list">
-          {open.filter((i) => i.code !== fresh).map((i) => (
+          {older.map((i) => (
             <li key={i.code}>
               <span>Open link, until {formatDate(i.expires_at)}</span>
               <span className="invite-actions">
@@ -97,12 +98,21 @@ export default function InviteFriend() {
               </span>
             </li>
           ))}
-          {joined.map((i) => (
-            <li key={i.code}>
-              <span>{i.joined_name || 'A new member'} joined on {formatDate(i.used_at)}</span>
-            </li>
-          ))}
         </ul>
+      )}
+
+      {/* Labelled, so nobody wonders why a friend from a month ago isn't listed. */}
+      {joined.length > 0 && (
+        <div className="invite-joined">
+          <h3 className="invite-list-label">Joined in the last 14 days</h3>
+          <ul className="invite-list">
+            {joined.map((i) => (
+              <li key={i.code}>
+                <span>{i.joined_name || 'A new member'} joined on {formatDate(i.used_at)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </section>
   )

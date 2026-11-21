@@ -244,7 +244,7 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 - a member can have up to 20 open links at a time
 - the account trigger refuses any new account without a valid, unused, unexpired invitation, so switching Supabase's public sign-ups on doesn't let strangers in
 
-**Who joined, for 14 days.** Under "Invite a friend", a member sees their open links (to copy again or cancel) and anyone who joined with one of their links in the last 14 days ("Tom joined on 21 Nov 2026"). That answers "did my friend make it in?" and then disappears, so the list never turns into a running count of people someone has brought in, which would read like a follower count (Asad's call). Expired links aren't shown.
+**Who joined, for 14 days.** Under "Invite a friend", a member sees their open links (to copy again or cancel) and anyone who joined with one of their links in the last 14 days ("Tom joined on 21 Nov 2026"), under a "Joined in the last 14 days" label so nobody wonders why a friend from a month ago is missing. That answers "did my friend make it in?" and then disappears, so the list never turns into a running count of people someone has brought in, which would read like a follower count (Asad's call). Expired links aren't shown.
 
 **No email needed, for now.** Supabase's built-in email only reaches the project owner's own address, so email confirmation is switched off. The invitation itself is the proof that someone belongs here. "Forgot password" needs real email (Gmail connected to Supabase) and comes later.
 
