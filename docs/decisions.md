@@ -249,3 +249,22 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **No email needed, for now.** Supabase's built-in email only reaches the project owner's own address, so email confirmation is switched off. The invitation itself is the proof that someone belongs here. "Forgot password" needs real email (Gmail connected to Supabase) and comes later.
 
 *Considered:* emailed invitations (needs Gmail and a small server function first), one reusable link per member (easier, but it can travel further than intended), and links without an expiry date.
+
+## 27. Shelf descriptions on the Libraries page
+
+**Decision.** Each shelf card on the Libraries page describes the shelf, not the person:
+- **Top genres**, worked out automatically: the 3 genres with the most titles on that shelf ("Top genres: Fantasy, Science Fiction, Classics"). Every shelf has this from its first book, with no effort.
+- **Two lines the librarian writes**, in their own voice:
+  - "Your shelf personality in one line", for example "I bringeth the classics!"
+  - "Pick-ups: Usually preferred time and place?", for example "Weekday evenings, near Hermannplatz"
+
+A new librarian is asked for the two lines right after adding their first book (with a "Later" option), and their own card keeps asking until they've saved a description. After that it has an "Edit description" button.
+
+**Why both.** Asad first weighed an automatic line against a librarian's note, which overlap (both tell you what a shelf is like before you open it), and chose to mix them. The genres line is always there and always accurate; the personality line gives the shelf a voice, so people meet each other through their books without anyone having a profile (decision 23). The pick-ups line carries what data can't: where and when books change hands.
+
+**Pick-ups only for approved borrowers.** Only the librarian and borrowers they've approved see it (Asad's call). Others see the personality and genres lines. This is enforced in the database (`supabase/11_shelf_descriptions.sql`), not just hidden in the app. The admin gets no exception.
+
+**Libraries page only**, not in a book's pop-up (Asad's call).
+
+*Considered:* only the automatic line (reliable, but every fiction shelf looks alike), only the librarian's note (personal, but blank for anyone who skips it), and a free "about me" text (rejected: that's a profile).
+

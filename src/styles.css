@@ -1350,6 +1350,57 @@ label.checkbox input {
   margin-top: 0;
 }
 
+/* ---------- Shelf descriptions ---------- */
+
+/* The librarian's own line, in their voice: set like a quotation. */
+.shelf-personality {
+  margin: 0.1rem 0 0.2rem;
+  font: italic 1.125rem/1.35 var(--display);
+  color: var(--ink);
+}
+
+.shelf-personality::before { content: '“'; }
+.shelf-personality::after { content: '”'; }
+
+.shelf-genres {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.shelf-pickups {
+  font-size: 0.9375rem;
+}
+
+.shelf-pickups span {
+  font-weight: 700;
+}
+
+.describe-shelf {
+  display: grid;
+  gap: 0.8rem;
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.9rem 1rem 1rem;
+  background: var(--paper);
+  border: 1px dashed var(--rule-strong);
+  border-radius: 3px;
+}
+
+.add-book .describe-shelf {
+  margin-top: 1rem;
+  background: var(--card);
+}
+
+.describe-shelf-title {
+  margin: 0;
+  font: 1.2rem/1.2 var(--display);
+  color: var(--green);
+}
+
+.describe-shelf .form-actions .button {
+  margin-top: 0;
+}
+
 .start-shelf {
   display: grid;
   gap: 0.6rem;
@@ -1389,6 +1440,11 @@ label.checkbox input {
 .field-hint {
   font-size: 0.875rem;
   color: var(--ink-soft);
+}
+
+.add-done a {
+  color: inherit;
+  text-underline-offset: 0.2em;
 }
 
 .add-done {
