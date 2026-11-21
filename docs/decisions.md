@@ -213,7 +213,7 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 
 ## 24. Librarians add their own books
 
-**Decision.** An Add book page lets any member put books on their own shelf, so new librarians don't need Asad (or a round of shelf photos) to get started. It's reached from "Start your shelf" on the Libraries page and from the lending desk. Librarians find a book by typing a title, author or ISBN, or by scanning the barcode on the back with their phone camera. Chrome on Android reads barcodes natively (the BarcodeDetector API), so there's no extra library; on devices without it, only search shows.
+**Decision.** An Add book page lets any member put books on their own shelf, so new librarians don't need Asad (or a round of shelf photos) to get started. It's reached from the Libraries page: "Start your shelf" for someone without books yet, and "Add a book" on your own library card. It's deliberately not on the lending desk: the desk is for day-to-day lending, and looking after your shelf (adding, removing, the Restricted Section) is separate work, so the two stay apart. Librarians find a book by typing a title, author or ISBN, or by scanning the barcode on the back with their phone camera. Chrome on Android reads barcodes natively (the BarcodeDetector API), so there's no extra library; on devices without it, only search shows.
 
 **One card per title.** If the book is already in the catalogue (same Open Library work, or the same title and author however they're written), the librarian's copy joins that card, and the shared description and reviews stay as they are. Only a genuinely new title creates a new card. The database checks this too, so the same book can't be added twice.
 

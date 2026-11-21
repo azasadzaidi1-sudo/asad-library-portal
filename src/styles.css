@@ -1339,14 +1339,6 @@ label.checkbox input {
 
 /* ---------- Adding books ---------- */
 
-.page-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem 1.5rem;
-}
-
 .library-actions {
   display: flex;
   flex-wrap: wrap;
