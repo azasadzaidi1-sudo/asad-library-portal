@@ -1,3 +1,5 @@
+import InviteFriend from './InviteFriend'
+
 // Every librarian's shelf, with where the signed-in member stands with each.
 // "Browse this shelf" opens the catalogue filtered to that library.
 export default function Libraries({ library, onBrowse }) {
@@ -23,6 +25,8 @@ export default function Libraries({ library, onBrowse }) {
           <a className="button" href="#add-book">Add your first book</a>
         </section>
       )}
+
+      <InviteFriend />
 
       <ul className="library-list">
         {[...own, ...others].map((lib) => (

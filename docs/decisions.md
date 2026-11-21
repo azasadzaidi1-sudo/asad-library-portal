@@ -231,3 +231,19 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 ## 25. "My books" becomes "Borrowing lists"
 
 **Decision.** The page with what a member has borrowed, reserved and marked as interested is now called **Borrowing lists** (Asad's wording). Once members could have shelves of their own, "My books" read just as naturally as "the books I own", and that page is about books from other people's shelves. Old links to `#my-books` still open it.
+
+## 26. Invitation links, from any member
+
+**Decision.** New members join through an invitation link instead of Asad creating each account in Supabase. Any member can create one on the Libraries page (Asad changed the earlier plan of "only people who lend books can invite"). They send it however they like: WhatsApp, a text, an email. The friend opens it, sees who invited them, and enters their name, city, email and a password of their own. They're signed in straight away, and "Invited by" on first-time request cards fills itself in.
+
+**Why trust still holds.** Inviting someone only lets them in the door. Every librarian still approves each first-time borrower, seeing who invited them, so letting borrowers invite widens the circle without anyone lending to a stranger.
+
+**Rules, enforced in the database** (`supabase/10_invites.sql`):
+- a link works for one person and expires after 14 days
+- links are 32 random characters, so they can't be guessed
+- a member can have up to 20 open links at a time
+- the account trigger refuses any new account without a valid, unused, unexpired invitation, so switching Supabase's public sign-ups on doesn't let strangers in
+
+**No email needed, for now.** Supabase's built-in email only reaches the project owner's own address, so email confirmation is switched off. The invitation itself is the proof that someone belongs here. "Forgot password" needs real email (Gmail connected to Supabase) and comes later.
+
+*Considered:* emailed invitations (needs Gmail and a small server function first), one reusable link per member (easier, but it can travel further than intended), and links without an expiry date.

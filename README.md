@@ -6,7 +6,7 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 
 ## What it does so far
 
-- Invite-only sign-in with email and password, and a first-visit form for the member's name and city.
+- Invite-only: any member can create an invitation link (one person, 14 days) and send it however they like. The friend picks their own email and password on a Join page, and the database refuses any new account without a valid invitation.
 - Several libraries in one catalogue: each copy belongs to a librarian, a "Libraries" page lists every shelf, and titles owned by several friends share one card ("2 libraries, 1 copy on the shelf").
 - Trust between friends: the first time someone borrows from a librarian, the librarian sees a request card with the person's note, who invited them, which librarians already lend to them, and how their past loans went, and approves or declines. Librarians can stop lending to someone later.
 - The full catalogue, searchable by title, author or series and filterable by library, genre, award and language.
@@ -19,7 +19,7 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 - A lending desk per librarian (Overdue / Reserved / Lent out / Available / Borrowers), with one-click lending of reserved books, lending without a reservation, returns, and stopping or restarting lending to someone.
 - Add book: librarians search by title, author or ISBN, or scan the barcode with their phone camera. A title that's already in the catalogue gets their copy; a new one comes from Open Library with its cover, and its prizes are filled in automatically from Wikidata. Librarians can also remove copies; past loans are kept.
 
-**Planned:** in-app invitations (only people who lend books can invite) with their own passwords, and reminders a week before a loan is due.
+**Planned:** changing and resetting passwords (resetting needs email), and reminders a week before a loan is due.
 
 ## How it's built
 
@@ -38,7 +38,7 @@ The house rules live in the database itself, not just in the website: one loan a
 ```
 supabase/          SQL run in Supabase, in order (checklist in supabase/README.md): tables and rules,
                    book import, availability, reservations and covers, lending, descriptions,
-                   reviews, several libraries, adding books
+                   reviews, several libraries, adding books, invitations
 src/               the React app
   components/      screens and pieces of the page
   lib/             plain logic (filters, availability wording) and its tests

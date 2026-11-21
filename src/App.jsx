@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { supabase } from './supabaseClient'
 import { useLibrary } from './lib/useLibrary'
 import Login from './components/Login'
+import Join from './components/Join'
+import { joinCodeFromHash } from './lib/invites'
 import CompleteProfile from './components/CompleteProfile'
 import Header from './components/Header'
 import Catalogue, { NO_FILTERS } from './components/Catalogue'
@@ -12,12 +14,14 @@ import Libraries from './components/Libraries'
 import AddBook from './components/AddBook'
 
 // The app has three screens, chosen by who is visiting:
-//   not signed in          -> Login
+//   not signed in          -> Login (or Join, when they came from an invitation link)
 //   signed in, no name yet -> CompleteProfile (first visit after an invite)
 //   signed in with a name  -> the library (catalogue, Borrowing lists, …)
 export default function App() {
   // undefined = still checking, null = signed out, object = signed in
   const [session, setSession] = useState(undefined)
+  // Arriving from an invitation link ("#join=…") shows the Join page instead of Login.
+  const [joinCode, setJoinCode] = useState(() => joinCodeFromHash())
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session))
@@ -26,7 +30,15 @@ export default function App() {
   }, [])
 
   if (session === undefined) return <p className="status-page">Opening the library…</p>
-  if (!session) return <Login />
+  if (!session) {
+    if (joinCode) {
+      return <Join code={joinCode} onSignIn={() => {
+        window.history.replaceState(null, '', window.location.pathname)
+        setJoinCode(null)
+      }} />
+    }
+    return <Login />
+  }
   return <MemberArea userId={session.user.id} />
 }
 

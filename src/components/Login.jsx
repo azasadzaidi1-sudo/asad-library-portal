@@ -28,7 +28,7 @@ export default function Login() {
       <div className="entry-card">
         <h1 className="entry-title">The Common Shelf</h1>
         <p className="entry-lede">
-          A lending library for friends. Sign in with the email address Asad invited.
+          Friends' bookshelves in one catalogue. Sign in with your email and password.
         </p>
         <form onSubmit={signIn} className="form">
           <label>
@@ -46,7 +46,7 @@ export default function Login() {
             {busy ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
-        <p className="entry-note">Not a member yet? Ask Asad for an invitation.</p>
+        <p className="entry-note">Not a member yet? Ask a friend on The Common Shelf for an invitation link.</p>
       </div>
     </main>
   )
