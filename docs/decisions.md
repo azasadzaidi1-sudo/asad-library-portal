@@ -227,3 +227,7 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 **Removing a copy** marks it as removed rather than deleting it, so past loans and the "Borrowed from the library" badge on reviews stay true. A lent-out copy can't be removed. If it was the librarian's last copy of a title, anyone waiting for it on their shelf has their reservation cancelled, and a title with no copies left disappears from the catalogue.
 
 *Considered:* a free-text genre (it would split the genre filter), requiring a description (slower for librarians, and an empty one is better than a copied blurb), and a barcode library such as ZXing (heavier; the built-in detector covers the phones that matter here).
+
+## 25. "My books" becomes "Borrowing lists"
+
+**Decision.** The page with what a member has borrowed, reserved and marked as interested is now called **Borrowing lists** (Asad's wording). Once members could have shelves of their own, "My books" read just as naturally as "the books I own", and that page is about books from other people's shelves. Old links to `#my-books` still open it.

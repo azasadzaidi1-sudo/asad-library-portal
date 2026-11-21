@@ -14,7 +14,7 @@ export default function Header({ member, page, isLibrarian }) {
         <nav className="masthead-nav" aria-label="Pages">
           {link('catalogue', 'Catalogue')}
           {link('libraries', 'Libraries')}
-          {link('my-books', 'My books')}
+          {link('borrowing', 'Borrowing lists')}
           {isLibrarian && link('desk', 'Lending desk')}
         </nav>
         <div className="masthead-user">

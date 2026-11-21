@@ -424,7 +424,7 @@ input[type='search']::-webkit-search-cancel-button {
   }
 }
 
-/* ---------- Reservations round: navigation, covers, pop-up, My books ---------- */
+/* ---------- Reservations round: navigation, covers, pop-up, Borrowing lists ---------- */
 
 .visually-hidden {
   position: absolute;
@@ -749,7 +749,7 @@ body:has(.book-dialog[open]) {
   gap: 0.6rem;
 }
 
-/* ---------- My books ---------- */
+/* ---------- Borrowing lists ---------- */
 
 .page-title {
   font: 2.25rem/1.1 var(--display);

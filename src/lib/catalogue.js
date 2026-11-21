@@ -166,7 +166,7 @@ export function describeMyReservation(reservation, counts = {}, owner = 'the lib
   return { state: 'queued', text: `You're ${ordinal(reservation.queue_place)} in the queue` }
 }
 
-// What a borrower sees on My books for a week after a librarian says no.
+// What a borrower sees on Borrowing lists for a week after a librarian says no.
 // Asad's wording: warm, and without "you" or "your request".
 export function declineText(title, owner, otherCopies) {
   const first = `${title} won't be coming from ${owner}'s shelf this time.`
