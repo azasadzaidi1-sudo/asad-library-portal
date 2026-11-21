@@ -1493,3 +1493,72 @@ a.button {
   display: inline-block;
   text-decoration: none;
 }
+
+/* ---------- Invitations ---------- */
+
+.invite {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+  max-width: 40rem;
+  margin-top: 1.5rem;
+  padding: 1.2rem 1.3rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--brass);
+  border-radius: 3px;
+}
+
+.invite-fresh {
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  background: var(--paper);
+  border: 1px dashed var(--rule-strong);
+}
+
+.invite-link {
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.invite-list {
+  width: 100%;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.invite-list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9375rem;
+}
+
+.invite-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.invite-joined {
+  width: 100%;
+  margin-top: 0.6rem;
+}
+
+.invite-list-label {
+  margin: 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.invite-joined .invite-list {
+  margin-top: 0.3rem;
+}
