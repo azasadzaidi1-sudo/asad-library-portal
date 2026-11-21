@@ -3,6 +3,7 @@
 import { supabase } from '../supabaseClient'
 import { localDate } from './desk'
 import { attachAuthors } from './reviews'
+import { withShelfDescriptions } from './shelves'
 
 const BOOK_COLUMNS =
   'id, title, author, series, genre, year_published, language, goodreads_rating, prizes, cover_id, description, ol_work_key'
@@ -18,9 +19,21 @@ export async function loadBooks() {
 }
 
 // Every library (anyone with a copy on the shelf): name, city, how many
-// titles, and where the signed-in member stands with that librarian.
+// titles, where the signed-in member stands with that librarian, and the
+// shelf's description (top genres, personality, pick-ups if approved).
 export async function loadLibraries() {
-  return unwrap(await supabase.rpc('libraries'))
+  const [libs, described] = await Promise.all([supabase.rpc('libraries'), supabase.rpc('shelf_descriptions')])
+  // The descriptions are extra: if they can't be read (say, 11 hasn't been
+  // run yet), the shelves still show, just without them.
+  if (described.error) console.warn('Shelf descriptions unavailable:', described.error.message)
+  return withShelfDescriptions(unwrap(libs), described.data ?? [])
+}
+
+export async function describeShelf(personality, pickups) {
+  unwrap(
+    await supabase.rpc('describe_shelf', { p_personality: personality, p_pickups: pickups }),
+    (e) => `The description wasn't saved: ${e.message}`,
+  )
 }
 
 // Map of book id -> [{ owner_id, copies_total, copies_out, waiting }], one entry per library.

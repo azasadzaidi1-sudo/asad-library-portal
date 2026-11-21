@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { checkInvite, joinWithInvite } from '../lib/invites'
+import Field from './Field'
 
 const PASSWORD_MIN = 8
 
@@ -109,16 +110,5 @@ export default function Join({ code, onSignIn }) {
         {body}
       </div>
     </main>
-  )
-}
-
-function Field({ label, hint, error, children }) {
-  return (
-    <label className="field">
-      <span>{label}</span>
-      {children}
-      {hint && <span className="field-hint">{hint}</span>}
-      {error && <span className="form-error" role="alert">{error}</span>}
-    </label>
   )
 }

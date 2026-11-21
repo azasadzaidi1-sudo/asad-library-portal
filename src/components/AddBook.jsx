@@ -4,6 +4,8 @@ import { addBook, addCopy } from '../lib/library'
 import { findAwards, findInCatalogue, isbnFrom, searchOpenLibrary } from '../lib/openLibrary'
 import BarcodeScanner, { canScanBarcodes } from './BarcodeScanner'
 import Cover from './Cover'
+import DescribeShelf from './DescribeShelf'
+import Field from './Field'
 
 // Add a book to your own shelf: find it (search or scan its barcode), then
 // either add your copy to a title already in the catalogue, or add a new
@@ -17,6 +19,10 @@ export default function AddBook({ library, onOpenBook }) {
   const [picked, setPicked] = useState(null)
   const [added, setAdded] = useState(null)
   const [error, setError] = useState('')
+  // After a new librarian's first book: ask them to describe their shelf.
+  const [describing, setDescribing] = useState(false)
+  const [described, setDescribed] = useState(false)
+  const ownShelf = library.libraries.find((l) => l.is_me)
 
   const genres = useMemo(() => countBy(books ?? [], (b) => [b.genre]).map((g) => g.value), [books])
   const myCopies = useMemo(() => {
@@ -39,6 +45,8 @@ export default function AddBook({ library, onOpenBook }) {
       setError('')
       setPicked(null)
       setAdded(null)
+      setDescribing(false)
+      setDescribed(false)
       try {
         const found = await searchOpenLibrary(q)
         const inCatalogue = new Map()
@@ -71,11 +79,14 @@ export default function AddBook({ library, onOpenBook }) {
   )
 
   async function done(bookId, title) {
+    const firstBook = !ownShelf
     setPicked(null)
     setResults(null)
     setQuery('')
     setAdded({ bookId, title })
+    setDescribed(false)
     await library.refresh()
+    if (firstBook) setDescribing(true)
   }
 
   if (!books) return <p className="loading">Opening the catalogue…</p>
@@ -94,6 +105,22 @@ export default function AddBook({ library, onOpenBook }) {
           <button type="button" className="link-button" onClick={() => onOpenBook(added.bookId)}>
             Open it
           </button>
+        </p>
+      )}
+
+      {describing && ownShelf && !ownShelf.described && (
+        <DescribeShelf shelf={ownShelf} title="Describe your shelf"
+          intro="Your first book is on your shelf. Two short lines tell borrowers what to expect; they show on your card on the Libraries page."
+          cancelLabel="Later" onCancel={() => setDescribing(false)}
+          onSaved={async () => {
+            setDescribing(false)
+            setDescribed(true)
+            await library.refresh()
+          }} />
+      )}
+      {described && (
+        <p className="add-done" role="status">
+          Your shelf description is saved. You can change it on the <a href="#libraries">Libraries</a> page.
         </p>
       )}
 
@@ -353,16 +380,5 @@ function CopyNote({ value, onChange }) {
       hint="For example: signed hardback, or well-worn paperback.">
       <input maxLength={100} value={value} onChange={(e) => onChange(e.target.value)} />
     </Field>
-  )
-}
-
-function Field({ label, hint, error, children }) {
-  return (
-    <label className="field">
-      <span>{label}</span>
-      {children}
-      {hint && <span className="field-hint">{hint}</span>}
-      {error && <span className="form-error" role="alert">{error}</span>}
-    </label>
   )
 }
