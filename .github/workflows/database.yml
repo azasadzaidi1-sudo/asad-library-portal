@@ -1,0 +1,32 @@
+# Builds a throwaway copy of the database from the SQL files in supabase/
+# and runs the database tests (supabase/tests). Shows as a check on every
+# pull request, next to the app check.
+name: Database tests
+
+on:
+  pull_request:
+
+jobs:
+  database:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build the database and run the tests
+        run: bash supabase/tests/run.sh

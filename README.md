@@ -28,8 +28,8 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 | --- | --- |
 | Database and sign-in | [Supabase](https://supabase.com) (PostgreSQL with row-level security), hosted in Frankfurt |
 | Website | React + Vite, published to GitHub Pages |
-| Checks and deploys | GitHub Actions: tests and build on every pull request, deploy on merge |
-| Tests | Vitest |
+| Checks and deploys | GitHub Actions: app tests, build and database tests on every pull request, deploy on merge |
+| Tests | Vitest for the app's logic; SQL tests that rebuild the database from scratch and check its rules |
 | Book data | [Open Library](https://openlibrary.org/developers/api) (search, covers) and [Wikidata](https://www.wikidata.org) (prizes), called from the browser |
 
 The house rules live in the database itself, not just in the website: one loan and one reservation per member per library, only a copy's owner can lend it, first-time borrowers and Restricted Section requests wait for the librarian's approval, members only see their own loans, borrowers' cities stay private, and a loan is due 28 days after it starts. Every choice, with the alternatives considered, is written up in [docs/decisions.md](docs/decisions.md).
@@ -39,7 +39,8 @@ The house rules live in the database itself, not just in the website: one loan a
 ```
 supabase/          SQL run in Supabase, in order (checklist in supabase/README.md): tables and rules,
                    book import, availability, reservations and covers, lending, descriptions,
-                   reviews, several libraries, adding books, invitations
+                   reviews, several libraries, adding books, invitations, shelf descriptions, clean-up
+  tests/           database tests: rebuild the database from those files and check its rules
 src/               the React app
   components/      screens and pieces of the page
   lib/             plain logic (filters, availability wording) and its tests
@@ -55,6 +56,12 @@ You need [Node.js](https://nodejs.org) 22 or newer.
 npm install
 npm run dev     # opens a local preview
 npm test        # runs the unit tests
+```
+
+The database tests need a PostgreSQL server (GitHub provides one for each pull request). With one running and the usual `PGHOST` / `PGUSER` / `PGPASSWORD` settings:
+
+```bash
+bash supabase/tests/run.sh
 ```
 
 The app talks to the live Supabase project using its publishable key, which is safe to share; all data is protected by row-level security.
