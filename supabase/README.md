@@ -17,7 +17,18 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `09_add_books.sql` | Librarians add their own books (new titles or copies of existing ones) and remove copies | #12 | Done |
 | `10_invites.sql` | Invitation links: any member invites a friend; new accounts need a valid link | #13 | Done |
 | `11_shelf_descriptions.sql` | Shelf descriptions: a librarian's two lines (personality, pick-ups) and each shelf's top 3 genres | #14 | Done |
+| `12_cleanup.sql` | Clean-up: removes columns and functions unused since several libraries; the admin-only rules use `is_admin()` | #16 | **Not yet: run before merging #16** |
 
 When a pull request adds a new file, it gets the next number and a new row here.
+
+## Tests
+
+`tests/` checks the database rules automatically. On every pull request GitHub builds a throwaway copy of the database from these numbered files, in order, then runs each `tests/test_*.sql` file against it. Every line of a test is a sentence like "only a copy's owner can lend it"; if one isn't true, the check turns red and names it.
+
+- `supabase_stub.sql` stands in for the bits of Supabase the files rely on (sign-ups and who is signed in)
+- `seed_before_08.sql` and `people.sql` are made-up members (all fictional apart from Asad's name)
+- `helpers.sql` has the small tools the tests use (`tests.ok`, `tests.fails`, `tests.sign_in`, `tests.join`)
+
+When a new SQL file adds or changes a rule, its pull request adds tests for it too.
 
 Files ending in `_PRIVATE.sql` (such as member details) are never committed; `.gitignore` keeps them out of the repository.

@@ -268,3 +268,15 @@ A new librarian is asked for the two lines right after adding their first book (
 
 *Considered:* only the automatic line (reliable, but every fiction shelf looks alike), only the librarian's note (personal, but blank for anyone who skips it), and a free "about me" text (rejected: that's a profile).
 
+## 28. Database tests in the repository, and clearing out leftovers
+
+**Context.** By decision 27 the database had grown through twelve SQL files, each written, tested and run by hand. The tests behind them lived only in a temporary workspace, and GitHub's checks covered the app's logic but not the database rules, which are where the real house rules live (decision 2). A review of technical debt also found leftovers from the single-library days.
+
+**Decision.**
+- **Automatic database tests.** `supabase/tests` rebuilds a throwaway copy of the database from the numbered files, in order, and runs plain-language checks against it: invitations, adding and removing books, shelf descriptions, first-time approvals, Restricted books, limits per library, lending, and who can see or change what. GitHub runs them on every pull request as a second check next to the app's ("Database tests"). A test that fails names the rule that broke, e.g. "FAILED: a librarian can't delete someone else's review".
+- **A clean-up file (12).** It removes three columns and two functions nothing has used since several libraries (decision 23), and renames the admin check: `is_librarian()` had meant "is admin" since then, while "librarian" in the app means anyone with books on a shelf. Asad chose to drop the old columns rather than keep them unused, and to rename the check rather than leave an alias.
+
+**Why.** The rules are enforced in the database, so a mistake there would reach members regardless of the app. Tests that run on every pull request catch it before a file is run in Supabase, and they describe the rules in one readable place. The clean-up keeps the database matching how the app actually works, so the next change doesn't trip over a column that looks meaningful but isn't. The tests ran against the clean-up too: the renamed rules behave exactly as before.
+
+*Considered:* keeping the tests outside the repository (no record, nothing runs them), Supabase's own command-line tooling and its test framework (more setup than this project needs for now; possible later), and keeping the old columns "just in case" (their contents were already replaced by per-librarian lists).
+
