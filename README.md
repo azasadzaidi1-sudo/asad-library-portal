@@ -8,11 +8,11 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 
 - Invite-only: any member can create an invitation link (one person, 14 days) and send it however they like. The friend picks their own email and password on a Join page, and the database refuses any new account without a valid invitation.
 - Several libraries in one catalogue: each copy belongs to a librarian, a "Libraries" page lists every shelf, and titles owned by several friends share one card ("2 libraries, 1 copy on the shelf").
-- Shelf descriptions on the Libraries page: each shelf's top 3 genres, worked out from its books, plus two lines its librarian writes: the shelf's personality, and usual pick-up times and place (shown only to borrowers they've approved).
-- Trust between friends: the first time someone borrows from a librarian, the librarian sees a request card with the person's note, who invited them, which librarians already lend to them, and how their past loans went, and approves or declines. Librarians can stop lending to someone later.
+- Shelf descriptions on the Libraries page: each shelf's top 3 genres, worked out from its books, plus two lines its librarian writes: the shelf's personality, and usual pick-up times and place (shown to their library pass holders and anyone whose request they've approved).
+- Trust between friends, with library passes: a librarian OKs each request from someone without their pass, on a request card with the person's note, who invited them, which librarians have given them a pass, and how their past loans went. Pass holders reserve without asking and see that librarian's Restricted Section. A librarian can offer a pass in the week after a book comes back, or answer someone who asks for one; they can also take a pass back quietly, or stop lending to someone.
 - The full catalogue, searchable by title, author or series and filterable by library, genre, award and language.
 - Live availability per book ("1 of 2 on the shelf", "All copies out, 2 in the queue"), without revealing who has borrowed what.
-- A Restricted Section per librarian: titles that need that librarian's approval, with a reason such as a fragile copy.
+- A Restricted Section per librarian: titles only their pass holders see, which need the librarian's approval each time, with a reason such as a fragile copy.
 - Cover images, a short spoiler-free description of every book, and a pop-up per book showing each library's copies, with the option to reserve from a chosen library (one book and one reservation per library, first come, first served) or mark it as interested.
 - A "Borrowing lists" page with what a member has borrowed, reserved and marked as interested, from every library.
 - Reviews with replies in each book's pop-up, spoiler warnings, and a "Borrowed from the library" badge for reviewers who read the library's copy.
@@ -34,7 +34,7 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 | Tests | Vitest for the app's logic; SQL tests that rebuild the database from scratch and check its rules |
 | Book data | [Open Library](https://openlibrary.org/developers/api) (search, covers) and [Wikidata](https://www.wikidata.org) (prizes), called from the browser |
 
-The house rules live in the database itself, not just in the website: one loan and one reservation per member per library, only a copy's owner can lend it, first-time borrowers and Restricted Section requests wait for the librarian's approval, members only see their own loans, borrowers' cities stay private, and a loan is due 28 days after it starts. Every choice, with the alternatives considered, is written up in [docs/decisions.md](docs/decisions.md).
+The house rules live in the database itself, not just in the website: one loan and one reservation per member per library, only a copy's owner can lend it, requests from people without a library pass and Restricted Section requests wait for the librarian's approval, Restricted books are hidden from people without a pass, members only see their own loans, borrowers' cities stay private, and a loan is due 28 days after it starts. Every choice, with the alternatives considered, is written up in [docs/decisions.md](docs/decisions.md).
 
 ## Repository layout
 

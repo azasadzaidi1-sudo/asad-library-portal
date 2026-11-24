@@ -19,8 +19,9 @@ export async function loadBooks() {
 }
 
 // Every library (anyone with a copy on the shelf): name, city, how many
-// titles, where the signed-in member stands with that librarian, and the
-// shelf's description (top genres, personality, pick-ups if approved).
+// titles (and how many more for pass holders), where the signed-in member
+// stands with that librarian (pass, asked for one, ...), and the shelf's
+// description (top genres, personality, pick-ups for those who need them).
 export async function loadLibraries() {
   const [libs, described] = await Promise.all([supabase.rpc('libraries'), supabase.rpc('shelf_descriptions')])
   // The descriptions are extra: if they can't be read (say, 11 hasn't been
@@ -47,7 +48,8 @@ export async function loadAvailability() {
   return byBook
 }
 
-// Map of book id -> Map of owner id -> reason, for every librarian's Restricted Section.
+// Map of book id -> Map of owner id -> reason, for the Restricted Sections
+// the member can see (their own, and those of librarians whose pass they hold).
 export async function loadRestricted() {
   const rows = unwrap(await supabase.from('restricted_titles').select('owner_id, book_id, reason'))
   const byBook = new Map()
@@ -86,8 +88,9 @@ export async function loadMyCard(memberId) {
   }
 }
 
-// Reserve a title from one library. A first request to a librarian can
-// carry a note ("Remind Mira how you know each other").
+// Reserve a title from one library. Without a pass, the request can carry
+// a note for the librarian ("Remind Mira how you know each other" the first
+// time, "Anything Mira should know?" after that).
 export async function requestBook(bookId, ownerId, note = '') {
   unwrap(
     await supabase.rpc('request_book', { p_book_id: bookId, p_owner_id: ownerId, p_note: note || null }),
@@ -115,12 +118,18 @@ export async function loadPeople() {
   return new Map(rows.map((row) => [row.member_id, row.name]))
 }
 
-// What's waiting for the signed-in librarian's OK: first-time borrowers
-// (with everything the request card shows) and Restricted Section requests
-// from people they've already approved.
+// What's waiting for the signed-in librarian, for the top of the lending
+// desk (see supabase/15_library_passes.sql):
+//   requests       book requests from people without a pass, each with its request card
+//   passRequests   people asking for a library pass
+//   restricted     Restricted Section requests from pass holders
+//   passQuestions  books back in the last week from someone without a pass:
+//                  "Give Sara a library pass?"
 export async function loadApprovalRequests(ownerId) {
-  const [newBorrowers, pending] = await Promise.all([
-    supabase.rpc('borrower_requests'),
+  const [cards, passes, questions, pending] = await Promise.all([
+    supabase.rpc('request_cards'),
+    supabase.rpc('pass_requests'),
+    supabase.rpc('pass_questions'),
     supabase
       .from('reservations')
       .select('id, book_id, member_id, created_at')
@@ -128,29 +137,18 @@ export async function loadApprovalRequests(ownerId) {
       .eq('status', 'pending_approval')
       .order('created_at'),
   ])
-  const firstTimers = unwrap(newBorrowers)
-  const waitingAsNew = new Set(firstTimers.map((b) => b.borrower_id))
+  const requests = unwrap(cards)
+  const asCards = new Set(requests.map((r) => r.reservation_id))
   return {
-    newBorrowers: firstTimers,
-    restricted: unwrap(pending).filter((r) => !waitingAsNew.has(r.member_id)),
+    requests,
+    passRequests: unwrap(passes),
+    restricted: unwrap(pending).filter((r) => !asCards.has(r.id)),
+    passQuestions: unwrap(questions),
   }
 }
 
-export async function decideBorrower(borrowerId, approve) {
-  unwrap(
-    await supabase.rpc('decide_borrower', { p_borrower_id: borrowerId, p_approve: approve }),
-    (error) => `That decision wasn't saved: ${error.message}`,
-  )
-}
-
-export async function stopLending(borrowerId) {
-  unwrap(
-    await supabase.rpc('stop_lending', { p_borrower_id: borrowerId }),
-    (error) => `That wasn't saved: ${error.message}`,
-  )
-}
-
-// Restricted Section requests: approve (into the queue) or decline.
+// Approve a request (into the queue) or decline it. Works for requests
+// from people without a pass and for Restricted Section requests.
 export async function decideRequest(reservationId, approve) {
   unwrap(
     await supabase
@@ -161,12 +159,67 @@ export async function decideRequest(reservationId, approve) {
   )
 }
 
-// The signed-in librarian's borrowers: approved ones (with whether they
-// have a book from this shelf) and anyone they've stopped lending to.
+const notSaved = (error) => `That wasn't saved: ${error.message}`
+
+// ---------- Library passes ----------
+
+// Ask a librarian for a pass, with an optional note.
+export async function askForPass(ownerId, note = '') {
+  unwrap(await supabase.rpc('ask_for_pass', { p_owner_id: ownerId, p_note: note || null }),
+    (error) => `The request wasn't sent: ${error.message}`)
+}
+
+export async function withdrawPassRequest(ownerId) {
+  unwrap(await supabase.rpc('withdraw_pass_request', { p_owner_id: ownerId }), notSaved)
+}
+
+// The librarian's answer to a pass request: a pass, or "Not now".
+export async function decidePass(borrowerId, give) {
+  unwrap(await supabase.rpc('decide_pass', { p_borrower_id: borrowerId, p_give: give }), notSaved)
+}
+
+// Give someone a pass at any time (from the Borrowers tab).
+export async function givePass(borrowerId) {
+  unwrap(await supabase.rpc('give_pass', { p_borrower_id: borrowerId }), notSaved)
+}
+
+// Take a pass back, quietly: they go back to asking each time.
+export async function takeBackPass(borrowerId) {
+  unwrap(await supabase.rpc('take_back_pass', { p_borrower_id: borrowerId }), notSaved)
+}
+
+// The question after a return: give a pass, or "Not now" (which only
+// dismisses the question).
+export async function answerPassQuestion(loanId, give) {
+  unwrap(await supabase.rpc('answer_pass_question', { p_loan_id: loanId, p_give: give }), notSaved)
+}
+
+export async function stopLending(borrowerId) {
+  unwrap(await supabase.rpc('stop_lending', { p_borrower_id: borrowerId }), notSaved)
+}
+
+// After stopping: they can ask again, one request at a time.
+export async function lendAgain(borrowerId) {
+  unwrap(await supabase.rpc('lend_again', { p_borrower_id: borrowerId }), notSaved)
+}
+
+// The signed-in librarian's borrowers: pass holders, people who've
+// borrowed before without one, and anyone they've stopped lending to.
 export async function loadMyBorrowers() {
   const rows = unwrap(await supabase.rpc('my_borrowers'))
-  return rows.map((row) => ({ id: row.borrower_id, name: row.name, status: row.status, since: row.since, hasBook: row.has_my_book }))
+  return rows.map((row) => ({
+    id: row.borrower_id,
+    name: row.name,
+    status: row.status,
+    passSince: row.pass_since,
+    hasBook: row.has_my_book,
+    loans: row.loans_from_me,
+  }))
 }
+
+// Who can be lent a book in person: pass holders and anyone who has
+// borrowed from you before (not people you've stopped lending to).
+const canLendTo = (borrowers) => borrowers.filter((b) => b.status !== 'stopped')
 
 // For one title on the signed-in librarian's shelf: their copies with who
 // has each one, their queue, who's interested, and (for the admin) the
@@ -198,7 +251,7 @@ export async function loadLibrarianDetails(bookId, ownerId) {
     queue: unwrap(queue),
     readingStatus: unwrap(reading)?.status ?? 'unread',
     interested: unwrap(interested),
-    members: borrowers.filter((b) => b.status === 'approved'),
+    members: canLendTo(borrowers),
   }
 }
 
@@ -267,7 +320,7 @@ export async function loadDesk(ownerId) {
     loans: unwrap(loans),
     reservations: unwrap(reservations),
     borrowers,
-    members: borrowers.filter((b) => b.status === 'approved'),
+    members: canLendTo(borrowers),
   }
 }
 

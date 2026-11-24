@@ -59,7 +59,8 @@ select id as r21 from public.copies where book_id = 21 and owner_id = :'ROSA' \g
 call tests.sign_in(:'PAUL');
 select public.request_book(20, :'ROSA', 'From the book club') \g /dev/null
 call tests.sign_in(:'ROSA');
-select public.decide_borrower(:'PAUL', true) \g /dev/null
+update public.reservations set status = 'active' where member_id = :'PAUL' and owner_id = :'ROSA';
+select public.give_pass(:'PAUL') \g /dev/null
 select public.lend_copy(:r20, :'PAUL') \g /dev/null
 call tests.sign_in(:'PAUL');
 insert into public.reviews (book_id, body) values (20, 'Loved it') returning id as paul_review \gset
@@ -101,7 +102,7 @@ select tests.ok(not exists (select 1 from auth.users where id = :'PAUL'), 'Paul'
 select tests.ok(not exists (select 1 from public.members where id = :'PAUL'), '... and his name and city');
 select tests.ok(not exists (select 1 from public.interests where member_id = :'PAUL'), '... his Interested list');
 select tests.ok(not exists (select 1 from public.invites where invited_by = :'PAUL'), '... his invitations');
-select tests.ok(not exists (select 1 from public.borrower_approvals where borrower_id = :'PAUL'), '... and his approvals');
+select tests.ok(not exists (select 1 from public.borrower_approvals where borrower_id = :'PAUL'), '... and his library passes');
 select tests.ok((select count(*) from public.loans where copy_id = :r20 and member_id is null and returned_on is not null) = 1,
   'his past loan stays, without his name');
 select tests.ok((select status from public.reservations where book_id = 21 and owner_id = :'ROSA' and member_id is null) = 'cancelled',
@@ -129,7 +130,7 @@ select tests.ok((select owner_id is null and member_id is null from public.loans
 select tests.ok((select member_id is null from public.review_replies where id = :rosa_reply),
   'her reply stays, without her name');
 select tests.ok(not exists (select 1 from public.borrower_approvals where owner_id = :'ROSA'),
-  'her list of approved borrowers is gone');
+  'the library passes she gave are gone');
 set role authenticated;
 call tests.sign_in(:'NIKO');
 select tests.ok(not exists (select 1 from public.libraries() where owner_id = :'ROSA'),

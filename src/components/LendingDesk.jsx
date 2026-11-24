@@ -1,7 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { filterBooks, formatDate, ordinal } from '../lib/catalogue'
 import { buildDesk, daysBetween, localDate } from '../lib/desk'
-import { cancelReservation, decideBorrower, lendCopy, loadDesk, returnLoan, stopLending } from '../lib/library'
+import {
+  cancelReservation,
+  givePass,
+  lendAgain,
+  lendCopy,
+  loadDesk,
+  returnLoan,
+  stopLending,
+  takeBackPass,
+} from '../lib/library'
+import { borrowerLine } from '../lib/passes'
 import ApprovalBox from './ApprovalBox'
 import ConfirmButton from './ConfirmButton'
 import Cover from './Cover'
@@ -150,30 +160,48 @@ export default function LendingDesk({ library, onOpenBook }) {
           desk.borrowers.length === 0 ? (
             <p className="shelf-empty">No one borrows from your shelf yet.</p>
           ) : (
-            <ul className="borrower-list">
-              {desk.borrowers.map((b) => (
-                <li key={b.id} className="borrower">
-                  <div>
-                    <p className="borrower-name">{b.name || 'A new member (no name yet)'}</p>
-                    <p className="borrower-meta">
-                      {b.status === 'stopped'
-                        ? 'You stopped lending to them.'
-                        : `Approved${b.since ? ` on ${formatDate(b.since)}` : ''}${b.hasBook ? '. Has one of your books.' : '.'}`}
-                    </p>
-                  </div>
-                  {b.status === 'stopped' ? (
-                    <button type="button" className="button button-quiet" disabled={busy}
-                      onClick={() => run(() => decideBorrower(b.id, true))}>
-                      Lend again
-                    </button>
-                  ) : (
-                    <ConfirmButton label="Stop lending" busy={busy} className="link-button"
-                      question={`Stop lending to ${b.name}? Their reservation here is cancelled; a book they have comes back as normal.`}
-                      confirmLabel="Stop lending" onConfirm={() => run(() => stopLending(b.id))} />
-                  )}
-                </li>
-              ))}
-            </ul>
+            <>
+              <p className="shelf-note">
+                Library pass holders reserve from you without asking. Everyone else asks each time.
+              </p>
+              <ul className="borrower-list">
+                {desk.borrowers.map((b) => {
+                  const name = b.name || 'A new member (no name yet)'
+                  return (
+                    <li key={b.id} className="borrower">
+                      <div>
+                        <p className="borrower-name">{name}</p>
+                        <p className="borrower-meta">{borrowerLine(b, formatDate)}</p>
+                      </div>
+                      <div className="borrower-actions">
+                        {b.status === 'stopped' && (
+                          <button type="button" className="button button-quiet" disabled={busy}
+                            onClick={() => run(() => lendAgain(b.id))}>
+                            Lend again
+                          </button>
+                        )}
+                        {b.status === 'borrower' && (
+                          <button type="button" className="button button-quiet" disabled={busy}
+                            onClick={() => run(() => givePass(b.id))}>
+                            Give a library pass
+                          </button>
+                        )}
+                        {b.status === 'pass' && (
+                          <ConfirmButton label="Take back pass" busy={busy} className="link-button"
+                            question={`Take back ${name}'s library pass? ${name} isn't told. From now on, each request needs your OK again, and your Restricted Section is hidden from them.`}
+                            confirmLabel="Take back pass" onConfirm={() => run(() => takeBackPass(b.id))} />
+                        )}
+                        {b.status !== 'stopped' && (
+                          <ConfirmButton label="Stop lending" busy={busy} className="link-button"
+                            question={`Stop lending to ${name}? Their reservation here is cancelled and they can't ask again; a book they have comes back as normal.`}
+                            confirmLabel="Stop lending" onConfirm={() => run(() => stopLending(b.id))} />
+                        )}
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            </>
           )
         )}
 

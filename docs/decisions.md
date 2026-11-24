@@ -311,3 +311,24 @@ The merges apply on every shelf, so a book a friend filed under an old name move
 **Why most of this is in the database.** Until now, a member with any loan couldn't be deleted at all: the links from loans, reservations and copies to the member blocked it, while their reviews would have disappeared with them. `supabase/14_privacy_and_accounts.sql` changes those links to clear themselves instead. Deleting then works the same from the app and from the Supabase dashboard, librarians keep a correct history of their books, and replies under a departed member's review still make sense. Tests check what goes, what stays, and that nothing is deleted while a book is out.
 
 *Considered:* writing the address into the code (simpler, but public on GitHub), a notice current members could close without accepting (no record that they agreed), and deleting reviews with the account (it would leave other people's replies hanging).
+
+
+## 31. Library passes instead of one-time approval
+
+**Context.** Since decision 23, a librarian approved someone once and they could reserve freely from then on. That approval came before the librarian knew how the person treated a book. While planning loan messages (decision 32), Asad wanted trust to be earned by a loan that went well, and wanted a measure of trust between members that's separate from how many books are lent.
+
+**Decision (Asad's idea).** A librarian's trust is now a **library pass** (Asad chose the name over "membership", which already means anyone with an account, and over "library card").
+- **Pass holders** reserve from that shelf without asking. Restricted books still need the librarian's OK each time.
+- **Everyone else asks each time.** Every request waits for the librarian, with the same request card as before: the person's note, who invited them, which librarians have given them a pass, and how their loans have gone, plus how often they've borrowed from this shelf. The note is optional on every request; the first request to a librarian keeps "Remind Mira how you know each other", later ones ask "Anything Mira should know?".
+- **Only pass holders see a librarian's Restricted Section.** To everyone else those books aren't on that shelf. The Libraries page says how many there are ("35 books, plus 5 for library pass holders"), so a shelf that's all Restricted doesn't look empty.
+- **Two ways to a pass.** In the week after a book comes back (the week its message thread stays open), the lending desk asks "Give Sara a library pass?" ("Not now" only dismisses the question). Or the person asks for one on the Libraries page, which also covers a shelf that's all Restricted: without asking, nobody could ever borrow from it, so never earn a pass. After a "Not now" they can ask again after 3 months, or sooner once they've borrowed from that shelf. The note they see is warm and never says "you" (Asad's wording rule): "A library pass from Mira's shelf isn't on its way just yet."
+- **Taking a pass back is quiet**: the person goes back to asking each time and isn't told. "Stop lending" stays as the stronger option.
+- **Lending in person gives no pass**, as it used to give approval. The "Lend to" list shows pass holders and anyone who has borrowed from you before.
+- **Pick-up times and place** show to pass holders and to anyone with an approved request or a book out from that shelf, who needs to know where to go.
+- **Nobody loses access:** everyone approved before now holds a pass. Requests waiting for a first-time approval became ordinary requests, keeping their notes.
+
+**KPI.** Library passes measure depth of trust; loans measure activity. The sharper count is passes given to someone the librarian didn't invite: connections made through books.
+
+**Why in the database.** `supabase/15_library_passes.sql` hides Restricted books in the database's own read rules (books, copies, the Restricted Section list and availability), so a member without a pass can't find them by any route, not just in the app. Tests check each rule, and that requests waiting when the file runs keep their notes.
+
+*Considered:* offering "Ask for a library pass" only on shelves that are all Restricted (one rule everywhere is simpler, and lets old friends skip asking each time); telling someone their pass was taken back (Asad: quietly); and counting only the books a non-holder can see on the Libraries page (an all-Restricted shelf would look empty).

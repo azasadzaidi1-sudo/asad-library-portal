@@ -73,7 +73,7 @@ select tests.ok(public.lend_copy(:c1, :'SAM') is not null, 'Mira lends a copy to
 select tests.fails(format('select public.remove_copy(%s)', :c1), 'lent out', 'a copy that''s lent out can''t be removed');
 call tests.sign_in(:'SAM');
 select tests.ok((select pickups from public.shelf_descriptions() where owner_id = :'MIRA') = 'Saturdays in Altona',
-  'lending to Sam approved him, so now he sees her pick-ups');
+  'Sam has one of her books, so he sees her pick-ups');
 call tests.sign_in(:'MIRA');
 select public.remove_copy(id) from public.copies where book_id = :piranesi and owner_id = :'MIRA' and id <> :c1 \g /dev/null
 select tests.ok((select count(*) from public.copies where book_id = :piranesi) = 1,
@@ -81,8 +81,11 @@ select tests.ok((select count(*) from public.copies where book_id = :piranesi) =
 reset role;
 update public.loans set returned_on = current_date where copy_id = :c1 and returned_on is null;
 set role authenticated;
+call tests.sign_in(:'MIRA');
+select public.give_pass(:'SAM') \g /dev/null
 call tests.sign_in(:'SAM');
-select tests.ok(public.request_book(:piranesi, :'MIRA', null) is not null, 'Sam reserves the last copy');
+select tests.ok(public.request_book(:piranesi, :'MIRA', null) is not null,
+  'with a library pass, Sam reserves the last copy (it''s in her Restricted Section)');
 call tests.sign_in(:'MIRA');
 select public.remove_copy(:c1) \g /dev/null
 select tests.ok((select status from public.reservations where book_id = :piranesi and member_id = :'SAM'

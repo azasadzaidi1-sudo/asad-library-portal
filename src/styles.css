@@ -1185,6 +1185,18 @@ label.checkbox input {
   color: var(--amber);
 }
 
+/* After a "Not now" to a library pass: the same quiet italic as a declined book */
+.library-status.pass-declined {
+  font: italic 1.0625rem/1.4 var(--display);
+  color: var(--ink-soft);
+}
+
+.pass-request {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
 /* Copies of one title, one row per library, in the book pop-up */
 .shelf-rows {
   margin: 0.25rem 0 0;
@@ -1334,6 +1346,13 @@ label.checkbox input {
 .borrower-meta {
   font-size: 0.9375rem;
   color: var(--ink-soft);
+}
+
+.borrower-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
 }
 
 

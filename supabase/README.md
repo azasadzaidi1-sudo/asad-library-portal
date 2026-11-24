@@ -19,7 +19,8 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `11_shelf_descriptions.sql` | Shelf descriptions: a librarian's two lines (personality, pick-ups) and each shelf's top 3 genres | #14 | Done |
 | `12_cleanup.sql` | Clean-up: removes columns and functions unused since several libraries; the admin-only rules use `is_admin()` | #16 | Done |
 | `13_genre_cleanup.sql` | Genres from 23 to 18: Young Adult and Sports Fiction go, and Politics & Economics + Society & Futures, Philosophy + Spirituality, Self-Help + Language Learning merge | #17 | Done |
-| `14_privacy_and_accounts.sql` | House rules: who accepted which version, and when. Contact details for the privacy notice, kept out of the code. "Delete my account": past loans, reviews and replies stay without a name ("Former member") | #18 | Not yet |
+| `14_privacy_and_accounts.sql` | House rules: who accepted which version, and when. Contact details for the privacy notice, kept out of the code. "Delete my account": past loans, reviews and replies stay without a name ("Former member") | #18 | Done |
+| `15_library_passes.sql` | Library passes: pass holders reserve without asking; everyone else asks each time; Restricted books only show to pass holders; asking for a pass, the question after a return | #19 | **Not yet: run, then merge #19 straight away** |
 
 When a pull request adds a new file, it gets the next number and a new row here.
 
@@ -28,7 +29,7 @@ When a pull request adds a new file, it gets the next number and a new row here.
 `tests/` checks the database rules automatically. On every pull request GitHub builds a throwaway copy of the database from these numbered files, in order, then runs each `tests/test_*.sql` file against it. Every line of a test is a sentence like "only a copy's owner can lend it"; if one isn't true, the check turns red and names it.
 
 - `supabase_stub.sql` stands in for the bits of Supabase the files rely on (sign-ups and who is signed in)
-- `seed_before_08.sql` and `people.sql` are made-up members (all fictional apart from Asad's name)
+- `seed_before_08.sql` and `people.sql` are made-up members (all fictional apart from Asad's name); `seed_before_15.sql` adds a first-time request that's waiting when 15 runs, like the live library has
 - `helpers.sql` has the small tools the tests use (`tests.ok`, `tests.fails`, `tests.sign_in`, `tests.join`)
 
 When a new SQL file adds or changes a rule, its pull request adds tests for it too.

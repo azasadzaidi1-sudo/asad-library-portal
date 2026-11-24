@@ -164,10 +164,10 @@ describe('reservations', () => {
   })
 
   it('says when a request still needs approval, and which kind', () => {
-    expect(describeMyReservation({ status: 'pending_approval', queue_place: 1, waiting_for: 'borrower' }, {}, 'Mira'))
-      .toEqual({ state: 'pending', text: "Waiting for Mira's OK as a new borrower" })
+    expect(describeMyReservation({ status: 'pending_approval', queue_place: 1, waiting_for: 'request' }, {}, 'Mira'))
+      .toEqual({ state: 'pending', text: "Waiting for Mira's OK" })
     expect(describeMyReservation({ status: 'pending_approval', queue_place: 1, waiting_for: 'restricted' }, {}, 'Asad').text)
-      .toBe("Waiting for Asad's approval")
+      .toBe("Waiting for Asad's approval (Restricted Section)")
   })
 
   it('says a copy is waiting when enough are on the shelf, naming its librarian', () => {
