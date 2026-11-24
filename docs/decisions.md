@@ -297,3 +297,17 @@ The merges apply on every shelf, so a book a friend filed under an old name move
 **Why a SQL file.** Genres are just a field on each book; the genre filter, the Add book list and each shelf's "Top genres" line are worked out from the books, so they change by themselves and the app needs no new code. Tests check where each moved book ends up, that Add book only offers the new names, and that the file stops on a book it doesn't know.
 
 *Considered:* Fantasy for the two Hunger Games books (Asad's first thought; they went to Science Fiction because the story is a dystopian future with no magic), and Romance for Thirteen Reasons Why (it's a drama about a teenager's death more than a love story).
+
+
+## 30. Privacy notice, house rules and deleting your account
+
+**Context.** Before inviting a local book club, the app needed what any service holding other people's data needs: a privacy notice, terms people agree to, and a way to leave. A review of the rules that apply concluded that the GDPR should be treated as applying even to a free, invite-only app among friends, because invitations spread beyond the people Asad knows. An Impressum and a cookie banner aren't needed while the app stays private and free: it stores nothing in the browser except the sign-in session.
+
+**Decision.**
+- **Privacy notice and house rules** are pages inside the app, linked from a footer on every page and from a new Account page (tap your name at the top). On the Join page they open in a pop-up, and joining needs a tick: "I'm 18 or older and accept the house rules." Members who joined earlier see the rules once, at their next visit, and accept them to carry on (Asad's choice). The database records which version each member accepted, and when; raising the version number in the code asks everyone again.
+- **Contact details stay out of the code.** The notice has to say who runs the app and how to reach him, but the repository is public. So the postal address and email live in a database table that only members, and people holding a valid invitation link, can read (Asad's choice). For the same reason the notice isn't linked from the public sign-in page.
+- **Delete my account**, on the Account page, once no books are out in either direction. Typing DELETE confirms it (Asad's choice). The sign-in, name, city, notes, Interested list and invitations are deleted. Past loans, reviews and replies stay, without a name: the app shows "Former member" (Asad's choice). A librarian's books leave the catalogue, and requests waiting for them are cancelled. The admin account can't be deleted from the app.
+
+**Why most of this is in the database.** Until now, a member with any loan couldn't be deleted at all: the links from loans, reservations and copies to the member blocked it, while their reviews would have disappeared with them. `supabase/14_privacy_and_accounts.sql` changes those links to clear themselves instead. Deleting then works the same from the app and from the Supabase dashboard, librarians keep a correct history of their books, and replies under a departed member's review still make sense. Tests check what goes, what stays, and that nothing is deleted while a book is out.
+
+*Considered:* writing the address into the code (simpler, but public on GitHub), a notice current members could close without accepting (no record that they agreed), and deleting reviews with the account (it would leave other people's replies hanging).

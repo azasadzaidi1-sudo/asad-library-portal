@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
+import { takeAccountDeletedFlag } from '../lib/account'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
+  // Right after "Delete my account", say so once.
+  const [justDeleted] = useState(takeAccountDeletedFlag)
 
   async function signIn(event) {
     event.preventDefault()
@@ -27,6 +30,11 @@ export default function Login() {
     <main className="entry">
       <div className="entry-card">
         <h1 className="entry-title">The Common Shelf</h1>
+        {justDeleted && (
+          <p className="entry-notice" role="status">
+            Your account has been deleted. Thank you for being part of The Common Shelf.
+          </p>
+        )}
         <p className="entry-lede">
           Friends' bookshelves in one catalogue. Sign in with your email and password.
         </p>

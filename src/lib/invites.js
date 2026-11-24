@@ -45,11 +45,12 @@ export async function checkInvite(code) {
 
 // Creates the account. The database only accepts it with a valid invitation,
 // and takes the name and city from here, so there's no first-visit form.
-export async function joinWithInvite({ code, name, city, email, password }) {
+// rulesVersion: the version of the house rules the person accepted.
+export async function joinWithInvite({ code, name, city, email, password, rulesVersion }) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { invite_code: code, name, city } },
+    options: { data: { invite_code: code, name, city, rules_version: rulesVersion } },
   })
   if (error) {
     const message = error.message ?? ''

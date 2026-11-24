@@ -5,7 +5,8 @@
 //   people:  [{ member_id, name, borrowed }] from book_discussion_people()
 export function attachAuthors(reviews, people) {
   const byId = new Map(people.map((p) => [p.member_id, p]))
-  const author = (id) => byId.get(id)?.name || 'A new member'
+  // No member at all: they deleted their account and the post stayed.
+  const author = (id) => (id == null ? 'Former member' : byId.get(id)?.name || 'A new member')
   return reviews.map((review) => ({
     ...review,
     author: author(review.member_id),

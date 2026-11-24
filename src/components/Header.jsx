@@ -18,10 +18,11 @@ export default function Header({ member, page, isLibrarian }) {
           {isLibrarian && link('desk', 'Lending desk')}
         </nav>
         <div className="masthead-user">
-          <span>
+          <a href="#account" className="masthead-name" aria-current={page === 'account' ? 'page' : undefined}
+            title="Your account">
             {member.name}
             {isLibrarian && <span className="role"> (librarian)</span>}
-          </span>
+          </a>
           <button type="button" className="link-button" onClick={() => supabase.auth.signOut()}>
             Sign out
           </button>

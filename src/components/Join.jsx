@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { checkInvite, joinWithInvite } from '../lib/invites'
+import { useContactDetails } from '../lib/account'
+import { RULES_VERSION } from '../lib/legal'
 import Field from './Field'
+import LegalDialog from './LegalDialog'
 
 const PASSWORD_MIN = 8
 
@@ -12,6 +15,9 @@ export default function Join({ code, onSignIn }) {
   const [errors, setErrors] = useState({})
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
+  const [accepted, setAccepted] = useState(false)
+  const [reading, setReading] = useState(null) // 'rules' or 'privacy' while one is open
+  const contact = useContactDetails(code)
 
   useEffect(() => {
     checkInvite(code)
@@ -31,6 +37,7 @@ export default function Join({ code, onSignIn }) {
     if (!form.city.trim()) problems.city = 'Enter your city.'
     if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) problems.email = 'Enter your email address.'
     if (form.password.length < PASSWORD_MIN) problems.password = `Use at least ${PASSWORD_MIN} characters.`
+    if (!accepted) problems.rules = 'Tick the box to accept the house rules.'
     setErrors(problems)
     if (Object.keys(problems).length) return
 
@@ -43,6 +50,7 @@ export default function Join({ code, onSignIn }) {
         city: form.city.trim(),
         email: form.email.trim(),
         password: form.password,
+        rulesVersion: RULES_VERSION,
       })
       // Signed in: App notices the new session; leave the invitation address behind.
       window.history.replaceState(null, '', window.location.pathname)
@@ -90,6 +98,23 @@ export default function Join({ code, onSignIn }) {
           <Field label="Password" error={errors.password} hint={`At least ${PASSWORD_MIN} characters.`}>
             <input type="password" autoComplete="new-password" value={form.password} onChange={update('password')} />
           </Field>
+          <div className="accept-rules">
+            <label className="checkbox">
+              <input type="checkbox" checked={accepted}
+                onChange={(e) => {
+                  setAccepted(e.target.checked)
+                  setErrors({ ...errors, rules: '' })
+                }} />
+              I'm 18 or older and accept the house rules.
+            </label>
+            <p className="accept-rules-links">
+              Read the{' '}
+              <button type="button" className="link-button" onClick={() => setReading('rules')}>house rules</button>
+              {' '}and the{' '}
+              <button type="button" className="link-button" onClick={() => setReading('privacy')}>privacy notice</button>.
+            </p>
+            {errors.rules && <p className="form-error" role="alert">{errors.rules}</p>}
+          </div>
           {error && <p className="form-error" role="alert">{error}</p>}
           <button type="submit" className="button" disabled={busy}>
             {busy ? 'Joining…' : 'Join The Common Shelf'}
@@ -99,6 +124,7 @@ export default function Join({ code, onSignIn }) {
           Already a member?{' '}
           <button type="button" className="link-button" onClick={onSignIn}>Sign in</button>
         </p>
+        {reading && <LegalDialog initial={reading} contact={contact} onClose={() => setReading(null)} />}
       </>
     )
   }

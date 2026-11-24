@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
+import { MEMBER_COLUMNS } from '../lib/legal'
 
 // Shown once, on a member's first visit: the invite only knows their email.
 export default function CompleteProfile({ member, onSaved }) {
@@ -16,7 +17,7 @@ export default function CompleteProfile({ member, onSaved }) {
       .from('members')
       .update({ name: name.trim(), city: city.trim() })
       .eq('id', member.id)
-      .select('id, name, city, is_admin')
+      .select(MEMBER_COLUMNS)
       .single()
     if (error) {
       setError(`Your details weren't saved: ${error.message}`)
