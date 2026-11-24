@@ -3,11 +3,12 @@ import { deleteMyAccount, loadDeletionBlockers } from '../lib/account'
 import { DELETE_WORD, deleteWordMatches, deletionBlockedReason, longDate } from '../lib/legal'
 import Field from './Field'
 import InviteFriend from './InviteFriend'
+import MeetupAdmin from './MeetupAdmin'
 import Notifications from './Notifications'
 
-// Your account: your details, inviting a friend, notifications on this
-// device, the house rules and privacy notice, and deleting the account. Reached by tapping your name
-// at the top.
+// Your account: your details, the book club meet-up (Asad only), inviting a
+// friend, notifications on this device, the house rules and privacy notice,
+// and deleting the account. Reached by tapping your name at the top.
 export default function Account({ member, email, isLibrarian }) {
   return (
     <div className="account">
@@ -30,6 +31,8 @@ export default function Account({ member, email, isLibrarian }) {
           )}
         </dl>
       </section>
+
+      {member.is_admin && <MeetupAdmin />}
 
       <InviteFriend />
 

@@ -90,6 +90,14 @@ export default function PrivacyNotice({ contact, linkTo }) {
               <td>Art. 6(1)(b)</td>
             </tr>
             <tr>
+              <td>Book club meet-ups you count yourself in for</td>
+              <td>
+                So Asad knows who's coming. Other members only see how many are coming. Your name is deleted a week
+                after the meet-up (straight away if it's cancelled); only the total is kept.
+              </td>
+              <td>Art. 6(1)(b)</td>
+            </tr>
+            <tr>
               <td>Interested list, reviews and replies</td>
               <td>Features you choose to use</td>
               <td>Art. 6(1)(b)</td>
@@ -136,6 +144,9 @@ export default function PrivacyNotice({ contact, linkTo }) {
         </li>
         <li>
           <strong>Loan messages</strong> are seen only by the borrower and the librarian of that loan (see below).
+        </li>
+        <li>
+          <strong>Book club meet-ups:</strong> other members see how many are coming, never who. Asad sees who.
         </li>
         <li>
           <strong>The person who invited you</strong> sees that you joined, for 14 days.
@@ -191,6 +202,10 @@ export default function PrivacyNotice({ contact, linkTo }) {
           <strong>Push services</strong>, only if you turn notifications on: Google (USA) for Chrome and Android, Apple
           (USA) for iPhone and Safari, or Mozilla (USA) for Firefox carry each notification, encrypted, to your device.
         </li>
+        <li>
+          <strong>Google Maps</strong> (Google, USA), only if you tap a meet-up's place: it opens the address in Google
+          Maps.
+        </li>
       </ul>
       <p>These US services handle what they receive under their own privacy policies.</p>
 
@@ -204,9 +219,10 @@ export default function PrivacyNotice({ contact, linkTo }) {
 
       <h2>How long data is kept</h2>
       <p>
-        As long as your account exists, except loan messages, which are deleted as explained above. You can delete your
-        account on your {linkTo('account', 'Account page')} once you have no books out. Deleting it removes your
-        sign-in, name, city, notes, Interested list, invitations and library passes.
+        As long as your account exists, except loan messages and book club meet-ups, which are deleted as explained
+        above. You can delete your account on your {linkTo('account', 'Account page')} once you have no books out.
+        Deleting it removes your sign-in, name, city, notes, Interested list, invitations, library passes and the
+        meet-ups you've counted yourself in for.
         Records of past loans stay, and so do your reviews and replies, shown under "Former member" instead of your
         name. That keeps librarians' records of their books correct and book discussions whole. To take your reviews
         with you, delete them before closing your account.
