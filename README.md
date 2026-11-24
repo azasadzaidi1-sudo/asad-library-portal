@@ -14,6 +14,7 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 - Live availability per book ("1 of 2 on the shelf", "All copies out, 2 in the queue"), without revealing who has borrowed what.
 - A Restricted Section per librarian: titles only their pass holders see, which need the librarian's approval each time, with a reason such as a fragile copy.
 - Cover images, a short spoiler-free description of every book, and a pop-up per book showing each library's copies, with the option to reserve from a chosen library (one book and one reservation per library, first come, first served) or mark it as interested.
+- Loan messages: a conversation between the borrower and the librarian about each reservation or loan, for the pick-up, questions and late returns. It stays open a week after the return, then turns read-only, and is deleted a month later. Librarians can extend a loan by two weeks.
 - A "Borrowing lists" page with what a member has borrowed, reserved and marked as interested, from every library.
 - Reviews with replies in each book's pop-up, spoiler warnings, and a "Borrowed from the library" badge for reviewers who read the library's copy.
 - For each librarian, on their own shelf: requests to approve or decline, who has each copy and when it's due, the queue, who's interested, and their Restricted Section.
@@ -22,7 +23,7 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 
 - A privacy notice and house rules: new members accept the rules on the Join page, current members once at their next visit, and the database records which version each person accepted. Members can delete their own account; past loans, reviews and replies stay without a name ("Former member").
 
-**Planned:** changing and resetting passwords (resetting needs email), and reminders a week before a loan is due.
+**Planned:** push notifications (new messages, requests, and a reminder a week before a loan is due), and changing and resetting passwords.
 
 ## How it's built
 

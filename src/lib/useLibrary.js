@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { sortByFilingTitle } from './catalogue'
+import { unreadTotal } from './messages'
 import {
   loadApprovalRequests,
   loadAvailability,
@@ -9,6 +10,8 @@ import {
   loadMyInterests,
   loadPeople,
   loadRestricted,
+  loadThreads,
+  watchMessages,
 } from './library'
 
 const NO_APPROVALS = { requests: [], passRequests: [], restricted: [], passQuestions: [] }
@@ -24,12 +27,13 @@ export function useLibrary(member) {
   const [interests, setInterests] = useState(new Set())
   const [approvals, setApprovals] = useState(NO_APPROVALS)
   const [people, setPeople] = useState(new Map())
+  const [threads, setThreads] = useState([])
   const [error, setError] = useState('')
 
   const refresh = useCallback(async () => {
     try {
       // For someone without a shelf, the librarian lists simply come back empty.
-      const [rows, libs, counts, restrictedTitles, card, mine, requests, names] = await Promise.all([
+      const [rows, libs, counts, restrictedTitles, card, mine, requests, names, conversations] = await Promise.all([
         loadBooks(),
         loadLibraries(),
         loadAvailability(),
@@ -38,6 +42,7 @@ export function useLibrary(member) {
         loadMyInterests(member.id),
         loadApprovalRequests(member.id),
         loadPeople(),
+        loadThreads(),
       ])
       setBooks(sortByFilingTitle(rows))
       setLibraries(libs)
@@ -47,6 +52,7 @@ export function useLibrary(member) {
       setInterests(mine)
       setApprovals(requests)
       setPeople(names)
+      setThreads(conversations)
     } catch (e) {
       setError(e.message)
     }
@@ -55,6 +61,18 @@ export function useLibrary(member) {
   useEffect(() => {
     refresh()
   }, [refresh])
+
+  // Conversations change more often than the rest (every message), so they
+  // reload on their own, whenever a message arrives or is deleted.
+  const refreshThreads = useCallback(async () => {
+    try {
+      setThreads(await loadThreads())
+    } catch (e) {
+      console.warn('Conversations could not reload:', e.message)
+    }
+  }, [])
+
+  useEffect(() => watchMessages(() => refreshThreads()), [refreshThreads])
 
   const booksById = useMemo(() => new Map((books ?? []).map((b) => [b.id, b])), [books])
   const librariesById = useMemo(() => new Map(libraries.map((l) => [l.owner_id, l])), [libraries])
@@ -67,6 +85,12 @@ export function useLibrary(member) {
   const isLibrarian = libraries.some((l) => l.is_me)
   const ownerName = useCallback((ownerId) => librariesById.get(ownerId)?.name ?? 'the librarian', [librariesById])
   const personName = useCallback((memberId) => people.get(memberId) || 'A new member (no name yet)', [people])
+  // The conversation about a reservation or a loan, if there is one.
+  const threadFor = useCallback(
+    ({ reservationId, loanId }) =>
+      threads.find((t) => (loanId && t.loan_id === loanId) || (reservationId && t.reservation_id === reservationId)),
+    [threads],
+  )
 
   return {
     books,
@@ -80,6 +104,10 @@ export function useLibrary(member) {
     interests,
     approvals,
     people,
+    threads,
+    unread: unreadTotal(threads),
+    threadFor,
+    refreshThreads,
     ownerName,
     personName,
     error,

@@ -47,13 +47,23 @@ export default function HouseRules({ contact, linkTo }) {
           <strong>Librarians:</strong> lend only books you own, and describe your copies honestly. You decide whom
           you lend to, and you can say no or stop lending to someone without giving a reason.
         </li>
+        <li>
+          Pick-ups and returns happen between the two members, at a time and place they agree. Asad isn't part of them
+          unless it's his own book.
+        </li>
+        <li>
+          <strong>Library passes:</strong> after a good loan, a librarian can give you a library pass for their shelf,
+          or you can ask for one. Pass holders reserve that shelf's books without asking, except Restricted ones, and
+          can see its Restricted Section; everyone else asks each time. Librarians decide who gets a pass and can take
+          one back without giving a reason. A pass that's been taken back can't be asked for again.
+        </li>
         <li>No money changes hands: no fees, deposits, sales or rentals through the app.</li>
       </ul>
 
       <h2>4. The Restricted Section</h2>
       <p>
-        Some titles need a librarian's approval before they can be borrowed. A book on a shelf is not an endorsement of
-        what it says.
+        Some titles need a librarian's approval before they can be borrowed, and only that librarian's pass holders can
+        see them. A book on a shelf is not an endorsement of what it says.
       </p>
 
       <h2>5. Reviews and replies</h2>
@@ -66,34 +76,41 @@ export default function HouseRules({ contact, linkTo }) {
         <li>Asad may remove posts that break these rules.</li>
       </ul>
 
-      <h2>6. Respect other members' privacy</h2>
+      <h2>6. Loan messages</h2>
       <p>
-        What you see in the app about other members (their city, pick-up places, borrowing record or notes) stays in
-        the app. Don't copy it or pass it on.
+        Use them for the loan: arranging the pick-up, questions about the book, running late, and talking about the book
+        afterwards. The rules for reviews apply here too. Conversations turn read-only a week after the return and are
+        deleted a month later, so swap contact details if you'd like to stay in touch.
       </p>
 
-      <h2>7. Leaving, or being asked to leave</h2>
+      <h2>7. Respect other members' privacy</h2>
+      <p>
+        What you see in the app about other members (their city, pick-up places, borrowing record, notes or messages)
+        stays in the app. Don't copy it or pass it on.
+      </p>
+
+      <h2>8. Leaving, or being asked to leave</h2>
       <p>
         You can delete your account at any time on your {linkTo('account', 'Account page')}, once your borrowed books
         are back with their owners and none of your own books are out on loan. Asad may suspend or close an account
         that breaks these rules, normally after a word with the person first.
       </p>
 
-      <h2>8. Liability</h2>
+      <h2>9. Liability</h2>
       <p>
-        The app is free and offered as it is, without a promise that it will always work or be available. Asad is
-        fully liable for harm he causes on purpose or through gross negligence, and for harm to life, body or health.
-        Beyond that, because the app is free, he isn't liable for slight negligence. Between members, loans follow
+        The app is free and offered as it is, without a promise that it will always work or be available. Because it's
+        free, Asad isn't liable for harm caused by slight negligence, except harm to life, body or health. Between
+        members, loans follow
         German law on free lending (<i>Leihe</i>, §§ 598–606 BGB): the lender answers only for intent and gross
         negligence, and the borrower isn't liable for normal wear.
       </p>
 
-      <h2>9. Changes to these rules</h2>
+      <h2>10. Changes to these rules</h2>
       <p>
         If the rules change in a way that matters, you'll see a note in the app and be asked to accept them again.
       </p>
 
-      <h2>10. Law</h2>
+      <h2>11. Law</h2>
       <p>German law applies.</p>
       <p>How your data is handled is explained in the {linkTo('privacy', 'privacy notice')}.</p>
     </div>

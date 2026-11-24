@@ -16,6 +16,7 @@ import AcceptRules from './components/AcceptRules'
 import Account from './components/Account'
 import LegalPage from './components/LegalPage'
 import Footer from './components/Footer'
+import Messages from './components/Messages'
 import { MEMBER_COLUMNS, needsToAcceptRules } from './lib/legal'
 
 // The app has four screens, chosen by who is visiting:
@@ -76,31 +77,33 @@ function MemberArea({ userId, email }) {
 
 // Which page to show comes from the end of the address (#libraries, #borrowing,
 // #desk), so the browser's back button and bookmarks work without a routing library.
-const PAGES = ['catalogue', 'libraries', 'borrowing', 'desk', 'add-book', 'account', 'privacy', 'rules']
+// One conversation is #messages/42.
+const PAGES = ['catalogue', 'libraries', 'borrowing', 'desk', 'messages', 'add-book', 'account', 'privacy', 'rules']
 // Old addresses that still work: "My books" was renamed "Borrowing lists".
 const OLD_PAGES = { 'my-books': 'borrowing' }
 
+function readPage() {
+  const [hash, param] = window.location.hash.slice(1).split('/')
+  const page = OLD_PAGES[hash] ?? hash
+  return PAGES.includes(page) ? { page, param: param ?? null } : { page: 'catalogue', param: null }
+}
+
 function usePage() {
-  const read = () => {
-    const hash = window.location.hash.slice(1)
-    const page = OLD_PAGES[hash] ?? hash
-    return PAGES.includes(page) ? page : 'catalogue'
-  }
-  const [page, setPage] = useState(read)
+  const [where, setWhere] = useState(readPage)
   useEffect(() => {
     const onChange = () => {
-      setPage(read())
+      setWhere(readPage())
       window.scrollTo(0, 0)
     }
     window.addEventListener('hashchange', onChange)
     return () => window.removeEventListener('hashchange', onChange)
   }, [])
-  return page
+  return where
 }
 
 function Library({ member, email }) {
   const library = useLibrary(member)
-  const page = usePage()
+  const { page, param } = usePage()
   const [filters, setFilters] = useState(NO_FILTERS) // kept here so they survive a visit to another page
   const [openBookId, setOpenBookId] = useState(null)
 
@@ -130,6 +133,8 @@ function Library({ member, email }) {
     )
   } else if (page === 'add-book') {
     content = <AddBook library={library} onOpenBook={setOpenBookId} />
+  } else if (page === 'messages') {
+    content = <Messages library={library} member={member} threadId={param ? Number(param) : null} />
   } else if (page === 'borrowing') {
     content = <BorrowingLists library={library} onOpenBook={setOpenBookId} />
   } else {
@@ -140,7 +145,7 @@ function Library({ member, email }) {
 
   return (
     <>
-      <Header member={member} page={page} isLibrarian={library.isLibrarian} />
+      <Header member={member} page={page} isLibrarian={library.isLibrarian} unread={library.unread} />
       <main className="catalogue">{content}</main>
       <Footer />
       {openBookId && library.booksById.has(openBookId) && (

@@ -332,3 +332,22 @@ The merges apply on every shelf, so a book a friend filed under an old name move
 **Why in the database.** `supabase/15_library_passes.sql` hides Restricted books in the database's own read rules (books, copies, the Restricted Section list and availability), so a member without a pass can't find them by any route, not just in the app. Tests check each rule, and that requests waiting when the file runs keep their notes.
 
 *Considered:* offering "Ask for a library pass" only on shelves that are all Restricted (one rule everywhere is simpler, and lets old friends skip asking each time); telling someone their pass was taken back (Asad: quietly); counting only the books a non-holder can see on the Libraries page (an all-Restricted shelf would look empty); and taking a pass back quietly, with the person free to ask again straight away (Asad: it puts the librarian back in the same position, and the person would notice anyway).
+
+
+## 32. Loan messages, and extending a loan
+
+**Context.** The app told borrowers to "get in touch with Mira" without any way to do it, and pick-ups, questions about a reserved book and late returns all happened outside the app. Asad looked at three kinds of chat (messages about one loan, direct messages between any members, group rooms) and chose the smallest: a conversation about one specific loan. It covers what lending needs, keeps moderation close to zero, and keeps the app a library rather than a social network.
+
+**Decision (Asad's choices).**
+- **One conversation per reservation or loan**, between the borrower and the librarian, and nobody else. It opens when the reservation is confirmed: straight away for a pass holder, after the librarian's OK for everyone else. Lending a book in person opens one too.
+- **Open until a week after the return**, so the two can talk about the book and, if it clicks, swap numbers: meeting people through books, while the friendship carries on outside the app. Then it's read-only; if the reservation is cancelled or declined before any lending, straight away.
+- **Deleted a month after it turns read-only.** Both people see the whole timeline at the top of the conversation.
+- **Text only, up to 1,000 characters.** No photos, read receipts or typing indicator. No editing; you can delete your own messages ("Message deleted"). No report button for now: the house rules say to email Asad if something's wrong.
+- **Where it lives:** a Messages button on each reservation and loan (Borrowing lists and the lending desk), and a Messages page with an unread count in the menu. The page also keeps the conversation reachable in the week after a return, when the loan has left both lists.
+- **Asad reads messages only if one of the two asks him to help** (privacy notice). When someone deletes their account, their messages stay in the other person's conversation as "Former member" until it's deleted.
+- **"Extend by two weeks"** on the lending desk, for late returns agreed in a conversation, so the due date and the Overdue list stay right. The conversation notes the new date.
+- **Notifications by push, not email** (Asad: people are wary of inbox noise), in a later pull request. Until then, the unread count in the menu, and new messages appear live in an open conversation.
+
+**Why in the database.** `supabase/16_loan_messages.sql` opens and closes conversations from the reservations and loans themselves, so no screen can forget to; only the two people can read a conversation, and only through functions that check it's still open. Read-only is a date the database compares, and a nightly job (Supabase Cron) deletes conversations a month later, so the promise in the privacy notice doesn't depend on anyone remembering. The due date was fixed at four weeks after lending; it's now four weeks plus any extensions, still worked out by the database. Tests check every step of a conversation's life.
+
+*Considered:* direct messages between any two members (needs requests from strangers, blocking and reporting, and a message from someone with no profile is just a name), group rooms per shelf or for the book club (turns the app into social media), email notifications (inbox noise, plus a domain and a sending service), and end-to-end encryption (a large build, and it would make helping with a problem impossible).

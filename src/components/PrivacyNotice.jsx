@@ -51,12 +51,12 @@ export default function PrivacyNotice({ contact, linkTo }) {
             </tr>
             <tr>
               <td>Who invited you, and when you joined</td>
-              <td>Lets a librarian see how you're connected when you first ask to borrow</td>
+              <td>Lets a librarian see how you're connected when you ask to borrow, or ask for a library pass</td>
               <td>Art. 6(1)(f): legitimate interest in lending safely among people who know each other</td>
             </tr>
             <tr>
               <td>Your note to a librarian</td>
-              <td>Helps a librarian you ask for the first time remember how you know each other</td>
+              <td>Helps a librarian you ask to borrow from, or ask for a library pass, place you</td>
               <td>Art. 6(1)(f)</td>
             </tr>
             <tr>
@@ -65,9 +65,29 @@ export default function PrivacyNotice({ contact, linkTo }) {
               <td>Art. 6(1)(b)</td>
             </tr>
             <tr>
-              <td>Your borrowing record: number of loans, late returns, librarians who already lend to you</td>
-              <td>Shown to a librarian when you first ask to borrow from them</td>
+              <td>
+                Your borrowing record: number of loans, late returns, loans from that librarian, librarians who've given
+                you a library pass
+              </td>
+              <td>Shown to a librarian when you ask to borrow from them, or ask for their library pass</td>
               <td>Art. 6(1)(f)</td>
+            </tr>
+            <tr>
+              <td>Library passes: which librarians have given you one, and your requests for one</td>
+              <td>
+                Pass holders reserve from that shelf without asking (Restricted books aside) and can see its Restricted
+                Section. If a librarian takes a pass back, the app records that, so it can't be asked for again.
+                Kept until your account is deleted.
+              </td>
+              <td>Art. 6(1)(f): lending among people who trust each other</td>
+            </tr>
+            <tr>
+              <td>Loan messages</td>
+              <td>
+                Arranging the pick-up, questions about the book, running late, and talking about it afterwards. Kept as
+                explained under "Loan messages" below.
+              </td>
+              <td>Art. 6(1)(b)</td>
             </tr>
             <tr>
               <td>Interested list, reviews and replies</td>
@@ -93,8 +113,8 @@ export default function PrivacyNotice({ contact, linkTo }) {
         </table>
       </div>
       <p>
-        The app makes no automated decisions about you. First-time and Restricted Section requests are always decided
-        by a librarian.
+        The app makes no automated decisions about you. Requests to borrow, library passes and Restricted Section
+        requests are always decided by a librarian.
       </p>
 
       <h2>Who can see what</h2>
@@ -105,22 +125,39 @@ export default function PrivacyNotice({ contact, linkTo }) {
           each other's profiles.
         </li>
         <li>
-          <strong>Librarians you ask to borrow from</strong> see your name, your note, who invited you, when you joined,
-          which librarians already lend to you, and how many loans you've had and returned late. They also see your
-          reservations and loans of their books, and your Interested marks on titles they own.
+          <strong>Librarians you ask to borrow from, or ask for a library pass,</strong> see your name, your note, who
+          invited you, when you joined, which librarians have given you a library pass, how many loans you've had,
+          how many came back late, and how often you've borrowed from them. They also see your reservations and loans
+          of their books, and your Interested marks on titles they own.
         </li>
         <li>
-          <strong>Borrowers a librarian has approved</strong> see that librarian's pick-up time and place.
+          <strong>A librarian's pass holders</strong>, and anyone with an approved request or a book out from that
+          shelf, see that librarian's pick-up time and place. Only pass holders see a librarian's Restricted Section.
+        </li>
+        <li>
+          <strong>Loan messages</strong> are seen only by the borrower and the librarian of that loan (see below).
         </li>
         <li>
           <strong>The person who invited you</strong> sees that you joined, for 14 days.
         </li>
         <li>
           <strong>Asad, as administrator,</strong> can see all data, including email addresses, to run and fix the
-          app. He doesn't share it with anyone.
+          app. He doesn't share it with anyone. He reads loan messages only if one of the two people in a
+          conversation asks him to help with a problem.
         </li>
       </ul>
       <p>Nothing is sold, and there's no advertising, analytics or tracking.</p>
+
+      <h2>Loan messages</h2>
+      <p>
+        When a reservation is confirmed, the borrower and the librarian get a conversation about that loan. Only the two
+        of you can read it. Asad, as administrator, can technically open the database, but reads messages only if one
+        of you asks him to help with a problem. A conversation turns read-only one week after the book is returned, or
+        straight away if the reservation is cancelled or declined, and is deleted one month after that. You can delete
+        your own messages; they then show as "Message deleted". If you delete your account, your messages stay in the
+        other person's conversation under "Former member" until the conversation is deleted. Messages hold whatever
+        you write, so share phone numbers or other contact details only if you want to.
+      </p>
 
       <h2>Services that handle data for the app</h2>
       <ul>
@@ -151,8 +188,9 @@ export default function PrivacyNotice({ contact, linkTo }) {
 
       <h2>How long data is kept</h2>
       <p>
-        As long as your account exists. You can delete your account on your {linkTo('account', 'Account page')} once
-        you have no books out. Deleting it removes your sign-in, name, city, notes, Interested list and invitations.
+        As long as your account exists, except loan messages, which are deleted as explained above. You can delete your
+        account on your {linkTo('account', 'Account page')} once you have no books out. Deleting it removes your
+        sign-in, name, city, notes, Interested list, invitations and library passes.
         Records of past loans stay, and so do your reviews and replies, shown under "Former member" instead of your
         name. That keeps librarians' records of their books correct and book discussions whole. To take your reviews
         with you, delete them before closing your account.

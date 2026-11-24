@@ -447,3 +447,68 @@ export async function deleteReply(replyId) {
     (error) => `The reply wasn't deleted: ${error.message}`,
   )
 }
+
+// ---------- Loan messages (see supabase/16_loan_messages.sql) ----------
+
+// The signed-in member's conversations, newest activity first, each with
+// the book, the other person, where the loan stands and how many unread.
+export async function loadThreads() {
+  return unwrap(await supabase.rpc('my_threads'))
+}
+
+// One conversation's messages, oldest first. The database only returns
+// conversations the signed-in member is part of.
+export async function loadMessages(threadId) {
+  return unwrap(
+    await supabase
+      .from('messages')
+      .select('id, sender_id, kind, body, created_at, deleted_at')
+      .eq('thread_id', threadId)
+      .order('created_at')
+      .order('id'),
+  )
+}
+
+export async function sendMessage(threadId, body) {
+  unwrap(
+    await supabase.rpc('send_message', { p_thread_id: threadId, p_body: body }),
+    (error) => `Your message wasn't sent: ${error.message}`,
+  )
+}
+
+export async function deleteMessage(messageId) {
+  unwrap(
+    await supabase.rpc('delete_message', { p_message_id: messageId }),
+    (error) => `The message wasn't deleted: ${error.message}`,
+  )
+}
+
+export async function markThreadRead(threadId) {
+  unwrap(await supabase.rpc('mark_thread_read', { p_thread_id: threadId }))
+}
+
+// Calls onChange whenever a message the signed-in member can see is
+// sent or deleted (Supabase Realtime applies the same rules as reading).
+// Returns a function that stops listening. With a threadId, only that
+// conversation.
+export function watchMessages(onChange, threadId = null) {
+  const channel = supabase
+    .channel(threadId ? `messages-${threadId}` : 'messages')
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'messages', ...(threadId ? { filter: `thread_id=eq.${threadId}` } : {}) },
+      onChange,
+    )
+    .subscribe()
+  return () => {
+    supabase.removeChannel(channel)
+  }
+}
+
+// "Extend by two weeks", on the lending desk. Returns the new due date.
+export async function extendLoan(loanId) {
+  return unwrap(
+    await supabase.rpc('extend_loan', { p_loan_id: loanId }),
+    (error) => `The loan wasn't extended: ${error.message}`,
+  )
+}
