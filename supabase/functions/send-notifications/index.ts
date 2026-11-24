@@ -127,9 +127,24 @@ export async function encryptPayload(
 
 export type Notice = Subscription & { title: string; body: string; url: string; tag: string }
 
-// Sends one notification. Returns the push service's status: 201 means
-// accepted; 404 and 410 mean the device is gone.
-export async function sendOne(notice: Notice, keys: VapidKeys, fetcher: typeof fetch = fetch): Promise<number> {
+// The contact in the VAPID token. Apple's push service refuses the token
+// unless it's exactly "mailto:" + an email address (or an https address),
+// so stray spaces or a missing "mailto:" in the secret are tidied here.
+export function normalizeSubject(subject: string): string {
+  const value = subject.trim()
+  if (/^mailto:/i.test(value)) return 'mailto:' + value.slice(7).trim()
+  if (/^https:\/\//i.test(value)) return value
+  return value.includes('@') ? 'mailto:' + value : value
+}
+
+// Sends one notification. Returns the push service's status (201 means
+// accepted; 404 and 410 mean the device is gone) and, if it refused, its
+// reason (Apple says why, e.g. {"reason":"BadJwtToken"}).
+export async function sendOne(
+  notice: Notice,
+  keys: VapidKeys,
+  fetcher: typeof fetch = fetch,
+): Promise<{ status: number; reason: string }> {
   const payload = JSON.stringify({ title: notice.title, body: notice.body, url: notice.url, tag: notice.tag })
   const body = await encryptPayload(notice, payload)
   const response = await fetcher(notice.endpoint, {
@@ -143,22 +158,33 @@ export async function sendOne(notice: Notice, keys: VapidKeys, fetcher: typeof f
     },
     body,
   })
-  return response.status
+  const ok = response.status >= 200 && response.status < 300
+  const reason = ok ? '' : String(await response.text?.() ?? '').slice(0, 200)
+  return { status: response.status, reason }
 }
 
-// Sends a batch; returns what happened, with the devices that are gone.
+// Sends a batch; returns what happened: the devices that are gone, and for
+// each refusal the push service (not the device's address), status and
+// reason, so it can be read in the database (net._http_response).
 export async function sendAll(notices: Notice[], keys: VapidKeys, fetcher: typeof fetch = fetch) {
-  const result = { sent: 0, failed: 0, gone: [] as string[] }
+  const result = { sent: 0, failed: 0, gone: [] as string[], errors: [] as { service: string; status: number; reason: string }[] }
+  const vapid = { ...keys, subject: normalizeSubject(keys.subject) }
   for (const notice of notices) {
+    const service = new URL(notice.endpoint).host
     try {
-      const status = await sendOne(notice, keys, fetcher)
+      const { status, reason } = await sendOne(notice, vapid, fetcher)
       if (status >= 200 && status < 300) result.sent++
       else if (status === 404 || status === 410) result.gone.push(notice.endpoint)
-      else result.failed++
-    } catch {
+      else {
+        result.failed++
+        result.errors.push({ service, status, reason })
+      }
+    } catch (error) {
       result.failed++
+      result.errors.push({ service, status: 0, reason: String(error).slice(0, 200) })
     }
   }
+  if (result.errors.length) console.log('Push refused:', JSON.stringify(result.errors))
   return result
 }
 
@@ -179,9 +205,9 @@ if (runtime) {
       return new Response('Not allowed', { status: 401 })
     }
     const keys = {
-      publicKey: runtime.env.get('VAPID_PUBLIC_KEY') ?? '',
-      privateKey: runtime.env.get('VAPID_PRIVATE_KEY') ?? '',
-      subject: runtime.env.get('VAPID_SUBJECT') ?? '',
+      publicKey: (runtime.env.get('VAPID_PUBLIC_KEY') ?? '').trim(),
+      privateKey: (runtime.env.get('VAPID_PRIVATE_KEY') ?? '').trim(),
+      subject: (runtime.env.get('VAPID_SUBJECT') ?? '').trim(),
     }
     if (!keys.publicKey || !keys.privateKey || !keys.subject) {
       return new Response('The VAPID secrets are missing', { status: 500 })

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   encryptPayload,
   fromBase64Url,
+  normalizeSubject,
   sendAll,
   toBase64Url,
   vapidAuthorization,
@@ -110,6 +111,16 @@ describe('VAPID', () => {
   })
 })
 
+describe('normalizeSubject', () => {
+  it('gives Apple exactly mailto: plus an address', () => {
+    expect(normalizeSubject('mailto:asad@example.com')).toBe('mailto:asad@example.com')
+    expect(normalizeSubject('  mailto: asad@example.com \n')).toBe('mailto:asad@example.com')
+    expect(normalizeSubject('asad@example.com')).toBe('mailto:asad@example.com')
+    expect(normalizeSubject('MAILTO:asad@example.com')).toBe('mailto:asad@example.com')
+    expect(normalizeSubject('https://example.com')).toBe('https://example.com')
+  })
+})
+
 describe('sendAll', () => {
   it('counts what was sent and lists devices that are gone', async () => {
     const keys = await subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign'])
@@ -121,18 +132,23 @@ describe('sendAll', () => {
     const notice = (endpoint) => ({
       endpoint, p256dh: RFC.uaPublic, auth: RFC.auth, title: 't', body: 'b', url: '#messages', tag: 'x',
     })
-    const statuses = { 'https://push.example/ok': 201, 'https://push.example/gone': 410, 'https://push.example/busy': 429 }
+    const statuses = { 'https://push.example/ok': 201, 'https://push.example/gone': 410, 'https://web.push.apple.com/abc': 403 }
     const seen = []
     const fetcher = async (url, init) => {
       seen.push(init.headers)
-      return { status: statuses[url] }
+      return { status: statuses[url], text: async () => '{"reason":"BadJwtToken"}' }
     }
     const result = await sendAll(
-      [notice('https://push.example/ok'), notice('https://push.example/gone'), notice('https://push.example/busy')],
+      [notice('https://push.example/ok'), notice('https://push.example/gone'), notice('https://web.push.apple.com/abc')],
       vapid,
       fetcher,
     )
-    expect(result).toEqual({ sent: 1, failed: 1, gone: ['https://push.example/gone'] })
+    expect(result).toEqual({
+      sent: 1,
+      failed: 1,
+      gone: ['https://push.example/gone'],
+      errors: [{ service: 'web.push.apple.com', status: 403, reason: '{"reason":"BadJwtToken"}' }],
+    })
     expect(seen[0]['Content-Encoding']).toBe('aes128gcm')
     expect(seen[0].TTL).toBe('86400')
   })
