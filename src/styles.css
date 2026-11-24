@@ -1812,3 +1812,176 @@ a.button {
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+
+/* ---------- Loan messages ---------- */
+
+/* Unread count in the menu and the conversation list */
+.nav-count {
+  display: inline-block;
+  min-width: 1.35rem;
+  margin-left: 0.35rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--brass);
+  color: var(--card);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.35rem;
+  text-align: center;
+}
+
+.thread-list {
+  max-width: 40rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.thread-list li + li {
+  margin-top: 0.6rem;
+}
+
+.thread-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.thread-row:hover {
+  border-color: var(--rule-strong);
+}
+
+.thread-unread {
+  border-left: 4px solid var(--brass);
+}
+
+.thread-cover {
+  width: 3rem;
+  flex: none;
+}
+
+.thread-cover.cover-blank {
+  font-size: 1.4rem;
+}
+
+.thread-text {
+  display: grid;
+  flex: 1;
+  gap: 0.1rem;
+}
+
+.thread-title {
+  font: 1.25rem/1.2 var(--display);
+  color: var(--green);
+}
+
+.thread-unread .thread-title {
+  font-weight: 700;
+}
+
+.thread-with,
+.thread-stage {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.back-link {
+  color: var(--green);
+}
+
+.conversation {
+  max-width: 40rem;
+}
+
+.conversation-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.conversation-title {
+  margin-bottom: 0.2rem;
+}
+
+.conversation-notice {
+  margin: 1rem 0;
+  padding: 0.7rem 0.9rem;
+  border-left: 3px solid var(--rule-strong);
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.message-list {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.message {
+  justify-self: start;
+  max-width: 85%;
+  padding: 0.55rem 0.8rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+
+.message-mine {
+  justify-self: end;
+  background: #f3ecd9;
+  border-color: var(--rule-strong);
+}
+
+.message-meta {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+
+.message-body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.message-deleted {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.message-delete {
+  font-size: 0.8125rem;
+}
+
+.message-event {
+  justify-self: center;
+  font: italic 0.9375rem/1.4 var(--display);
+  color: var(--ink-soft);
+}
+
+.message-form {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+.message-left {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+/* Messages and Extend buttons on Borrowing lists and the lending desk */
+.row-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}

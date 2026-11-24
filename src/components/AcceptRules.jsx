@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 import { acceptHouseRules, useContactDetails } from '../lib/account'
-import { RULES_VERSION } from '../lib/legal'
+import { RULES_CHANGES, RULES_VERSION } from '../lib/legal'
 import HouseRules from './HouseRules'
 import LegalDialog from './LegalDialog'
 
@@ -47,7 +47,7 @@ export default function AcceptRules({ member, onAccepted }) {
         <h1 className="entry-title">House rules</h1>
         <p className="entry-lede">
           {member.rules_version
-            ? 'The house rules have changed. Please read them and accept to carry on.'
+            ? `The house rules have changed. ${RULES_CHANGES} Please read them and accept to carry on.`
             : 'The Common Shelf now has short house rules and a privacy notice. Please read the rules and accept them to carry on.'}
         </p>
         <div className="legal-scroll" tabIndex={0} aria-label="House rules">

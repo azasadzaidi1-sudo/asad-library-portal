@@ -3,6 +3,7 @@ import { filterBooks, formatDate, ordinal } from '../lib/catalogue'
 import { buildDesk, daysBetween, localDate } from '../lib/desk'
 import {
   cancelReservation,
+  extendLoan,
   givePass,
   lendAgain,
   lendCopy,
@@ -16,6 +17,7 @@ import ApprovalBox from './ApprovalBox'
 import ConfirmButton from './ConfirmButton'
 import Cover from './Cover'
 import LendControls, { copyName } from './LendControls'
+import MessagesLink from './MessagesLink'
 import ReturnButton from './ReturnButton'
 
 const TABS = [
@@ -113,7 +115,13 @@ export default function LendingDesk({ library, onOpenBook }) {
                   Due {formatDate(loan.due_on)}
                   {daysLate > 0 && `, ${daysLate} ${daysLate === 1 ? 'day' : 'days'} overdue`}
                 </p>
-                <ReturnButton busy={busy} onReturn={() => run(() => returnLoan(loan.id))} />
+                <div className="row-buttons">
+                  <ReturnButton busy={busy} onReturn={() => run(() => returnLoan(loan.id))} />
+                  <MessagesLink thread={library.threadFor({ loanId: loan.id })} />
+                  <ConfirmButton label="Extend by 2 weeks" busy={busy} className="link-button"
+                    question={`Move the due date to ${formatDate(addDays(loan.due_on, 14))}?`}
+                    confirmLabel="Extend" onConfirm={() => run(() => extendLoan(loan.id))} />
+                </div>
               </DeskRow>
             ))
           )
@@ -144,6 +152,7 @@ export default function LendingDesk({ library, onOpenBook }) {
                     <p>Waiting for your approval: see the top of this page.</p>
                   )}
                   {state === 'waiting' && <p className="shelf-empty">Waiting: every copy is out or promised to someone earlier.</p>}
+                  <MessagesLink thread={library.threadFor({ reservationId: reservation.id })} />
                   {state !== 'approval' && (
                     <button type="button" className="link-button desk-cancel" disabled={busy}
                       onClick={() => run(() => cancelReservation(reservation.id))}>
@@ -225,6 +234,13 @@ export default function LendingDesk({ library, onOpenBook }) {
       </section>
     </div>
   )
+}
+
+// "2026-12-01" plus 14 days, as a date (for the Extend question).
+function addDays(isoDate, days) {
+  const d = new Date(`${isoDate}T12:00:00`)
+  d.setDate(d.getDate() + days)
+  return d
 }
 
 function DeskRow({ book, onOpenBook, children }) {

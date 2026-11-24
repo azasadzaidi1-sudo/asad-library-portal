@@ -3,6 +3,7 @@ import { declineText, describeMyReservation, formatDate, isOverdue } from '../li
 import { cancelReservation } from '../lib/library'
 import BookCard from './BookCard'
 import Cover from './Cover'
+import MessagesLink from './MessagesLink'
 
 // "Borrowing lists": what a member has borrowed, reserved and marked as
 // interested, from every library. (It used to be called "My books", which
@@ -50,6 +51,7 @@ export default function BorrowingLists({ library, onOpenBook }) {
               ) : (
                 <p>From {ownerName(loan.owner_id)}'s shelf, due back {formatDate(loan.due_on)}</p>
               )}
+              <MessagesLink thread={library.threadFor({ loanId: loan.id })} />
             </BookRow>
           )
         })}
@@ -69,10 +71,13 @@ export default function BorrowingLists({ library, onOpenBook }) {
               <p>
                 {describeMyReservation(reservation, countsFor(book.id, reservation.owner_id), owner).text}
               </p>
-              <button type="button" className="button button-quiet" disabled={busy}
-                onClick={() => cancel(reservation.reservation_id)}>
-                {reservation.status === 'pending_approval' ? 'Withdraw request' : 'Cancel reservation'}
-              </button>
+              <div className="row-buttons">
+                <MessagesLink thread={library.threadFor({ reservationId: reservation.reservation_id })} />
+                <button type="button" className="button button-quiet" disabled={busy}
+                  onClick={() => cancel(reservation.reservation_id)}>
+                  {reservation.status === 'pending_approval' ? 'Withdraw request' : 'Cancel reservation'}
+                </button>
+              </div>
             </BookRow>
           )
         })}

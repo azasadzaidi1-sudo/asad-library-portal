@@ -3,7 +3,9 @@
 
 // Raise RULES_VERSION when the house rules change in a way that matters:
 // everyone is then asked to accept them again at their next visit.
-export const RULES_VERSION = 1
+export const RULES_VERSION = 2
+// What changed since the last version, for members accepting again.
+export const RULES_CHANGES = 'New: library passes (sections 3 and 4) and loan messages (section 6).'
 export const RULES_UPDATED = '24 November 2026'
 export const PRIVACY_UPDATED = '24 November 2026'
 

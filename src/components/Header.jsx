@@ -1,6 +1,6 @@
 import { supabase } from '../supabaseClient'
 
-export default function Header({ member, page, isLibrarian }) {
+export default function Header({ member, page, isLibrarian, unread = 0 }) {
   const link = (target, label) => (
     <a href={`#${target}`} className="nav-link" aria-current={page === target ? 'page' : undefined}>
       {label}
@@ -16,6 +16,12 @@ export default function Header({ member, page, isLibrarian }) {
           {link('libraries', 'Libraries')}
           {link('borrowing', 'Borrowing lists')}
           {isLibrarian && link('desk', 'Lending desk')}
+          <a href="#messages" className="nav-link" aria-current={page === 'messages' ? 'page' : undefined}>
+            Messages
+            {unread > 0 && (
+              <span className="nav-count" aria-label={`${unread} unread`}>{unread}</span>
+            )}
+          </a>
         </nav>
         <div className="masthead-user">
           <a href="#account" className="masthead-name" aria-current={page === 'account' ? 'page' : undefined}
