@@ -280,3 +280,20 @@ A new librarian is asked for the two lines right after adding their first book (
 
 *Considered:* keeping the tests outside the repository (no record, nothing runs them), Supabase's own command-line tooling and its test framework (more setup than this project needs for now; possible later), and keeping the old columns "just in case" (their contents were already replaced by per-librarian lists).
 
+
+## 29. Fewer, theme-based genres
+
+**Context.** The genres came from cataloguing Asad's own shelf: 23 of them, from Fantasy (30 titles) down to genres with one or two books. Since librarians add their own books (decision 24), every librarian picks from that list, so it now shapes how friends file their books and how everyone browses, not just how one shelf was sorted.
+
+**Decision.** From 23 genres to 18 (`supabase/13_genre_cleanup.sql`):
+- **Young Adult goes.** Asad's principle: a genre should say what a book is about, not who it's written for. Its five books moved one by one: The Hunger Games and The Ballad of Songbirds & Snakes to Science Fiction (a dystopian future, no magic), Thirteen Reasons Why and Tschick to Literary Fiction, Twilight to Romance.
+- **Sports Fiction goes.** It didn't need a genre of its own (Asad); its one book, a cricket novel, moves to Literary Fiction.
+- **Three merges:** Politics & Economics + Society & Futures → **Politics, Economics & Society**; Philosophy + Spirituality → **Philosophy & Spirituality**; Self-Help + Language Learning → **Self-Help & Learning**. Combined names use "&", like the existing ones (Asad's call).
+
+The merges apply on every shelf, so a book a friend filed under an old name moves with the rest. Young Adult can't be merged by name, because its books go to different places; if a librarian added a Young Adult book that the file doesn't know about, it stops before changing anything and names the book, rather than guessing.
+
+**Left for later (Asad's call):** renaming Literary Fiction to "Fiction" (it's really the general-fiction shelf), and whether Classics, a reputation label rather than a theme, should stay.
+
+**Why a SQL file.** Genres are just a field on each book; the genre filter, the Add book list and each shelf's "Top genres" line are worked out from the books, so they change by themselves and the app needs no new code. Tests check where each moved book ends up, that Add book only offers the new names, and that the file stops on a book it doesn't know.
+
+*Considered:* Fantasy for the two Hunger Games books (Asad's first thought; they went to Science Fiction because the story is a dystopian future with no magic), and Romance for Thirteen Reasons Why (it's a drama about a teenager's death more than a love story).
