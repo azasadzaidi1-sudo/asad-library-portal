@@ -64,8 +64,8 @@ export default function Notifications() {
       <h2 id="notifications-title" className="shelf-title">Notifications</h2>
       <div className="account-text">
         <p>
-          A short notification on this device for new messages, requests to borrow, library passes, and books due back
-          in a week. It never shows what a message says. Turn it on separately on each phone or computer.
+          A short notification on this device for new messages, requests to borrow, library passes, books due back
+          in a week, and book club meet-ups. It never shows what a message says. Turn it on separately on each phone or computer.
         </p>
         {status && <p className="notifications-status">{status.text}</p>}
         {status?.action && (

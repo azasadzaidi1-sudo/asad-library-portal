@@ -374,3 +374,23 @@ The merges apply on every shelf, so a book a friend filed under an old name move
 **Keys stay out of reach.** The push keys and the secret the database shares with the function are made on a small page in the owner's own browser (`push-keys.html`) and go straight into Supabase: never into the code, a pull request or a chat.
 
 *Considered:* a push library on Supabase (more to trust and keep updated), email (inbox noise), notifying on every message (noisy), and sending from GitHub Actions on a timer (GitHub's timers can run late, which is fine for reminders but not for messages).
+
+
+## 35. Book club meet-ups
+
+**Context.** The app exists to connect people through books, and lending alone only connects two people at a time. Asad wanted a book club meet-up for the app's members, as a side feature with as little screen as possible: not an events section like Facebook or Meetup, just a way to announce the next meet-up and let people say they're coming. There's no set book: everyone brings what they're reading and presents it, which gives others books they then want to borrow.
+
+**Decision (Asad's choices).**
+- **One meet-up at a time, posted by Asad** from his Account page (date, start time in Berlin time, place, optional note). He can edit or cancel it before it starts, and post the next one as soon as the current one has started.
+- **A card at the top of the Catalogue**, the page everyone lands on, until the end of the meet-up's day: "Next book club meet-up", the date and time, the place (opens Google Maps when tapped), the standing line "Bring the book you can't put down and tell everyone why it's got you hooked.", Asad's note, and **"Count me in"** ("You're in" and "Can't make it after all" once tapped).
+- **Members see a number, not names** ("6 coming"); only Asad sees who. RSVPs reach him as a list on his Account page, without a notification each time.
+- **Notifications:** one announcement to everyone with notifications on when a meet-up is posted, and a reminder the morning before to those coming. *Small calls (Claude; Asad may overrule):* those coming are also told if Asad moves the date, time or place, or cancels it, since they'd otherwise turn up to nothing; editing only the note sends nothing.
+- **After the meet-up:** for a week, those who said they'd come see "Presented a book at the meet-up? Add it to your shelf so others can borrow it." with a link to Add book ("Start your shelf with it" for members without a shelf). It goes once they add a book or tap "Hide this". This is how the presented books become borrowable, and how some members become librarians.
+- **No limit on numbers.**
+- **Names are deleted a week after the meet-up** (straight away if it's cancelled); only the total is kept, so Asad can see how many came to each meet-up without keeping who.
+
+**KPI.** People who said they'd come per meet-up (kept after the names go), and books added by attendees in the week after: meet-ups turning into shelves.
+
+**Why in the database.** `supabase/18_book_club_meetups.sql` keeps the meet-ups and the "Count me in" list out of members' reach entirely: members get the card from one function that returns a count, never names, and only the admin's functions return names. The one-at-a-time rule, the end of "Count me in" at midnight after the meet-up, the notifications and the deletion of names (a scheduled job every morning) live there too, so no screen can forget them. Times are stored as moments and always shown in Berlin time, so a meet-up posted from abroad still says 19:00. Tests check each rule.
+
+*Considered:* a set book per meet-up, linked to the catalogue (the club has no set book); names for everyone, or only for those coming (more personal data on show, and a step towards the social features the app keeps out); a notification to Asad for every "Count me in" (he chose the list only); a place shown only to those coming (meet-ups are in public places); an events page with past and future meet-ups (more screen than the feature needs); and a list of the presented books in the app (the nudge to shelve them does the job with less).

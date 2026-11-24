@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { awardName, countBy, filterBooks, languageName } from '../lib/catalogue'
 import ApprovalBox from './ApprovalBox'
 import BookCard from './BookCard'
+import MeetupCard from './MeetupCard'
 
 export const NO_FILTERS = { query: '', library: '', genre: '', award: '', language: '' }
 
@@ -29,6 +30,7 @@ export default function Catalogue({ library, filters, setFilters, onOpenBook }) 
   return (
     <>
       <h1 className="visually-hidden">Catalogue</h1>
+      <MeetupCard isLibrarian={library.isLibrarian} />
       {library.isLibrarian && <ApprovalBox library={library} onOpenBook={onOpenBook} />}
 
       <form className={`finder${showFilters ? ' finder-open' : ''}`} role="search"
