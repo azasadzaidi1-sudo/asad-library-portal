@@ -25,6 +25,13 @@ export function passDeclineText(name, hasOpenBooks) {
     : `${first} There are plenty of other shelves to wander through in the meantime.`
 }
 
+// After a librarian takes a pass back: said plainly (Asad), without a
+// date, because it can't be asked for again.
+export function passTakenBackText(name, hasOpenBooks) {
+  const first = `${name} has taken back the library pass for this shelf.`
+  return hasOpenBooks ? `${first} ${name}'s books can still be asked for one request at a time.` : first
+}
+
 // Where the signed-in member stands with one shelf, for its card on the
 // Libraries page.
 //   lib:   a row from libraries() (my_status, decided_at, ask_again_on, titles)
@@ -33,6 +40,7 @@ export function passDeclineText(name, hasOpenBooks) {
 //   canAsk   show "Ask for a library pass"
 //   pending  they've asked; offer to withdraw
 //   declined the text is the warm "Not now" note
+//   takenBack the pass was taken back (no asking again)
 export function passStanding(lib, today = new Date()) {
   const name = lib.name
   switch (lib.my_status) {
@@ -44,6 +52,8 @@ export function passStanding(lib, today = new Date()) {
       return { text: `Your request for a library pass is with ${name}.`, canAsk: false, pending: true }
     case 'stopped':
       return { text: 'Not lending at the moment.', canAsk: false }
+    case 'taken_back':
+      return { text: passTakenBackText(name, lib.titles > 0), canAsk: false, takenBack: true }
     case 'declined': {
       const days = (today - new Date(lib.decided_at)) / (24 * 60 * 60 * 1000)
       if (lib.decided_at && days < DECLINE_NOTE_DAYS) {
@@ -80,11 +90,14 @@ export function noteLabel(name, firstTime) {
 }
 
 // The Borrowers tab line under each person's name.
-//   borrower: { status: 'pass' | 'borrower' | 'stopped', passSince, hasBook, loans }
-export function borrowerLine({ status, passSince, hasBook, loans = 0 }, formatDate) {
+//   borrower: { status: 'pass' | 'taken_back' | 'borrower' | 'stopped', since, hasBook, loans }
+export function borrowerLine({ status, since, hasBook, loans = 0 }, formatDate) {
   if (status === 'stopped') return 'You stopped lending to them.'
   const book = hasBook ? ' Has one of your books.' : ''
-  if (status === 'pass') return `Library pass${passSince ? ` since ${formatDate(passSince)}` : ''}.${book}`
+  if (status === 'pass') return `Library pass${since ? ` since ${formatDate(since)}` : ''}.${book}`
+  if (status === 'taken_back') {
+    return `You took back their library pass${since ? ` on ${formatDate(since)}` : ''}.${book}`
+  }
   const times = loans === 1 ? 'once' : `${loans} times`
   return `Borrowed from you ${times}, no library pass.${book}`
 }

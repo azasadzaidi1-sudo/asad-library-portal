@@ -183,7 +183,8 @@ export async function givePass(borrowerId) {
   unwrap(await supabase.rpc('give_pass', { p_borrower_id: borrowerId }), notSaved)
 }
 
-// Take a pass back, quietly: they go back to asking each time.
+// Take a pass back: they go back to asking each time, see that it was
+// taken back, and can't ask for it again (you can give it again).
 export async function takeBackPass(borrowerId) {
   unwrap(await supabase.rpc('take_back_pass', { p_borrower_id: borrowerId }), notSaved)
 }
@@ -211,7 +212,7 @@ export async function loadMyBorrowers() {
     id: row.borrower_id,
     name: row.name,
     status: row.status,
-    passSince: row.pass_since,
+    since: row.since,
     hasBook: row.has_my_book,
     loans: row.loans_from_me,
   }))

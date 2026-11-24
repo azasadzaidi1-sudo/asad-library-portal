@@ -135,7 +135,7 @@ export default function ApprovalBox({ library, onOpenBook }) {
       <p className="approval-hint">
         Approving a request lends that one book. With a library pass, someone reserves from you without asking
         (Restricted books still need your OK) and sees your Restricted Section. You can give or take back passes
-        on the Borrowers tab.
+        on the Borrowers tab; a pass you take back can't be asked for again.
       </p>
       {error && <p className="form-error" role="alert">{error}</p>}
     </section>

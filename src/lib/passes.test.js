@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { bookCountLine, borrowerLine, noteLabel, passDeclineText, passStanding } from './passes'
+import { bookCountLine, borrowerLine, noteLabel, passDeclineText, passStanding, passTakenBackText } from './passes'
 
 describe('bookCountLine', () => {
   it('counts books and copies like before', () => {
@@ -46,6 +46,15 @@ describe('passStanding', () => {
       .toBe("Jonas's shelf is open to library pass holders.")
   })
 
+  it('says plainly when a pass was taken back, with no way to ask again', () => {
+    expect(passStanding({ ...mira, my_status: 'taken_back' }, today)).toEqual({
+      text: "Mira has taken back the library pass for this shelf. Mira's books can still be asked for one request at a time.",
+      canAsk: false,
+      takenBack: true,
+    })
+    expect(passTakenBackText('Jonas', false)).toBe('Jonas has taken back the library pass for this shelf.')
+  })
+
   it('shows the warm note for a week after a "Not now"', () => {
     const declined = { ...mira, my_status: 'declined', decided_at: '2026-11-20T10:00:00Z', ask_again_on: '2027-02-20' }
     expect(passStanding(declined, today)).toMatchObject({ declined: true, canAsk: false })
@@ -72,8 +81,9 @@ describe('noteLabel', () => {
 describe('borrowerLine', () => {
   const date = () => '3 Nov 2026'
   it('describes pass holders, borrowers and stopped lending', () => {
-    expect(borrowerLine({ status: 'pass', passSince: 'x', hasBook: true }, date))
+    expect(borrowerLine({ status: 'pass', since: 'x', hasBook: true }, date))
       .toBe('Library pass since 3 Nov 2026. Has one of your books.')
+    expect(borrowerLine({ status: 'taken_back', since: 'x' }, date)).toBe('You took back their library pass on 3 Nov 2026.')
     expect(borrowerLine({ status: 'borrower', loans: 1 }, date)).toBe('Borrowed from you once, no library pass.')
     expect(borrowerLine({ status: 'borrower', loans: 3 }, date)).toBe('Borrowed from you 3 times, no library pass.')
     expect(borrowerLine({ status: 'stopped' }, date)).toBe('You stopped lending to them.')

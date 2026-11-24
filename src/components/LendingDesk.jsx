@@ -180,15 +180,15 @@ export default function LendingDesk({ library, onOpenBook }) {
                             Lend again
                           </button>
                         )}
-                        {b.status === 'borrower' && (
+                        {(b.status === 'borrower' || b.status === 'taken_back') && (
                           <button type="button" className="button button-quiet" disabled={busy}
                             onClick={() => run(() => givePass(b.id))}>
-                            Give a library pass
+                            {b.status === 'taken_back' ? 'Give the pass again' : 'Give a library pass'}
                           </button>
                         )}
                         {b.status === 'pass' && (
                           <ConfirmButton label="Take back pass" busy={busy} className="link-button"
-                            question={`Take back ${name}'s library pass? ${name} isn't told. From now on, each request needs your OK again, and your Restricted Section is hidden from them.`}
+                            question={`Take back ${name}'s library pass? ${name} sees that it was taken back and can't ask for it again. From now on each request needs your OK, and your Restricted Section is hidden from them. You can give the pass again here later.`}
                             confirmLabel="Take back pass" onConfirm={() => run(() => takeBackPass(b.id))} />
                         )}
                         {b.status !== 'stopped' && (
