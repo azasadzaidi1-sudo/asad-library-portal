@@ -23,7 +23,9 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 
 - A privacy notice and house rules: new members accept the rules on the Join page, current members once at their next visit, and the database records which version each person accepted. Members can delete their own account; past loans, reviews and replies stay without a name ("Former member").
 
-**Planned:** push notifications (new messages, requests, and a reminder a week before a loan is due), and changing and resetting passwords.
+- Push notifications, turned on per device in your account: new messages (the first unread one), requests and library passes, books due back in a week, and for librarians, the question after a return. They never show what a message says.
+
+**Planned:** changing and resetting passwords.
 
 ## How it's built
 
@@ -42,8 +44,12 @@ The house rules live in the database itself, not just in the website: one loan a
 ```
 supabase/          SQL run in Supabase, in order (checklist in supabase/README.md): tables and rules,
                    book import, availability, reservations and covers, lending, descriptions,
-                   reviews, several libraries, adding books, invitations, shelf descriptions, clean-up
+                   reviews, several libraries, adding books, invitations, shelf descriptions, clean-up,
+                   genres, privacy and accounts, library passes, loan messages, push notifications
   tests/           database tests: rebuild the database from those files and check its rules
+  functions/       the Supabase Edge Function that sends push notifications
+public/sw.js       the service worker: shows push notifications
+public/push-keys.html  makes the notification keys, in the browser (setup only)
 src/               the React app
   components/      screens and pieces of the page
   lib/             plain logic (filters, availability wording) and its tests

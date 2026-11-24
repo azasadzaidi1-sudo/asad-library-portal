@@ -25,6 +25,9 @@ export default function Messages({ library, member, threadId }) {
         A conversation opens for each confirmed reservation or loan, between the borrower and the librarian:
         for arranging the pick-up, questions about the book, or a late return.
       </p>
+      <p className="shelf-note">
+        To hear when a message arrives, turn on notifications in <a href="#account">your account</a>.
+      </p>
       {library.threads.length === 0 ? (
         <p className="shelf-empty">No conversations yet. One opens when a reservation is confirmed.</p>
       ) : (

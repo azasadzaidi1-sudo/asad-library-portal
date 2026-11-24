@@ -11,6 +11,10 @@ import '@fontsource/alegreya-sans/700.css'
 import './styles.css'
 
 import App from './App'
+import { followNotificationTaps } from './lib/push'
+
+// Tapping a notification while the app is open shows the right page.
+followNotificationTaps()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

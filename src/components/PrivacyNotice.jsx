@@ -159,6 +159,16 @@ export default function PrivacyNotice({ contact, linkTo }) {
         you write, so share phone numbers or other contact details only if you want to.
       </p>
 
+      <h2>Notifications</h2>
+      <p>
+        If you turn on notifications (on your Account page, separately on each device), your browser gives the app an
+        address for your device, which the app stores so it can send you notifications. They travel through your
+        browser maker's push service: Google (Chrome, Android), Apple (iPhone, Safari) or Mozilla (Firefox), encrypted
+        so that only your device can read them. A notification only says something like "New message about The Kite
+        Runner", never the message itself. Legal basis: your consent, Art. 6(1)(a). You can turn notifications off at
+        any time; the device address is then deleted, as it is when you delete your account.
+      </p>
+
       <h2>Services that handle data for the app</h2>
       <ul>
         <li>
@@ -177,13 +187,19 @@ export default function PrivacyNotice({ contact, linkTo }) {
           Library, so your browser sends it your IP address. When a librarian adds a book, the search also goes to
           Open Library and to Wikidata (Wikimedia Foundation, USA).
         </li>
+        <li>
+          <strong>Push services</strong>, only if you turn notifications on: Google (USA) for Chrome and Android, Apple
+          (USA) for iPhone and Safari, or Mozilla (USA) for Firefox carry each notification, encrypted, to your device.
+        </li>
       </ul>
       <p>These US services handle what they receive under their own privacy policies.</p>
 
       <h2>What's stored on your device</h2>
       <p>
-        Only your sign-in session, kept in your browser so you stay signed in; signing out removes it. There are no
-        tracking cookies. The barcode scanner uses your camera on your device only, and no image is sent anywhere.
+        Your sign-in session, kept in your browser so you stay signed in; signing out removes it. If you turn on
+        notifications, your browser also keeps a small piece of the app (a service worker) that shows them; it stores
+        nothing about you. There are no tracking cookies. The barcode scanner uses your camera on your device only,
+        and no image is sent anywhere.
       </p>
 
       <h2>How long data is kept</h2>
