@@ -9,13 +9,15 @@ import {
   loadMeetupCard,
   mapsLink,
   meetupWhen,
+  nudgeLine,
 } from '../lib/meetups'
 
 // The top of the Catalogue, for everyone:
 //   * while a meet-up is coming up (until the end of its day): when, where,
 //     the format, Asad's note, how many are coming, and "Count me in"
 //   * for a week after one you said you'd come to: "Presented a book? Add
-//     it to your shelf", until you close it or add a book
+//     it to your shelf" (for librarians: one that isn't on it yet), until
+//     you close it or add a book
 // Shows nothing at all otherwise, or if it can't load (the catalogue matters more).
 export default function MeetupCard({ isLibrarian }) {
   const [card, setCard] = useState(null)
@@ -79,7 +81,7 @@ export default function MeetupCard({ isLibrarian }) {
 
       {card.nudge_meetup_id && (
         <section className="meetup meetup-nudge" aria-label="After the meet-up">
-          <p>Presented a book at the meet-up? Add it to your shelf so others can borrow it.</p>
+          <p>{nudgeLine(isLibrarian)}</p>
           <div className="meetup-actions">
             <a className="button button-quiet" href="#add-book">
               {isLibrarian ? 'Add it to your shelf' : 'Start your shelf with it'}

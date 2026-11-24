@@ -7,6 +7,7 @@ import {
   mapsLink,
   meetupFormError,
   meetupWhen,
+  nudgeLine,
   splitAdminMeetups,
 } from './meetups'
 
@@ -48,6 +49,15 @@ describe('what members and Asad see', () => {
     expect(guestLine(1, ['Noor'])).toBe("1 said they'd come: Noor")
     expect(guestLine(3, ['Noor', 'Sam', 'Lena'])).toBe("3 said they'd come: Noor, Sam and Lena")
     expect(guestLine(9, null)).toBe("9 said they'd come")   // a week later, the names are gone
+  })
+
+  it('asks librarians only about a book that is not on their shelf yet', () => {
+    expect(nudgeLine(true)).toBe(
+      "Presented a book that isn't on your shelf yet? Add it for the possibility to share with others.",
+    )
+    expect(nudgeLine(false)).toBe(
+      'Presented a book at the meet-up? Add it to your shelf for the possibility to share with others.',
+    )
   })
 
   it('links the place to Google Maps', () => {

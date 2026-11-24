@@ -72,6 +72,15 @@ export function mapsLink(place) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`
 }
 
+// After a meet-up, to those who said they'd come. The app can't know which
+// book someone presented, so a librarian is asked only about one that isn't
+// on their shelf yet.
+export function nudgeLine(isLibrarian) {
+  return isLibrarian
+    ? "Presented a book that isn't on your shelf yet? Add it for the possibility to share with others."
+    : 'Presented a book at the meet-up? Add it to your shelf for the possibility to share with others.'
+}
+
 // What members see next to the button: a number, never names.
 export function comingLine(coming) {
   if (!coming) return 'Be the first to count yourself in.'

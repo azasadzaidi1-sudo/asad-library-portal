@@ -25,7 +25,7 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 
 - Push notifications, turned on per device in your account: new messages (the first unread one), requests and library passes, books due back in a week, and for librarians, the question after a return. They never show what a message says.
 
-- Book club meet-ups: Asad posts the next one from his account, and a card at the top of the Catalogue shows when and where, with "Count me in". Members see how many are coming; only Asad sees who. Everyone brings the book they can't put down, and for a week afterwards those who came are nudged to add it to their shelf so others can borrow it. Names are deleted a week after each meet-up; the total stays.
+- Book club meet-ups: Asad posts the next one from his account, and a card at the top of the Catalogue shows when and where, with "Count me in". Members see how many are coming; only Asad sees who. Everyone brings the book they can't put down, and for a week afterwards those who came are nudged to add it to their shelf (librarians: if it isn't there yet) so it can be shared. Names are deleted a week after each meet-up; the total stays.
 
 **Planned:** changing and resetting passwords.
 
