@@ -29,7 +29,7 @@
 --   PART 2  Who can see a Restricted Section
 --   PART 3  Hiding Restricted books from people without a pass
 --   PART 4  The Libraries page: counts, passes, pick-ups
---   PART 5  Reservation rules and requests
+--   PART 5  Reservation rules and requests (and notes go with a deleted account)
 --   PART 6  Passes: asking, deciding, giving, taking back
 --   PART 7  The lending desk: request cards, borrowers, the question after a return
 --   PART 8  Lending in person
@@ -383,6 +383,15 @@ begin
       and (new.member_id is distinct from old.member_id or new.owner_id is distinct from old.owner_id) then
       return new;
     end if;
+    -- An account was deleted: its notes on past requests are cleared (see
+    -- member_leaving below). Only clearing a note, nothing else.
+    if new.note is null and old.note is not null
+      and new.status is not distinct from old.status
+      and new.member_id is not distinct from old.member_id
+      and new.owner_id is not distinct from old.owner_id
+      and new.book_id is not distinct from old.book_id then
+      return new;
+    end if;
     if not (public.is_admin() or old.owner_id = v_me) then
       if new.status <> 'cancelled' or old.status not in ('pending_approval', 'active') then
         raise exception 'Members can only cancel their own open reservations';
@@ -393,6 +402,32 @@ begin
     end if;
   end if;
   return new;
+end;
+$$;
+
+-- Just before a member is deleted (this replaces the version in 14). Same
+-- as before, plus: their notes on requests are deleted, as the privacy
+-- notice promises ("notes to librarians"). The requests themselves stay,
+-- without a name, like past loans.
+create or replace function public.member_leaving()
+returns trigger
+language plpgsql security definer set search_path = ''
+as $$
+begin
+  update public.reservations
+  set status = 'cancelled'
+  where (member_id = old.id or owner_id = old.id)
+    and status in ('pending_approval', 'active');
+
+  update public.reservations
+  set note = null
+  where member_id = old.id and note is not null;
+
+  update public.copies
+  set removed_at = now()
+  where owner_id = old.id and removed_at is null;
+
+  return old;
 end;
 $$;
 

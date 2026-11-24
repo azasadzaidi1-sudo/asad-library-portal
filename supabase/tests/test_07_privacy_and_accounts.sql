@@ -103,6 +103,8 @@ select tests.ok(not exists (select 1 from public.members where id = :'PAUL'), '.
 select tests.ok(not exists (select 1 from public.interests where member_id = :'PAUL'), '... his Interested list');
 select tests.ok(not exists (select 1 from public.invites where invited_by = :'PAUL'), '... his invitations');
 select tests.ok(not exists (select 1 from public.borrower_approvals where borrower_id = :'PAUL'), '... and his library passes');
+select tests.ok(not exists (select 1 from public.reservations where book_id = 20 and note is not null),
+  '... and his notes on requests');
 select tests.ok((select count(*) from public.loans where copy_id = :r20 and member_id is null and returned_on is not null) = 1,
   'his past loan stays, without his name');
 select tests.ok((select status from public.reservations where book_id = 21 and owner_id = :'ROSA' and member_id is null) = 'cancelled',
