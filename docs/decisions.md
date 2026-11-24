@@ -358,3 +358,19 @@ The merges apply on every shelf, so a book a friend filed under an old name move
 **Decision (Asad).** The first thing anyone sees on the Libraries page is the list of shelves. "Invite a friend" moves to the Account page (tap your name at the top), between your details and the house rules, with one line at the bottom of the Libraries page pointing there ("Want to bring a friend? Invite them from your account."). "Start your shelf", shown to members without a shelf, moves below the list too.
 
 *Why.* The page is for finding shelves to borrow from; inviting and starting a shelf are occasional actions. The pointer keeps invitations easy to find, since the app grows by members inviting friends (decision 26).
+
+
+## 34. Push notifications
+
+**Context.** Loan messages, requests and due dates only help if people notice them. Asad chose push over email (decision 32): people are wary of inbox noise, and email needs a domain and a sending service.
+
+**Decision.**
+- **Per device, by choice:** "Turn on notifications" on the Account page, separately on each phone or computer; turning it off deletes that device's address. On an iPhone, push only works once the app is on the Home Screen, so the page says how.
+- **What's sent** (Asad: every notification works the same way): a new message (only the first unread one, so a busy conversation doesn't buzz every minute), a new due date, a request to borrow or for a library pass (librarians), a request approved or a pass given (borrowers), a book due back in a week (borrowers, in the morning), and the question after a return (librarians, the morning after, if still unanswered: the librarian has just marked the return in the app, so asking again straight away would add nothing). Declines and passes taken back aren't pushed: the app already says so in its warm wording.
+- **Never the message itself:** "New message about The Kite Runner. From Mira." Notifications show on lock screens.
+
+**How it works.** The database decides who gets what (`supabase/17_push_notifications.sql`) and queues it; every minute a Supabase Cron job hands the queue to a small Edge Function (`supabase/functions/send-notifications`), which encrypts each notification so only that device can read it and sends it through the browser maker's push service (Google, Apple or Mozilla). The function never reads the database; devices the push service reports gone are forgotten. Anything that waited over an hour is dropped rather than sent late. Web Push is written by hand with the browser-standard Web Crypto API, so there's nothing to install on Supabase, and a test checks it byte for byte against the worked example in the standard (RFC 8291).
+
+**Keys stay out of reach.** The push keys and the secret the database shares with the function are made on a small page in the owner's own browser (`push-keys.html`) and go straight into Supabase: never into the code, a pull request or a chat.
+
+*Considered:* a push library on Supabase (more to trust and keep updated), email (inbox noise), notifying on every message (noisy), and sending from GitHub Actions on a timer (GitHub's timers can run late, which is fine for reminders but not for messages).

@@ -1993,6 +1993,11 @@ a.button {
   color: var(--ink-soft);
 }
 
+/* Notifications on the Account page */
+.notifications-status {
+  font-weight: 700;
+}
+
 /* Messages and Extend buttons on Borrowing lists and the lending desk */
 .row-buttons {
   display: flex;

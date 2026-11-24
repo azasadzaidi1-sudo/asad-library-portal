@@ -3,9 +3,10 @@ import { deleteMyAccount, loadDeletionBlockers } from '../lib/account'
 import { DELETE_WORD, deleteWordMatches, deletionBlockedReason, longDate } from '../lib/legal'
 import Field from './Field'
 import InviteFriend from './InviteFriend'
+import Notifications from './Notifications'
 
-// Your account: your details, inviting a friend, the house rules and
-// privacy notice, and deleting the account. Reached by tapping your name
+// Your account: your details, inviting a friend, notifications on this
+// device, the house rules and privacy notice, and deleting the account. Reached by tapping your name
 // at the top.
 export default function Account({ member, email, isLibrarian }) {
   return (
@@ -31,6 +32,8 @@ export default function Account({ member, email, isLibrarian }) {
       </section>
 
       <InviteFriend />
+
+      <Notifications />
 
       <section className="shelf" aria-labelledby="rules-title">
         <h2 id="rules-title" className="shelf-title">House rules and privacy</h2>

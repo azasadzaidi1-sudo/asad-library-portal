@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>The Common Shelf: notification keys</title>
+  <style>
+    body { margin: 0 auto; max-width: 46rem; padding: 2rem 1.2rem; font: 1rem/1.5 system-ui, sans-serif; color: #2b2620; background: #ede3cc; }
+    h1 { font-size: 1.6rem; color: #213f33; }
+    h2 { font-size: 1.1rem; margin-top: 2rem; color: #213f33; }
+    button { padding: 0.6rem 1.1rem; font: inherit; font-weight: 700; color: #fff; background: #213f33; border: 0; border-radius: 3px; cursor: pointer; }
+    code, textarea { font: 0.875rem/1.4 ui-monospace, monospace; }
+    textarea { width: 100%; box-sizing: border-box; padding: 0.5rem; border: 1px solid #b9ab8a; border-radius: 3px; background: #fffaf0; }
+    table { width: 100%; border-collapse: collapse; }
+    td { padding: 0.4rem 0.5rem 0.4rem 0; vertical-align: top; }
+    td:first-child { white-space: nowrap; font-weight: 700; }
+    .note { padding: 0.6rem 0.8rem; background: #fffaf0; border-left: 3px solid #a07c2c; }
+    [hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Notification keys for The Common Shelf</h1>
+  <p>
+    This page makes the keys push notifications need. They're made here, in your browser: nothing is sent anywhere,
+    and closing the page forgets them. Do this once, then follow the steps it shows. The full setup is in
+    <code>supabase/README.md</code> under "Push notifications".
+  </p>
+  <p class="note">
+    The private key and the shared secret are passwords. Paste them only where the steps say, and don't send them to
+    anyone (not to Claude either).
+  </p>
+  <button type="button" id="make">Make the keys</button>
+
+  <div id="result" hidden>
+    <h2>1. Supabase → Edge Functions → Secrets: add these four</h2>
+    <table>
+      <tr><td>VAPID_PUBLIC_KEY</td><td><textarea id="pub" rows="2" readonly></textarea></td></tr>
+      <tr><td>VAPID_PRIVATE_KEY</td><td><textarea id="priv" rows="1" readonly></textarea></td></tr>
+      <tr><td>NOTIFY_SECRET</td><td><textarea id="secret" rows="1" readonly></textarea></td></tr>
+      <tr><td>VAPID_SUBJECT</td><td><code>mailto:</code> followed by your email address, e.g. <code>mailto:you@example.com</code></td></tr>
+    </table>
+
+    <h2>2. Supabase → SQL Editor → New query: paste this and Run</h2>
+    <p>It saves the public key (the app needs it) and the same shared secret for the database.</p>
+    <textarea id="sql" rows="3" readonly></textarea>
+  </div>
+
+  <script>
+    const b64url = (bytes) =>
+      btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+
+    document.getElementById('make').addEventListener('click', async () => {
+      const pair = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify'])
+      const publicKey = b64url(new Uint8Array(await crypto.subtle.exportKey('raw', pair.publicKey)))
+      const privateKey = (await crypto.subtle.exportKey('jwk', pair.privateKey)).d
+      const secret = b64url(crypto.getRandomValues(new Uint8Array(32)))
+      document.getElementById('pub').value = publicKey
+      document.getElementById('priv').value = privateKey
+      document.getElementById('secret').value = secret
+      document.getElementById('sql').value = `select public.save_push_setup('${publicKey}', '${secret}');`
+      document.getElementById('result').hidden = false
+      document.getElementById('make').textContent = 'Make new keys (only if you need to start again)'
+    })
+  </script>
+</body>
+</html>
