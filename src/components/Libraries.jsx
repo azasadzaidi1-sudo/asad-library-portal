@@ -3,12 +3,13 @@ import { askForPass, withdrawPassRequest } from '../lib/library'
 import { bookCountLine, noteLabel, passStanding } from '../lib/passes'
 import { topGenresLine } from '../lib/shelves'
 import DescribeShelf from './DescribeShelf'
-import InviteFriend from './InviteFriend'
 
 // Every librarian's shelf: its personality line, top genres, pick-up times
 // (for pass holders and anyone with an approved request there), where the
 // signed-in member stands with that librarian, and "Ask for a library
 // pass". "Browse this shelf" opens the catalogue filtered to that library.
+// The list comes first (Asad); "Start your shelf" follows it, and "Invite a
+// friend" lives on the Account page, with a pointer at the bottom here.
 export default function Libraries({ library, onBrowse }) {
   const { libraries } = library
   const [editing, setEditing] = useState(false)
@@ -22,19 +23,6 @@ export default function Libraries({ library, onBrowse }) {
         Every shelf on The Common Shelf. A librarian OKs each request, unless they've given you their library
         pass: then you reserve from their shelf without asking, and see their Restricted Section too.
       </p>
-
-      {own.length === 0 && (
-        <section className="start-shelf" aria-labelledby="start-shelf-title">
-          <h2 id="start-shelf-title" className="library-name">Start your shelf</h2>
-          <p>
-            Add the books you're happy to lend. Friends can then ask to borrow them: you OK each request, or give
-            the people you trust a library pass.
-          </p>
-          <a className="button" href="#add-book">Add your first book</a>
-        </section>
-      )}
-
-      <InviteFriend />
 
       <ul className="library-list">
         {[...own, ...others].map((lib) => (
@@ -82,6 +70,21 @@ export default function Libraries({ library, onBrowse }) {
           </li>
         ))}
       </ul>
+
+      {own.length === 0 && (
+        <section className="start-shelf" aria-labelledby="start-shelf-title">
+          <h2 id="start-shelf-title" className="library-name">Start your shelf</h2>
+          <p>
+            Add the books you're happy to lend. Friends can then ask to borrow them: you OK each request, or give
+            the people you trust a library pass.
+          </p>
+          <a className="button" href="#add-book">Add your first book</a>
+        </section>
+      )}
+
+      <p className="libraries-invite">
+        Want to bring a friend? <a href="#account">Invite them from your account</a>.
+      </p>
     </div>
   )
 }

@@ -1571,6 +1571,21 @@ a.button {
 
 /* ---------- Invitations ---------- */
 
+/* The pointer at the bottom of the Libraries page */
+.libraries-invite {
+  margin-top: 1.5rem;
+  color: var(--ink-soft);
+}
+
+.libraries-invite a {
+  color: var(--green);
+}
+
+/* On the Account page, the card sits among the other sections */
+.account .invite {
+  margin-bottom: 1.5rem;
+}
+
 .invite {
   display: grid;
   gap: 0.6rem;
