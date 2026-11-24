@@ -27,6 +27,8 @@ for file in [0-9][0-9]_*.sql; do
   case "$file" in *_PRIVATE.sql) continue ;; esac
   # 08 expects the library's first members to exist already.
   if [ "$file" = "08_multiple_libraries.sql" ]; then run tests/seed_before_08.sql; fi
+  # 15 changes first-time requests that are already waiting.
+  if [ "$file" = "15_library_passes.sql" ]; then run tests/seed_before_15.sql; fi
   run "$file"
 done
 run tests/helpers.sql

@@ -152,9 +152,11 @@ export function ordinal(n) {
 //   owner:       the librarian's name
 export function describeMyReservation(reservation, counts = {}, owner = 'the librarian') {
   if (reservation.status === 'pending_approval') {
-    return reservation.waiting_for === 'borrower'
-      ? { state: 'pending', text: `Waiting for ${owner}'s OK as a new borrower` }
-      : { state: 'pending', text: `Waiting for ${owner}'s approval` }
+    // 'request': no library pass, so the librarian OKs each request.
+    // 'restricted': a Restricted book, which needs the librarian's OK even with a pass.
+    return reservation.waiting_for === 'request'
+      ? { state: 'pending', text: `Waiting for ${owner}'s OK` }
+      : { state: 'pending', text: `Waiting for ${owner}'s approval (Restricted Section)` }
   }
   const onShelf = Math.max((counts.copies_total ?? 0) - (counts.copies_out ?? 0), 0)
   if (reservation.queue_place <= onShelf) {
@@ -206,7 +208,7 @@ export function memberSince(value) {
   return new Date(value).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })
 }
 
-// The "Borrowing record" line on a first-time request card.
+// The "Borrowing record" line on a request card.
 //   loans_total: every loan they've had, from any library
 //   loans_late:  came back after the due date, or overdue now
 //   loans_out:   still out and not yet due

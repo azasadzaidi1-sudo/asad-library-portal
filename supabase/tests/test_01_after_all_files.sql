@@ -11,13 +11,23 @@ select tests.ok((select count(*) from public.members where is_admin) = 1, 'and t
 select tests.ok((select count(*) from public.restricted_titles where owner_id = :'ASAD') = 17,
   'Asad''s Restricted Section has its 17 titles');
 select tests.ok(public.borrower_status(:'ASAD', :'SAM') = 'approved',
-  'Sam, who borrowed before 08, counts as approved on Asad''s shelf');
+  'Sam, who borrowed before 08, counts as approved on Asad''s shelf (and so holds his library pass, 15)');
 select tests.ok(exists (select 1 from public.loans
                         where member_id = :'SAM' and owner_id = :'ASAD' and returned_on is null),
   'Sam''s loan from before 08 belongs to Asad''s shelf');
 select tests.ok(exists (select 1 from public.reservations
                         where member_id = :'NOOR' and owner_id = :'ASAD' and status = 'pending_approval'),
   'Noor''s Restricted request from before 08 still waits for Asad');
+
+-- Library passes (15)
+select tests.ok((select status || ': ' || note from public.reservations where member_id = :'INES')
+                = 'pending_approval: Sam''s cousin, we met at the book swap',
+  '15: a first-time request waiting before 15 still waits, with its note');
+select tests.ok(not exists (select 1 from public.borrower_approvals where status in ('pending', 'declined')),
+  '15: no first-time approvals are left over as pass requests');
+select tests.ok(to_regprocedure('public.decide_borrower(uuid, boolean)') is null
+                and to_regprocedure('public.borrower_requests()') is null,
+  '15: the first-time borrower functions are gone');
 
 -- The clean-up (12)
 select tests.ok(to_regprocedure('public.is_librarian()') is null, '12: is_librarian() is gone');

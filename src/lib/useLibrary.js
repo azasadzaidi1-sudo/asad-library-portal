@@ -11,7 +11,7 @@ import {
   loadRestricted,
 } from './library'
 
-const NO_APPROVALS = { newBorrowers: [], restricted: [] }
+const NO_APPROVALS = { requests: [], passRequests: [], restricted: [], passQuestions: [] }
 
 // Everything the pages need, loaded once and refreshed after each action
 // (reserving, cancelling, approving, marking as interested).

@@ -58,8 +58,8 @@ export default function InviteFriend() {
     <section className="invite" aria-labelledby="invite-title">
       <h2 id="invite-title" className="library-name">Invite a friend</h2>
       <p>
-        Make a link and send it however you like. It works for one person, for 14 days. Librarians still approve
-        anyone who borrows from them for the first time.
+        Make a link and send it however you like. It works for one person, for 14 days. Librarians still OK
+        each request from someone without their library pass.
       </p>
       <button type="button" className="button" disabled={busy}
         onClick={() => run(async () => setFresh(await createInvite()))}>

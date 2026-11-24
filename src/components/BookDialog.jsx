@@ -19,6 +19,7 @@ import {
   setInterested,
   setRestricted,
 } from '../lib/library'
+import { noteLabel } from '../lib/passes'
 import { listAwards, Stamp } from './BookCard'
 import Cover from './Cover'
 import LendControls from './LendControls'
@@ -181,7 +182,7 @@ function LibraryRow({ book, row, library, busy, run }) {
       </div>
     )
   } else {
-    action = <FirstRequest book={book} owner={owner} name={name} restricted={Boolean(reason)} busy={busy} run={run} />
+    action = <AskToBorrow book={book} owner={owner} name={name} firstTime={lib?.first_time ?? true} busy={busy} run={run} />
   }
 
   return (
@@ -198,9 +199,11 @@ function LibraryRow({ book, row, library, busy, run }) {
   )
 }
 
-// The first time someone borrows from a librarian, the librarian approves
-// them. The optional note helps the librarian place them.
-function FirstRequest({ book, owner, name, restricted, busy, run }) {
+// Without a library pass, every request waits for the librarian's OK, and
+// can carry a note: "Remind Mira how you know each other" the first time,
+// "Anything Mira should know?" after that. (Restricted books don't show
+// here: without a pass, they're hidden.)
+function AskToBorrow({ book, owner, name, firstTime, busy, run }) {
   const [open, setOpen] = useState(false)
   const [note, setNote] = useState('')
 
@@ -218,11 +221,11 @@ function FirstRequest({ book, owner, name, restricted, busy, run }) {
         run(() => requestBook(book.id, owner, note.trim()))
       }}>
       <p className="dialog-note">
-        This is your first request from {name}'s shelf, so {name} approves it first.
-        {restricted && ` It's also in ${name}'s Restricted Section, so ${name} approves the book separately.`}
+        {firstTime ? `This is your first request from ${name}'s shelf. ` : ''}
+        {name} OKs each request, unless you hold {name}'s library pass.
       </p>
       <label>
-        <span>Remind {name} how you know each other <span className="optional">(optional)</span></span>
+        <span>{noteLabel(name, firstTime)} <span className="optional">(optional)</span></span>
         <textarea rows={3} maxLength={500} value={note} onChange={(e) => setNote(e.target.value)} />
       </label>
       <div className="form-actions">

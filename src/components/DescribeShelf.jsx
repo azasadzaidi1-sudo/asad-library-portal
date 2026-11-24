@@ -38,7 +38,7 @@ export default function DescribeShelf({ shelf, title, intro, cancelLabel = 'Canc
           onChange={(e) => setPersonality(e.target.value)} />
       </Field>
       <Field label="Pick-ups: Usually preferred time and place?"
-        hint="Only borrowers you've approved see this line.">
+        hint="Only your library pass holders, and anyone whose request you've approved, see this line.">
         <input value={pickups} maxLength={SHELF_LINE_MAX} placeholder="Weekday evenings, near Hermannplatz"
           onChange={(e) => setPickups(e.target.value)} />
       </Field>
