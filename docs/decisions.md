@@ -351,3 +351,10 @@ The merges apply on every shelf, so a book a friend filed under an old name move
 **Why in the database.** `supabase/16_loan_messages.sql` opens and closes conversations from the reservations and loans themselves, so no screen can forget to; only the two people can read a conversation, and only through functions that check it's still open. Read-only is a date the database compares, and a nightly job (Supabase Cron) deletes conversations a month later, so the promise in the privacy notice doesn't depend on anyone remembering. The due date was fixed at four weeks after lending; it's now four weeks plus any extensions, still worked out by the database. Tests check every step of a conversation's life.
 
 *Considered:* direct messages between any two members (needs requests from strangers, blocking and reporting, and a message from someone with no profile is just a name), group rooms per shelf or for the book club (turns the app into social media), email notifications (inbox noise, plus a domain and a sending service), and end-to-end encryption (a large build, and it would make helping with a problem impossible).
+
+
+## 33. The Libraries page leads with the libraries
+
+**Decision (Asad).** The first thing anyone sees on the Libraries page is the list of shelves. "Invite a friend" moves to the Account page (tap your name at the top), between your details and the house rules, with one line at the bottom of the Libraries page pointing there ("Want to bring a friend? Invite them from your account."). "Start your shelf", shown to members without a shelf, moves below the list too.
+
+*Why.* The page is for finding shelves to borrow from; inviting and starting a shelf are occasional actions. The pointer keeps invitations easy to find, since the app grows by members inviting friends (decision 26).
