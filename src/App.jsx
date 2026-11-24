@@ -12,11 +12,17 @@ import BookDialog from './components/BookDialog'
 import LendingDesk from './components/LendingDesk'
 import Libraries from './components/Libraries'
 import AddBook from './components/AddBook'
+import AcceptRules from './components/AcceptRules'
+import Account from './components/Account'
+import LegalPage from './components/LegalPage'
+import Footer from './components/Footer'
+import { MEMBER_COLUMNS, needsToAcceptRules } from './lib/legal'
 
-// The app has three screens, chosen by who is visiting:
-//   not signed in          -> Login (or Join, when they came from an invitation link)
-//   signed in, no name yet -> CompleteProfile (first visit after an invite)
-//   signed in with a name  -> the library (catalogue, Borrowing lists, …)
+// The app has four screens, chosen by who is visiting:
+//   not signed in                 -> Login (or Join, when they came from an invitation link)
+//   signed in, no name yet        -> CompleteProfile (first visit after an invite)
+//   house rules not yet accepted  -> AcceptRules (once; new members accept on the Join page)
+//   otherwise                     -> the library (catalogue, Borrowing lists, …)
 export default function App() {
   // undefined = still checking, null = signed out, object = signed in
   const [session, setSession] = useState(undefined)
@@ -39,17 +45,17 @@ export default function App() {
     }
     return <Login />
   }
-  return <MemberArea userId={session.user.id} />
+  return <MemberArea userId={session.user.id} email={session.user.email} />
 }
 
-function MemberArea({ userId }) {
+function MemberArea({ userId, email }) {
   const [member, setMember] = useState(null)
   const [error, setError] = useState('')
 
   useEffect(() => {
     supabase
       .from('members')
-      .select('id, name, city, is_admin')
+      .select(MEMBER_COLUMNS)
       .eq('id', userId)
       .single()
       .then(({ data, error }) => (error ? setError(error.message) : setMember(data)))
@@ -64,12 +70,13 @@ function MemberArea({ userId }) {
   }
   if (!member) return <p className="status-page">Finding your library card…</p>
   if (!member.name) return <CompleteProfile member={member} onSaved={setMember} />
-  return <Library member={member} />
+  if (needsToAcceptRules(member)) return <AcceptRules member={member} onAccepted={setMember} />
+  return <Library member={member} email={email} />
 }
 
 // Which page to show comes from the end of the address (#libraries, #borrowing,
 // #desk), so the browser's back button and bookmarks work without a routing library.
-const PAGES = ['catalogue', 'libraries', 'borrowing', 'desk', 'add-book']
+const PAGES = ['catalogue', 'libraries', 'borrowing', 'desk', 'add-book', 'account', 'privacy', 'rules']
 // Old addresses that still work: "My books" was renamed "Borrowing lists".
 const OLD_PAGES = { 'my-books': 'borrowing' }
 
@@ -91,14 +98,19 @@ function usePage() {
   return page
 }
 
-function Library({ member }) {
+function Library({ member, email }) {
   const library = useLibrary(member)
   const page = usePage()
   const [filters, setFilters] = useState(NO_FILTERS) // kept here so they survive a visit to another page
   const [openBookId, setOpenBookId] = useState(null)
 
   let content
-  if (library.error) {
+  // Account, privacy notice and house rules work even if the catalogue didn't load.
+  if (page === 'account') {
+    content = <Account member={member} email={email} isLibrarian={library.isLibrarian} />
+  } else if (page === 'privacy' || page === 'rules') {
+    content = <LegalPage which={page} />
+  } else if (library.error) {
     content = (
       <p className="status-page" role="alert">
         The library couldn't load: {library.error}. Refresh the page to try again.
@@ -130,6 +142,7 @@ function Library({ member }) {
     <>
       <Header member={member} page={page} isLibrarian={library.isLibrarian} />
       <main className="catalogue">{content}</main>
+      <Footer />
       {openBookId && library.booksById.has(openBookId) && (
         <BookDialog
           key={openBookId}

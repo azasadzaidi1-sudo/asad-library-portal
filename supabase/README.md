@@ -19,6 +19,7 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `11_shelf_descriptions.sql` | Shelf descriptions: a librarian's two lines (personality, pick-ups) and each shelf's top 3 genres | #14 | Done |
 | `12_cleanup.sql` | Clean-up: removes columns and functions unused since several libraries; the admin-only rules use `is_admin()` | #16 | Done |
 | `13_genre_cleanup.sql` | Genres from 23 to 18: Young Adult and Sports Fiction go, and Politics & Economics + Society & Futures, Philosophy + Spirituality, Self-Help + Language Learning merge | #17 | Done |
+| `14_privacy_and_accounts.sql` | House rules: who accepted which version, and when. Contact details for the privacy notice, kept out of the code. "Delete my account": past loans, reviews and replies stay without a name ("Former member") | #18 | Not yet |
 
 When a pull request adds a new file, it gets the next number and a new row here.
 

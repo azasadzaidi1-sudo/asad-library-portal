@@ -20,6 +20,8 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 - A lending desk per librarian (Overdue / Reserved / Lent out / Available / Borrowers), with one-click lending of reserved books, lending without a reservation, returns, and stopping or restarting lending to someone.
 - Add book: librarians search by title, author or ISBN, or scan the barcode with their phone camera. A title that's already in the catalogue gets their copy; a new one comes from Open Library with its cover, and its prizes are filled in automatically from Wikidata. Librarians can also remove copies; past loans are kept.
 
+- A privacy notice and house rules: new members accept the rules on the Join page, current members once at their next visit, and the database records which version each person accepted. Members can delete their own account; past loans, reviews and replies stay without a name ("Former member").
+
 **Planned:** changing and resetting passwords (resetting needs email), and reminders a week before a loan is due.
 
 ## How it's built

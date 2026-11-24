@@ -20,6 +20,11 @@ describe('attachAuthors', () => {
   it('names reply authors, with a stand-in for unknown members', () => {
     expect(result[1].replies.map((r) => r.author)).toEqual(['Tom', 'A new member'])
   })
+
+  it('shows "Former member" for posts whose author deleted their account', () => {
+    const [kept] = attachAuthors([{ id: 3, member_id: null, body: 'Still here', replies: [{ id: 11, member_id: null }] }], people)
+    expect([kept.author, kept.borrowed, kept.replies[0].author]).toEqual(['Former member', false, 'Former member'])
+  })
 })
 
 describe('orderReviews', () => {
