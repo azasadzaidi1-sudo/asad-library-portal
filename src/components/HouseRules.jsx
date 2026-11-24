@@ -55,7 +55,7 @@ export default function HouseRules({ contact, linkTo }) {
           <strong>Library passes:</strong> after a good loan, a librarian can give you a library pass for their shelf,
           or you can ask for one. Pass holders reserve that shelf's books without asking, except Restricted ones, and
           can see its Restricted Section; everyone else asks each time. Librarians decide who gets a pass and can take
-          one back without giving a reason.
+          one back without giving a reason. A pass that's been taken back can't be asked for again.
         </li>
         <li>No money changes hands: no fees, deposits, sales or rentals through the app.</li>
       </ul>

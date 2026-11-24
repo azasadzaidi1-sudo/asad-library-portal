@@ -20,9 +20,10 @@
 --     book comes back ("Give Sara a library pass?"), or the person asks
 --     for one on the Libraries page. After a "Not now" they can ask again
 --     after 3 months, or sooner once they've borrowed from that shelf.
---   * A librarian can take a pass back quietly: the person goes back to
---     asking each time and isn't told. "Stop lending" stays as the
---     stronger option.
+--   * A librarian can take a pass back. The person sees plainly that it
+--     was taken back, goes back to asking each time, and can't ask for the
+--     pass again (the librarian can give it again). "Stop lending" stays as
+--     the stronger option.
 --   * Everyone already approved gets a pass, so nobody loses access.
 --
 --   PART 1  What the approvals table means now, and moving today's rows over
@@ -46,8 +47,9 @@
 --   declined   = "Not now" to a pass request: they can ask again after
 --                3 months, or sooner once they've borrowed from that shelf
 --   stopped    = the librarian stopped lending to them
---   taken_back = the librarian took the pass back; the person isn't told,
---                and is treated like anyone without a pass
+--   taken_back = the librarian took the pass back: the person is told, is
+--                treated like anyone without a pass, and can't ask for it
+--                again (only the librarian can give it again)
 -- No row: no pass, never asked.
 alter table public.borrower_approvals drop constraint borrower_approvals_status_check;
 alter table public.borrower_approvals add constraint borrower_approvals_status_check
@@ -223,8 +225,7 @@ $$;
 --   hidden_titles    Restricted titles they'd see with a pass
 --                    ("35 books, plus 5 for library pass holders")
 --   my_status        'own', 'approved' (holds a pass), 'pending' (asked for
---                    one), 'declined', 'stopped', or null. A pass that was
---                    taken back shows as null, like never having had one.
+--                    one), 'declined', 'stopped', 'taken_back', or null
 --   decided_at       when a pass request was answered (for a short note
 --                    after a "Not now")
 --   ask_again_on     after a "Not now": the first day they can ask again,
@@ -254,9 +255,7 @@ as $$
     count(distinct c.book_id) filter (where not public.hidden_from_me(m.id, c.book_id))::int,
     count(c.id) filter (where not public.hidden_from_me(m.id, c.book_id))::int,
     count(distinct c.book_id) filter (where public.hidden_from_me(m.id, c.book_id))::int,
-    case when m.id = (select auth.uid()) then 'own'
-         when ba.status = 'taken_back' then null
-         else ba.status end,
+    case when m.id = (select auth.uid()) then 'own' else ba.status end,
     case when ba.status = 'declined' then ba.decided_at end,
     public.pass_ask_again_on(m.id, (select auth.uid())),
     not exists (
@@ -519,6 +518,8 @@ begin
     raise exception 'You''ve already asked. The librarian will answer soon.';
   elsif v_status = 'stopped' then
     raise exception 'This library isn''t lending at the moment.';
+  elsif v_status = 'taken_back' then
+    raise exception 'The library pass for this shelf was taken back, so it can''t be asked for again.';
   end if;
   v_again := public.pass_ask_again_on(p_owner_id, v_me);
   if v_again is not null then
@@ -593,8 +594,9 @@ begin
 end;
 $$;
 
--- Take a pass back, quietly: the person goes back to asking each time.
--- Their open reservation and any book they have stay as they are.
+-- Take a pass back: the person goes back to asking each time, sees that
+-- the pass was taken back, and can't ask for it again. Their open
+-- reservation and any book they have stay as they are.
 create or replace function public.take_back_pass(p_borrower_id uuid)
 returns void
 language plpgsql security definer set search_path = ''
@@ -761,8 +763,8 @@ $$;
 
 -- The question after a return: books that came back to the signed-in
 -- librarian in the last 7 days from someone without their pass (and who
--- hasn't asked for one, or been stopped), not yet answered. One per
--- person: their latest return.
+-- hasn't asked for one, had it taken back, or been stopped), not yet
+-- answered. One per person: their latest return.
 create or replace function public.pass_questions()
 returns table (
   loan_id     bigint,
@@ -782,7 +784,8 @@ as $$
     and l.returned_on is not null
     and l.returned_on >= current_date - 7
     and l.pass_question_answered_at is null
-    and coalesce(public.borrower_status(l.owner_id, l.member_id), 'none') not in ('approved', 'pending', 'stopped')
+    and coalesce(public.borrower_status(l.owner_id, l.member_id), 'none')
+        not in ('approved', 'pending', 'stopped', 'taken_back')
   order by l.member_id, l.returned_on desc, l.id desc;
 $$;
 
@@ -810,16 +813,18 @@ $$;
 
 -- The signed-in librarian's borrowers, for the Borrowers tab and the
 -- "Lend to" list (replaces the version in 08):
---   status 'pass'     holds a pass
---          'borrower' has borrowed before, no pass
---          'stopped'  the librarian stopped lending to them
+--   status 'pass'       holds a pass
+--          'taken_back' had a pass, taken back
+--          'borrower'   has borrowed before, no pass
+--          'stopped'    the librarian stopped lending to them
+--   since  when the pass was given or taken back
 drop function public.my_borrowers();
 create function public.my_borrowers()
 returns table (
   borrower_id   uuid,
   name          text,
   status        text,
-  pass_since    timestamptz,
+  since         timestamptz,
   has_my_book   boolean,
   loans_from_me int
 )
@@ -827,7 +832,7 @@ language sql stable security definer set search_path = ''
 as $$
   with people as (
     select ba.borrower_id as id from public.borrower_approvals ba
-    where ba.owner_id = (select auth.uid()) and ba.status in ('approved', 'stopped')
+    where ba.owner_id = (select auth.uid()) and ba.status in ('approved', 'stopped', 'taken_back')
     union
     select l.member_id from public.loans l
     where l.owner_id = (select auth.uid()) and l.member_id is not null
@@ -835,8 +840,9 @@ as $$
   select
     m.id,
     m.name,
-    case ba.status when 'approved' then 'pass' when 'stopped' then 'stopped' else 'borrower' end,
-    case when ba.status = 'approved' then ba.decided_at end,
+    case ba.status when 'approved' then 'pass' when 'stopped' then 'stopped'
+                   when 'taken_back' then 'taken_back' else 'borrower' end,
+    case when ba.status in ('approved', 'taken_back') then ba.decided_at end,
     exists (
       select 1 from public.loans l
       where l.member_id = m.id and l.owner_id = (select auth.uid()) and l.returned_on is null

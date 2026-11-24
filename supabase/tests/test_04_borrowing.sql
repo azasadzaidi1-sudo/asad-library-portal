@@ -131,11 +131,17 @@ call tests.sign_in(:'JONAS');
 select tests.ok(not exists (select 1 from public.request_cards() where name = 'Lena'),
   'a pass holder''s Restricted request isn''t a request card');
 
--- Taking a pass back, quietly
+-- Taking a pass back
 select public.take_back_pass(:'LENA') \g /dev/null
+select tests.ok((select status from public.my_borrowers() where borrower_id = :'LENA') = 'taken_back',
+  'Jonas''s Borrowers tab shows he took Lena''s pass back');
 call tests.sign_in(:'LENA');
-select tests.ok((select my_status from public.libraries() where owner_id = :'JONAS') is null,
-  'when Jonas takes the pass back, Lena''s Libraries page shows no pass, nothing else');
+select tests.ok((select my_status from public.libraries() where owner_id = :'JONAS') = 'taken_back',
+  'Lena''s Libraries page says plainly that the pass was taken back');
+select tests.ok((select ask_again_on from public.libraries() where owner_id = :'JONAS') is null,
+  'with no date to ask again');
+select tests.fails(format('select public.ask_for_pass(%L, null)', :'JONAS'), 'taken back',
+  'because she can''t ask for it again');
 select tests.ok(exists (select 1 from public.copies where owner_id = :'JONAS' and book_id = 10),
   'she still sees the Restricted book she has asked for');
 update public.reservations set status = 'cancelled' where member_id = :'LENA' and owner_id = :'JONAS' and status in ('pending_approval', 'active');
@@ -232,3 +238,8 @@ select tests.ok((select titles from public.libraries() where owner_id = :'JONAS'
 call tests.sign_in(:'JONAS');
 delete from public.restricted_titles where owner_id = :'JONAS' and book_id = 3;
 select public.take_back_pass(:'TOM') \g /dev/null
+select id as j3 from public.copies where book_id = 3 and owner_id = :'JONAS' \gset
+select public.lend_copy(:j3, :'TOM') \g /dev/null
+update public.loans set returned_on = current_date where member_id = :'TOM' and owner_id = :'JONAS' and returned_on is null;
+select tests.ok(not exists (select 1 from public.pass_questions() where name = 'Tom'),
+  'after taking a pass back, Jonas isn''t asked about giving one when Tom''s next book comes back');

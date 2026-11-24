@@ -76,7 +76,8 @@ export default function PrivacyNotice({ contact, linkTo }) {
               <td>Library passes: which librarians have given you one, and your requests for one</td>
               <td>
                 Pass holders reserve from that shelf without asking (Restricted books aside) and can see its Restricted
-                Section. Kept until the pass is taken back or your account is deleted.
+                Section. If a librarian takes a pass back, the app records that, so it can't be asked for again.
+                Kept until your account is deleted.
               </td>
               <td>Art. 6(1)(f): lending among people who trust each other</td>
             </tr>

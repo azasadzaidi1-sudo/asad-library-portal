@@ -110,7 +110,7 @@ function Standing({ lib, library, onBrowse }) {
     }
   }
 
-  const statusClass = standing.declined
+  const statusClass = standing.declined || standing.takenBack
     ? 'pass-declined'
     : `library-${lib.my_status ?? 'new'}`
 
