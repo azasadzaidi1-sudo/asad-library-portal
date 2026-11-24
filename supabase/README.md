@@ -17,7 +17,7 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `09_add_books.sql` | Librarians add their own books (new titles or copies of existing ones) and remove copies | #12 | Done |
 | `10_invites.sql` | Invitation links: any member invites a friend; new accounts need a valid link | #13 | Done |
 | `11_shelf_descriptions.sql` | Shelf descriptions: a librarian's two lines (personality, pick-ups) and each shelf's top 3 genres | #14 | Done |
-| `12_cleanup.sql` | Clean-up: removes columns and functions unused since several libraries; the admin-only rules use `is_admin()` | #16 | **Not yet: run before merging #16** |
+| `12_cleanup.sql` | Clean-up: removes columns and functions unused since several libraries; the admin-only rules use `is_admin()` | #16 | Done |
 
 When a pull request adds a new file, it gets the next number and a new row here.
 
