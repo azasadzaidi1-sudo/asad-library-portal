@@ -75,7 +75,7 @@ Every notable choice in this project, with the options considered and the reason
 
 - Invite-only. The librarian enters the email; the member adds their name and city on first login.
 - Loan period: 4 weeks. Email reminder 1 week before the due date.
-- Restricted Section: visible to members and marked as restricted; reservations need the librarian's approval. Starts with *Mein Kampf* and *The Communist Manifesto*.
+- Restricted Section: visible to members and marked as restricted; reservations need the librarian's approval.
 - Ordinary reservations are confirmed automatically.
 - Waiting list: a title whose copies are all out can still be reserved; first in line gets the next returned copy.
 - Each member can have 1 book borrowed and 1 open reservation at a time.
@@ -94,7 +94,7 @@ These rules are enforced inside the database (unique indexes, a trigger and Row 
 
 **Why per title, not per copy.** Harry Potter 1 and 7 each have one worn copy and one in better shape. Marking individual copies would keep the better copy auto-confirmed, but it needs a per-copy flag and makes availability harder to work out. Restricting the whole title reuses the existing approval rule with no new logic. Since the librarian picks the copy at hand-over anyway, nothing is lost. This can move to per-copy later if it becomes a nuisance.
 
-**Why show a reason.** One "Restricted" label for both Mein Kampf and Harry Potter would confuse members; a short reason explains the wait.
+**Why show a reason.** One "Restricted" label for all would confuse members; a short reason explains the selective nature of lending such as fragile copy.
 
 ## 10. React + Vite for the website
 
