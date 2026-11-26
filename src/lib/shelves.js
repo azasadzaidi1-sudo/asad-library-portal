@@ -24,3 +24,19 @@ export function topGenresLine(genres) {
   if (!genres?.length) return null
   return `${genres.length === 1 ? 'Top genre' : 'Top genres'}: ${genres.join(', ')}`
 }
+
+// The "Your shelf" line on the Account page: "38 books, 40 copies" or
+// "1 book", plus how many of them are in the Restricted Section.
+//   shelf:      your own row from libraries() (titles, copies)
+//   restricted: Map of book id -> Map of owner id -> reason (loadRestricted)
+export function ownShelfLine(shelf, restricted, memberId) {
+  const titles = shelf?.titles ?? 0
+  const copies = shelf?.copies ?? 0
+  const books = titles === 1 ? '1 book' : `${titles} books`
+  const count = copies > titles ? `${books}, ${copies} copies` : books
+  let inRestricted = 0
+  for (const owners of restricted?.values() ?? []) if (owners.has(memberId)) inRestricted += 1
+  if (inRestricted === 0) return `${count} on your shelf.`
+  const which = inRestricted === titles ? (titles === 1 ? 'it is' : 'all of them are') : `${inRestricted} of them ${inRestricted === 1 ? 'is' : 'are'}`
+  return `${count} on your shelf; ${which} in your Restricted Section.`
+}

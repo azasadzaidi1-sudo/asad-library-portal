@@ -1263,6 +1263,14 @@ label.checkbox input {
   width: 12rem;
 }
 
+/* The Restricted Section checkbox on the Add book form */
+.add-restricted {
+  display: grid;
+  gap: 0.3rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
 /* The first-time borrower card */
 .approval-new {
   display: block;
@@ -1778,6 +1786,11 @@ a.button {
   padding: 0.6rem 0.8rem;
   border-left: 3px solid var(--green);
   background: var(--paper);
+}
+
+/* Your shelf, with Add a book */
+.account-shelf .account-text {
+  margin: 0 0 0.9rem;
 }
 
 .account-details {

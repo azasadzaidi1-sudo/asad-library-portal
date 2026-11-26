@@ -24,6 +24,7 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `16_loan_messages.sql` | Loan messages: one conversation per reservation or loan, read-only a week after the return, deleted a month later (nightly job); "Extend by two weeks". Turn on Cron first (Integrations → Cron) | #20 | Done |
 | `17_push_notifications.sql` | Push notifications: devices, the queue, what causes a notification (messages, requests, passes, due dates, the question after a return), the every-minute sending job and the morning job. Then the setup below | #22 | Done |
 | `18_book_club_meetups.sql` | Book club meet-ups: one at a time, posted by the admin; "Count me in" (members see a count, the admin sees names); the announcement, the reminder the morning before, and deleting names a week after (morning job) | #24 | **Not yet: run, then merge #24** |
+| `19_restricted_when_adding.sql` | Add book's Restricted Section checkbox: `add_book()` and the new `add_copy()` save the copy and the restriction in one step | #25 | **Not yet: run, then merge #25 (after #24)** |
 
 When a pull request adds a new file, it gets the next number and a new row here.
 

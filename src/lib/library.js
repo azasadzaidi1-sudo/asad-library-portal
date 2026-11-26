@@ -348,8 +348,9 @@ export async function returnLoan(loanId) {
 // ---------- Adding and removing books (your own shelf) ----------
 
 // Adds a copy to your shelf, and the book to the catalogue if it's new.
-// Returns the book's id. See add_book() in supabase/09_add_books.sql.
-export async function addBook(book, editionNote = '') {
+// restricted: also put the title in your Restricted Section, in the same step.
+// Returns the book's id. See add_book() in supabase/19_restricted_when_adding.sql.
+export async function addBook(book, editionNote = '', restricted = false) {
   return unwrap(
     await supabase.rpc('add_book', {
       p_title: book.title,
@@ -362,15 +363,22 @@ export async function addBook(book, editionNote = '') {
       p_ol_work_key: book.workKey || null,
       p_prizes: book.prizes ?? [],
       p_edition_note: editionNote || null,
+      p_restricted: restricted,
     }),
     (error) => `The book wasn't added: ${error.message}`,
   )
 }
 
-// Adds your copy of a title that's already in the catalogue.
-export async function addCopy(bookId, editionNote = '') {
+// Adds your copy of a title that's already in the catalogue, and with
+// restricted, puts the title in your Restricted Section in the same step.
+// See add_copy() in supabase/19_restricted_when_adding.sql.
+export async function addCopy(bookId, editionNote = '', restricted = false) {
   unwrap(
-    await supabase.from('copies').insert({ book_id: bookId, edition_note: editionNote || null }),
+    await supabase.rpc('add_copy', {
+      p_book_id: bookId,
+      p_edition_note: editionNote || null,
+      p_restricted: restricted,
+    }),
     (error) => `Your copy wasn't added: ${error.message}`,
   )
 }

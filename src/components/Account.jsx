@@ -6,10 +6,13 @@ import InviteFriend from './InviteFriend'
 import MeetupAdmin from './MeetupAdmin'
 import Notifications from './Notifications'
 
-// Your account: your details, the book club meet-up (Asad only), inviting a
-// friend, notifications on this device, the house rules and privacy notice,
-// and deleting the account. Reached by tapping your name at the top.
-export default function Account({ member, email, isLibrarian }) {
+// Your account: your details, your shelf (with Add a book), the book club
+// meet-up (Asad only), inviting a friend, notifications on this device, the
+// house rules and privacy notice, and deleting the account. Reached by
+// tapping your name at the top.
+//   shelfLine: "38 books on your shelf." (see ownShelfLine), null without a
+//              shelf, undefined while the library is still loading
+export default function Account({ member, email, isLibrarian, shelfLine }) {
   return (
     <div className="account">
       <h1 className="page-title">Your account</h1>
@@ -32,6 +35,8 @@ export default function Account({ member, email, isLibrarian }) {
         </dl>
       </section>
 
+      <YourShelf line={shelfLine} />
+
       {member.is_admin && <MeetupAdmin />}
 
       <InviteFriend />
@@ -50,6 +55,23 @@ export default function Account({ member, email, isLibrarian }) {
 
       <DeleteAccount member={member} isLibrarian={isLibrarian} />
     </div>
+  )
+}
+
+// Add a book from here as well as from the Libraries page. Members without
+// a shelf start one here, with the same words as on the Libraries page.
+function YourShelf({ line }) {
+  const noShelf = line === null
+  return (
+    <section className="shelf account-shelf" aria-labelledby="your-shelf-title">
+      <h2 id="your-shelf-title" className="shelf-title">Your shelf</h2>
+      {line !== undefined && (
+        <p className="account-text">
+          {noShelf ? "No books on your shelf yet. Add the ones you're happy to lend, and friends can ask to borrow them." : line}
+        </p>
+      )}
+      <a className="button" href="#add-book">{noShelf ? 'Add your first book' : 'Add a book'}</a>
+    </section>
   )
 }
 

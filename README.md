@@ -19,7 +19,7 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 - Reviews with replies in each book's pop-up, spoiler warnings, and a "Borrowed from the library" badge for reviewers who read the library's copy.
 - For each librarian, on their own shelf: requests to approve or decline, who has each copy and when it's due, the queue, who's interested, and their Restricted Section.
 - A lending desk per librarian (Overdue / Reserved / Lent out / Available / Borrowers), with one-click lending of reserved books, lending without a reservation, returns, and stopping or restarting lending to someone.
-- Add book: librarians search by title, author or ISBN, or scan the barcode with their phone camera. A title that's already in the catalogue gets their copy; a new one comes from Open Library with its cover, and its prizes are filled in automatically from Wikidata. Librarians can also remove copies; past loans are kept.
+- Add book: librarians search by title, author or ISBN, or scan the barcode with their phone camera. A title that's already in the catalogue gets their copy; a new one comes from Open Library with its cover, and its prizes are filled in automatically from Wikidata. A checkbox puts the book straight into the librarian's Restricted Section. Librarians can also remove copies; past loans are kept. Add book is on the Libraries page and in "Your shelf" on the Account page.
 
 - A privacy notice and house rules: new members accept the rules on the Join page, current members once at their next visit, and the database records which version each person accepted. Members can delete their own account; past loans, reviews and replies stay without a name ("Former member").
 
@@ -48,7 +48,7 @@ supabase/          SQL run in Supabase, in order (checklist in supabase/README.m
                    book import, availability, reservations and covers, lending, descriptions,
                    reviews, several libraries, adding books, invitations, shelf descriptions, clean-up,
                    genres, privacy and accounts, library passes, loan messages, push notifications,
-                   book club meet-ups
+                   book club meet-ups, Restricted Section on Add book
   tests/           database tests: rebuild the database from those files and check its rules
   functions/       the Supabase Edge Function that sends push notifications
 public/sw.js       the service worker: shows push notifications
