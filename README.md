@@ -19,11 +19,13 @@ A lending library for friends, started from my own bookshelves (188 titles, 200 
 - Reviews with replies in each book's pop-up, spoiler warnings, and a "Borrowed from the library" badge for reviewers who read the library's copy.
 - For each librarian, on their own shelf: requests to approve or decline, who has each copy and when it's due, the queue, who's interested, and their Restricted Section.
 - A lending desk per librarian (Overdue / Reserved / Lent out / Available / Borrowers), with one-click lending of reserved books, lending without a reservation, returns, and stopping or restarting lending to someone.
-- Add book: librarians search by title, author or ISBN, or scan the barcode with their phone camera. A title that's already in the catalogue gets their copy; a new one comes from Open Library with its cover, and its prizes are filled in automatically from Wikidata. Librarians can also remove copies; past loans are kept.
+- Add book: librarians search by title, author or ISBN, or scan the barcode with their phone camera. A title that's already in the catalogue gets their copy; a new one comes from Open Library with its cover, and its prizes are filled in automatically from Wikidata. A checkbox puts the book straight into the librarian's Restricted Section. Librarians can also remove copies; past loans are kept. Add book is on the Libraries page and in "Your shelf" on the Account page.
 
 - A privacy notice and house rules: new members accept the rules on the Join page, current members once at their next visit, and the database records which version each person accepted. Members can delete their own account; past loans, reviews and replies stay without a name ("Former member").
 
 - Push notifications, turned on per device in your account: new messages (the first unread one), requests and library passes, books due back in a week, and for librarians, the question after a return. They never show what a message says.
+
+- Book club meet-ups: Asad posts the next one from his account, and a card at the top of the Catalogue shows when and where, with "Count me in". Members see how many are coming; only Asad sees who. Everyone brings the book they can't put down, and for a week afterwards those who came are nudged to add it to their shelf (librarians: if it isn't there yet) so it can be shared. Names are deleted a week after each meet-up; the total stays.
 
 **Planned:** changing and resetting passwords.
 
@@ -45,7 +47,8 @@ The house rules live in the database itself, not just in the website: one loan a
 supabase/          SQL run in Supabase, in order (checklist in supabase/README.md): tables and rules,
                    book import, availability, reservations and covers, lending, descriptions,
                    reviews, several libraries, adding books, invitations, shelf descriptions, clean-up,
-                   genres, privacy and accounts, library passes, loan messages, push notifications
+                   genres, privacy and accounts, library passes, loan messages, push notifications,
+                   book club meet-ups, Restricted Section on Add book
   tests/           database tests: rebuild the database from those files and check its rules
   functions/       the Supabase Edge Function that sends push notifications
 public/sw.js       the service worker: shows push notifications

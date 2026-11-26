@@ -18,6 +18,7 @@ import LegalPage from './components/LegalPage'
 import Footer from './components/Footer'
 import Messages from './components/Messages'
 import { MEMBER_COLUMNS, needsToAcceptRules } from './lib/legal'
+import { ownShelfLine } from './lib/shelves'
 
 // The app has four screens, chosen by who is visiting:
 //   not signed in                 -> Login (or Join, when they came from an invitation link)
@@ -110,7 +111,9 @@ function Library({ member, email }) {
   let content
   // Account, privacy notice and house rules work even if the catalogue didn't load.
   if (page === 'account') {
-    content = <Account member={member} email={email} isLibrarian={library.isLibrarian} />
+    const ownShelf = library.libraries.find((l) => l.is_me)
+    const shelfLine = !library.books ? undefined : ownShelf ? ownShelfLine(ownShelf, library.restricted, member.id) : null
+    content = <Account member={member} email={email} isLibrarian={library.isLibrarian} shelfLine={shelfLine} />
   } else if (page === 'privacy' || page === 'rules') {
     content = <LegalPage which={page} />
   } else if (library.error) {

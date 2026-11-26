@@ -22,8 +22,9 @@ Each file here changes the Supabase database once. They're numbered in the order
 | `14_privacy_and_accounts.sql` | House rules: who accepted which version, and when. Contact details for the privacy notice, kept out of the code. "Delete my account": past loans, reviews and replies stay without a name ("Former member") | #18 | Done |
 | `15_library_passes.sql` | Library passes: pass holders reserve without asking; everyone else asks each time; Restricted books only show to pass holders; asking for a pass, the question after a return | #19 | Done |
 | `16_loan_messages.sql` | Loan messages: one conversation per reservation or loan, read-only a week after the return, deleted a month later (nightly job); "Extend by two weeks". Turn on Cron first (Integrations → Cron) | #20 | Done |
-
-| `17_push_notifications.sql` | Push notifications: devices, the queue, what causes a notification (messages, requests, passes, due dates, the question after a return), the every-minute sending job and the morning job. Then the setup below | #22 | **Not yet: run, merge #22, then the setup below** |
+| `17_push_notifications.sql` | Push notifications: devices, the queue, what causes a notification (messages, requests, passes, due dates, the question after a return), the every-minute sending job and the morning job. Then the setup below | #22 | Done |
+| `18_book_club_meetups.sql` | Book club meet-ups: one at a time, posted by the admin; "Count me in" (members see a count, the admin sees names); the announcement, the reminder the morning before, and deleting names a week after (morning job) | #24 | **Not yet: run, then merge #24** |
+| `19_restricted_when_adding.sql` | Add book's Restricted Section checkbox: `add_book()` and the new `add_copy()` save the copy and the restriction in one step | #25 | **Not yet: run, then merge #25 (after #24)** |
 
 When a pull request adds a new file, it gets the next number and a new row here.
 
@@ -40,7 +41,7 @@ When a pull request adds a new file, it gets the next number and a new row here.
 
 The private key and the shared secret are passwords: they only go into Supabase (steps 3 and 5), never into the code, a pull request or a chat. If you ever need new keys, make them again, repeat steps 3 and 5, and everyone turns notifications on again.
 
-Checking on it later: Integrations → Cron shows the `send-notifications` job (every minute) and `morning-notifications` (08:07 UTC); Edge Functions → send-notifications → Logs shows each batch sent.
+Checking on it later: Integrations → Cron shows the `send-notifications` job (every minute), `morning-notifications` (08:07 UTC) and, since 18, `meetup-morning` (08:11 UTC); Edge Functions → send-notifications → Logs shows each batch sent.
 
 ## Tests
 

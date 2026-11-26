@@ -374,3 +374,40 @@ The merges apply on every shelf, so a book a friend filed under an old name move
 **Keys stay out of reach.** The push keys and the secret the database shares with the function are made on a small page in the owner's own browser (`push-keys.html`) and go straight into Supabase: never into the code, a pull request or a chat.
 
 *Considered:* a push library on Supabase (more to trust and keep updated), email (inbox noise), notifying on every message (noisy), and sending from GitHub Actions on a timer (GitHub's timers can run late, which is fine for reminders but not for messages).
+
+
+## 35. Book club meet-ups
+
+**Context.** The app exists to connect people through books, and lending alone only connects two people at a time. Asad wanted a book club meet-up for the app's members, as a side feature with as little screen as possible: not an events section like Facebook or Meetup, just a way to announce the next meet-up and let people say they're coming. There's no set book: everyone brings what they're reading and presents it, which gives others books they then want to borrow.
+
+**Decision (Asad's choices).**
+- **One meet-up at a time, posted by Asad** from his Account page (date, start time in Berlin time, place, optional note). He can edit or cancel it before it starts, and post the next one as soon as the current one has started.
+- **A card at the top of the Catalogue**, the page everyone lands on, until the end of the meet-up's day: "Next book club meet-up", the date and time, the place (opens Google Maps when tapped), the standing line "Bring the book you can't put down and tell everyone why it's got you hooked.", Asad's note, and **"Count me in"** ("You're in" and "Can't make it after all" once tapped).
+- **Members see a number, not names** ("6 coming"); only Asad sees who. RSVPs reach him as a list on his Account page, without a notification each time.
+- **Notifications:** one announcement to everyone with notifications on when a meet-up is posted, and a reminder the morning before to those coming. *Small calls (Claude; Asad may overrule):* those coming are also told if Asad moves the date, time or place, or cancels it, since they'd otherwise turn up to nothing; editing only the note sends nothing.
+- **After the meet-up:** for a week, those who said they'd come see a nudge with a link to Add book. The app can't know which book someone presented, so librarians are asked only about one that's new to their shelf: "Presented a book that isn't on your shelf yet? Add it for the possibility to share with others." Members without a shelf see "Presented a book at the meet-up? Add it to your shelf for the possibility to share with others." with "Start your shelf with it". It goes once they add a book or tap "Hide this". This is how the presented books become borrowable, and how some members become librarians.
+- **No limit on numbers.**
+- **Names are deleted a week after the meet-up** (straight away if it's cancelled); only the total is kept, so Asad can see how many came to each meet-up without keeping who.
+
+**KPI.** People who said they'd come per meet-up (kept after the names go), and books added by attendees in the week after: meet-ups turning into shelves.
+
+**Why in the database.** `supabase/18_book_club_meetups.sql` keeps the meet-ups and the "Count me in" list out of members' reach entirely: members get the card from one function that returns a count, never names, and only the admin's functions return names. The one-at-a-time rule, the end of "Count me in" at midnight after the meet-up, the notifications and the deletion of names (a scheduled job every morning) live there too, so no screen can forget them. Times are stored as moments and always shown in Berlin time, so a meet-up posted from abroad still says 19:00. Tests check each rule.
+
+*Considered:* a set book per meet-up, linked to the catalogue (the club has no set book); names for everyone, or only for those coming (more personal data on show, and a step towards the social features the app keeps out); a notification to Asad for every "Count me in" (he chose the list only); a place shown only to those coming (meet-ups are in public places); an events page with past and future meet-ups (more screen than the feature needs); a list of the presented books in the app (the nudge to shelve them does the job with less); and, for a librarian whose presented book is already on their shelf, an "It's already on my shelf" button, the nudge only for members without a shelf, or asking which book they presented (Asad: rewording for librarians is enough).
+
+
+## 36. The Restricted Section on Add book, and Add book on the Account page
+
+**Context.** Putting a book in the Restricted Section took two visits: add it, then open it and tick the box in "Your shelf: only you see this". In between, the book was on the shelf for everyone, including people without the librarian's library pass, who aren't meant to see it at all. And Add book was only reachable from the Libraries page, which leads with everyone's shelves rather than your own.
+
+**Decision (Asad's choices).**
+- **A checkbox on both Add book forms**, for a new title and for "Add my copy": "Restricted Section: I approve each request". Unticked by default.
+- **No reason on the form.** The stamp says "Ask the librarian" (the existing default) until the librarian picks one (Fragile copy, Sensitive content, Special copy) from the book's own page.
+- **Saved in one step** in the database, so a Restricted book is never visible to people without a pass, not even for a moment, and can't end up on the shelf without its restriction.
+- **"Your shelf" on the Account page**, right under Your details, for everyone: librarians see how many books are on their shelf and how many are Restricted, with "Add a book"; members without a shelf see "Add your first book", with the same words as "Start your shelf" on the Libraries page.
+- *Small calls (Claude; Asad may overrule):* the Restricted Section stays per title, as it already was, so ticking it for a second copy covers all of that librarian's copies of the book, and the form says so. If the title is already Restricted on their shelf, the form shows "This title is in your Restricted Section, so this copy will be too" instead of the box. An unticked copy never lifts an existing restriction; that's done from the book's page. After adding, the confirmation says "…is on your shelf, in your Restricted Section".
+
+**Why in the database.** `supabase/19_restricted_when_adding.sql` gives `add_book()` a last setting, `p_restricted`, and adds `add_copy()` for a copy of a title already in the catalogue (the app used to write that copy straight into the table). Each saves the restriction and the copy together or not at all. The setting is optional, so the app keeps working between running the file and merging. Tests check who sees a book added this way (the librarian, pass holders and the admin; nobody else) and that nothing is left half-saved.
+
+*Considered:* a reason menu on the form, with no default or with "Fragile copy" preselected; saving the restriction from the app right after the book, without a SQL file (a moment in which everyone sees the book, and a book left unrestricted if the second step fails); a button at the top of the Account page instead of a section; and "Your shelf" for librarians only.
+

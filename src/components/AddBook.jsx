@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useState } from 'react'
 import { countBy, filterBooks, LANGUAGE_NAMES } from '../lib/catalogue'
 import { addBook, addCopy } from '../lib/library'
 import { findAwards, findInCatalogue, isbnFrom, searchOpenLibrary } from '../lib/openLibrary'
@@ -10,6 +10,7 @@ import Field from './Field'
 // Add a book to your own shelf: find it (search or scan its barcode), then
 // either add your copy to a title already in the catalogue, or add a new
 // title from Open Library (or by hand), with a genre and an optional description.
+// Either way, a checkbox puts the title in your Restricted Section as it's added.
 export default function AddBook({ library, onOpenBook }) {
   const { books } = library
   const [query, setQuery] = useState('')
@@ -78,12 +79,12 @@ export default function AddBook({ library, onOpenBook }) {
     [search],
   )
 
-  async function done(bookId, title) {
+  async function done(bookId, title, restricted) {
     const firstBook = !ownShelf
     setPicked(null)
     setResults(null)
     setQuery('')
-    setAdded({ bookId, title })
+    setAdded({ bookId, title, restricted })
     setDescribed(false)
     await library.refresh()
     if (firstBook) setDescribing(true)
@@ -96,12 +97,12 @@ export default function AddBook({ library, onOpenBook }) {
       <h1 className="page-title">Add a book</h1>
       <p className="page-lede">
         Find a book to put on your shelf. If it's already in the catalogue, your copy joins that card. Other
-        members see it right away.
+        members see it right away, unless you put it in your Restricted Section.
       </p>
 
       {added && (
         <p className="add-done" role="status">
-          <em>{added.title}</em> is on your shelf.{' '}
+          <em>{added.title}</em> is on your shelf{added.restricted ? ', in your Restricted Section' : ''}.{' '}
           <button type="button" className="link-button" onClick={() => onOpenBook(added.bookId)}>
             Open it
           </button>
@@ -153,6 +154,7 @@ export default function AddBook({ library, onOpenBook }) {
 
       {picked?.kind === 'copy' && (
         <CopyForm book={picked.book} owned={myCopies.get(picked.book.id) ?? 0}
+          alreadyRestricted={Boolean(library.restricted.get(picked.book.id)?.has(library.memberId))}
           onBack={() => setPicked(null)} onDone={done} />
       )}
       {(picked?.kind === 'new' || picked?.kind === 'manual') && (
@@ -217,8 +219,9 @@ function ResultRow({ cover, title, author, detail, action, onPick }) {
   )
 }
 
-function CopyForm({ book, owned, onBack, onDone }) {
+function CopyForm({ book, owned, alreadyRestricted, onBack, onDone }) {
   const [note, setNote] = useState('')
+  const [restricted, setRestricted] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
@@ -227,8 +230,8 @@ function CopyForm({ book, owned, onBack, onDone }) {
     setBusy(true)
     setError('')
     try {
-      await addCopy(book.id, note.trim())
-      await onDone(book.id, book.title)
+      await addCopy(book.id, note.trim(), restricted)
+      await onDone(book.id, book.title, alreadyRestricted || restricted)
     } catch (e) {
       setError(e.message)
       setBusy(false)
@@ -240,6 +243,7 @@ function CopyForm({ book, owned, onBack, onDone }) {
       <Picked cover={book.cover_id} title={book.title} author={book.author} onBack={onBack} />
       {owned > 0 && <p className="dialog-note">You already have {owned === 1 ? 'a copy' : `${owned} copies`}; this adds another.</p>}
       <CopyNote value={note} onChange={setNote} />
+      <RestrictedBox checked={restricted} onChange={setRestricted} already={alreadyRestricted} owned={owned} />
       <div className="form-actions">
         <button type="submit" className="button" disabled={busy}>Add to my shelf</button>
       </div>
@@ -259,6 +263,7 @@ function NewTitleForm({ found, genres, onBack, onDone }) {
   const [language, setLanguage] = useState(found?.language ?? 'en')
   const [description, setDescription] = useState('')
   const [note, setNote] = useState('')
+  const [restricted, setRestricted] = useState(false)
   const [awards, setAwards] = useState(found?.workKey ? null : [])
   const [busy, setBusy] = useState(false)
   const [errors, setErrors] = useState({})
@@ -297,8 +302,8 @@ function NewTitleForm({ found, genres, onBack, onDone }) {
         workKey: found?.workKey ?? null,
         prizes: awards ?? [],
       }
-      const bookId = await addBook(book, note.trim())
-      await onDone(bookId, book.title)
+      const bookId = await addBook(book, note.trim(), restricted)
+      await onDone(bookId, book.title, restricted)
     } catch (e) {
       setError(e.message)
       setBusy(false)
@@ -353,6 +358,8 @@ function NewTitleForm({ found, genres, onBack, onDone }) {
         </p>
       )}
 
+      <RestrictedBox checked={restricted} onChange={setRestricted} />
+
       <div className="form-actions">
         <button type="submit" className="button" disabled={busy}>Add to my shelf</button>
       </div>
@@ -380,5 +387,28 @@ function CopyNote({ value, onChange }) {
       hint="For example: signed hardback, or well-worn paperback.">
       <input maxLength={100} value={value} onChange={(e) => onChange(e.target.value)} />
     </Field>
+  )
+}
+
+// The Restricted Section is per title: it covers all your copies of it. The
+// stamp says "Ask the librarian" until a reason is picked on the book's page.
+function RestrictedBox({ checked, onChange, already = false, owned = 0 }) {
+  const hintId = useId()
+  if (already) {
+    return <p className="dialog-note">This title is in your Restricted Section, so this copy will be too.</p>
+  }
+  return (
+    <div className="add-restricted">
+      <label className="checkbox">
+        <input type="checkbox" checked={checked} aria-describedby={hintId}
+          onChange={(e) => onChange(e.target.checked)} />
+        Restricted Section: I approve each request
+      </label>
+      <p id={hintId} className="field-hint">
+        Only people with your library pass see it, and each request waits for your OK.
+        {owned > 0 && ' This covers all your copies of this title.'} Its stamp says "Ask the librarian" until you
+        pick a reason on the book's page.
+      </p>
+    </div>
   )
 }

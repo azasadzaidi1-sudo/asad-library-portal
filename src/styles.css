@@ -1263,6 +1263,14 @@ label.checkbox input {
   width: 12rem;
 }
 
+/* The Restricted Section checkbox on the Add book form */
+.add-restricted {
+  display: grid;
+  gap: 0.3rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
 /* The first-time borrower card */
 .approval-new {
   display: block;
@@ -1780,6 +1788,11 @@ a.button {
   background: var(--paper);
 }
 
+/* Your shelf, with Add a book */
+.account-shelf .account-text {
+  margin: 0 0 0.9rem;
+}
+
 .account-details {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -2004,4 +2017,101 @@ a.button {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem;
+}
+
+/* ---------- Book club meet-up ---------- */
+
+/* At the top of the Catalogue: a notice pinned above the drawers */
+.meetup {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: start;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--green);
+  border-radius: 3px;
+}
+
+.meetup-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brass-ink);
+}
+
+.meetup-when {
+  font: 1.375rem/1.2 var(--display);
+  color: var(--green);
+}
+
+.meetup-place a {
+  color: var(--ink);
+}
+
+.meetup-format {
+  font-style: italic;
+}
+
+.meetup-note {
+  color: var(--ink-soft);
+}
+
+.meetup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.meetup-in {
+  font-weight: 700;
+  color: var(--green);
+}
+
+.meetup-count {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.meetup-nudge {
+  border-left-color: var(--brass);
+}
+
+/* Asad's section on the Account page */
+.meetup-admin-next {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: start;
+  margin-top: 1rem;
+}
+
+.meetup-guests {
+  margin-top: 0.3rem;
+}
+
+.meetup-form {
+  max-width: 32rem;
+}
+
+.meetup-form-when {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+}
+
+.meetup-form .button {
+  width: auto;
+}
+
+.meetup-form-when .field {
+  flex: 1 1 10rem;
+}
+
+.meetup-earlier {
+  margin-top: 1.25rem;
+  max-width: 40rem;
 }
